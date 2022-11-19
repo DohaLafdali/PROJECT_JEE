@@ -1,0 +1,70 @@
+@charset "ISO-8859-1";
+body{
+	  background-image: url(images/lol.jpg);
+	
+ background-position: center center;
+  
+  background-repeat: no-repeat;
+  
+  background-attachment: fixed;
+  
+  background-size: cover;
+  
+  background-color:#464646;
+  
+}
+body::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.76);
+}
+.index{
+  display: flex;
+  justify-content: center;
+  position: relative;
+  line-height: 0.9;
+  margin-top: 180px;
+}
+.sidekick {
+  position: relative;
+  padding-left: 1em;
+  border-left: 0.2em solid #8AABBE;
+  font-size: 2.4em;
+  line-height: 1.5em;
+  font-weight: 100;
+  color: #fff;
+  font-family: Papyrus;
+  width:370px
+    
+}
+.sidekick:before, .sidekick:after {
+  font-family: Calibri;
+    color: #fff;
+    font-size: 34px;
+}
+.sidekick:before {content: '\201e';color:#8AABBE;}
+.sidekick:after {content: '\201c';color:#8AABBE;}
+button {
+  border-radius: 50px;
+  background-color: #8AABBE;
+  border: none;
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  padding: 16px;
+  width: 220px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 36px;
+  box-shadow: 0 10px 20px -8px rgba(0, 0, 0,.7);
+  font-family: Papyrus;}
+button:hover {
+	box-shadow: -14px 11px 51px 9px rgba(72,156,189,0.69);
+-webkit-box-shadow: -14px 11px 51px 9px rgba(72,156,189,0.69);
+-moz-box-shadow: -14px 11px 51px 9px rgba(72,156,189,0.69);
+  transform: scale(1.05) rotate(-1deg);
+}

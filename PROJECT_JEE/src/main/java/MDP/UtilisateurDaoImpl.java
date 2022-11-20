@@ -27,7 +27,31 @@ public class UtilisateurDaoImpl extends AbstractDAOA implements IDAO{
         }
 		
 	}
+	//pour valider l'email et password d'un user
+	 public boolean validate(String email, String password) throws SQLException {
 
+    	 PreparedStatement pst = null;
+         ResultSet rs;
+         System.out.println("from validate");
+         String sql = "select * from Utilisateur where email=? and password=?";
+         System.out.println(sql);
+         try {
+             pst = connection.prepareStatement(sql);
+             pst.setString(1, email);
+             pst.setString(2, password);
+             rs = pst.executeQuery();
+             if (rs.next()) {
+                 System.out.println(rs.getLong("id") + "" + rs.getString("email"));
+                 return true;
+                
+             }
+         } catch (SQLException exp) {
+             System.out.println(exp.getMessage());
+         }
+         //return null;
+    	
+        return false;
+    }
 	@Override
 	public void delete(int id) {
 		// TODO Auto-generated method stub

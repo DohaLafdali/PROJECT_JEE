@@ -53,8 +53,6 @@ public class Register extends HttpServlet {
 	    UtilisateurDaoImpl help = new UtilisateurDaoImpl();
 	    help.add(user);
 		
-       
-		
 	}
 
 	/**

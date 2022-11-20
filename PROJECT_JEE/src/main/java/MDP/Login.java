@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private CompteDaoImpl compte;
+	private UtilisateurDaoImpl compte;
 
     /**
      * Default constructor. 
@@ -28,7 +28,7 @@ public class Login extends HttpServlet {
     }
 
     public void init() {
-    	compte = new CompteDaoImpl();
+    	compte = new UtilisateurDaoImpl();
     }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

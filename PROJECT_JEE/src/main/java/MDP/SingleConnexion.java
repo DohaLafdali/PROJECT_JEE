@@ -10,9 +10,16 @@ public class SingleConnexion {
     String pwd = "";
     String url = "jdbc:mysql://localhost:3306/" + db;
     private static Connection connection = null;
-
-    public SingleConnexion() {
+    
+	
+    public SingleConnexion(){
         try {
+        	try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             connection = DriverManager.getConnection(url, user, pwd);
             System.out.println("instance cree!!");
         } catch (SQLException e) {
@@ -21,9 +28,10 @@ public class SingleConnexion {
 
     }
 
-    public static Connection getConnection() {
+    public static Connection getConnection(){
         if (connection == null)
             new SingleConnexion();
         return connection;
     }
+    
 }

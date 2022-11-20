@@ -16,6 +16,14 @@
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.2.3</version>
+        <executions>
+                    <execution>
+                        <id>compile-jsp</id>
+                        <goals>
+                            <goal>jspc</goal>
+                        </goals>
+                    </execution>
+                </executions>
       </plugin>
     </plugins>
   </build>

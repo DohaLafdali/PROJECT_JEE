@@ -1,6 +1,7 @@
 package MDP;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -13,9 +14,14 @@ public class SingleConnexion {
     
 	
     public SingleConnexion(){
-        try {
-        	try {
-				Class.forName("com.mysql.jdbc.Driver");
+
+    String driver ="com.mysql.jdbc.Driver";
+  
+     
+    try{
+      	  try {
+				Class.forName(driver);
+
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -23,12 +29,14 @@ public class SingleConnexion {
             connection = DriverManager.getConnection(url, user, pwd);
             System.out.println("instance cree!!");
         } catch (SQLException e) {
+        	System.out.println(e.getMessage());
             e.printStackTrace();
         }
 
     }
 
-    public static Connection getConnection(){
+    public static Connection getConnection()  {
+
         if (connection == null)
             new SingleConnexion();
         return connection;

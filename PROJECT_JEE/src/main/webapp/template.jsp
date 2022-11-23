@@ -1,6 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +14,6 @@
 <link rel="stylesheet" href="style.css">
 <title>MediaBook</title>
 </head>
-
 <body>
 	<nav>
 		<div class="nav-left">
@@ -74,45 +74,21 @@
 
 
 		<div class="middle-panel">
-
 			<div class="story-section">
-
-				<div class="story create">
-					<div class="dp-image">
-						<img src="./images/dp.jpg" alt="Profile pic">
-					</div>
-					<span class="dp-container"> <i class="fa fa-plus"></i>
-					</span> <span class="name">Create Story</span>
+				<div class="story" checked>
+			    
+				<img src="./images/sang.jpg" alt="sang" id="img0" class="image">
 				</div>
-
-
 				<div class="story">
-					<img src="./images/model.jpg" alt="Anuska's story">
-					<div class="dp-container">
-						<img src="./images/girl.jpg" alt="">
-					</div>
-					<p class="name">Anuska Sharma</p>
+				<img src="./images/savoir.jpg" alt="savoir" id="img1" class="image"> 
 				</div>
 
 				<div class="story">
-					<img src="./images/boy.jpg" alt="Story image"> <span
-						class="dp-container"> <img src="./images/dp.jpg"
-						alt="Profile pic">
-					</span> <span class="name">Gaurav Gall</span>
+				<img src="./images/nouriture.jpg" alt="nouriture" id="img2" class="image">
 				</div>
 
 				<div class="story">
-					<img src="./images/mountains.jpg" alt="Story image"> <span
-						class="dp-container"> <img src="./images/boy.jpg"
-						alt="Profile pic">
-					</span> <span class="name">Priyank Saksena</span>
-				</div>
-
-				<div class="story">
-					<img src="./images/shoes.jpg" alt="Story image"> <span
-						class="dp-container"> <img src="./images/model.jpg"
-						alt="Profile pic">
-					</span> <span class="name">Pragati Adhikari</span>
+				<img src="./images/autree.jpg" alt="autre" id="img3" class="image"> 
 				</div>
 			</div>
 
@@ -151,15 +127,15 @@
 
 				<div class="post-content">
 					Roses are red <br> Violets are blue <br> I'm ugly & you
-					are tooüòè
+					are too√∞¬ü¬ò¬è
 				</div>
 
 				<div class="post-bottom">
 					<div class="action">
-						<i class="far fa-thumbs-up"></i> <span>Like</span>
+						<i class="far fa-heart"  id="l1"></i> <span class="like" id="like1">Like</span>
 					</div>
 					<div class="action">
-						<i class="far fa-comment"></i> <span>Comment</span>
+						<i class="far fa-comment" ></i> <span>Comment</span>
 					</div>
 					<div class="action">
 						<i class="fa fa-share"></i> <span>Share</span>
@@ -185,7 +161,7 @@
 
 				<div class="post-bottom">
 					<div class="action">
-						<i class="far fa-thumbs-up"></i> <span>Like</span>
+						<i class="far fa-heart" id="l2"></i> <span class="like" id="like2">Like</span>
 					</div>
 					<div class="action">
 						<i class="far fa-comment"></i> <span>Comment</span>
@@ -253,64 +229,68 @@
 			</div>
 
 		</div>
-		<div class="right-panel">
-			<div class="pages-section">
-				<h4>Your pages</h4>
-				<a class='page' href="#">
-					<div class="dp">
-						<img src="./images/logo.png" alt="">
-					</div>
-					<p class="name">Cody</p>
-				</a> <a class='page' href="#">
-					<div class="dp">
-						<img src="./images/dp.jpg" alt="">
-					</div>
-					<p class="name">Cody Tutorials</p>
-				</a>
-			</div>
 
-			<div class="friends-section">
-				<h4>Friends</h4>
-				<a class='friend' href="#">
-					<div class="dp">
-						<img src="./images/dp.jpg" alt="">
-					</div>
-					<p class="name">Henry Mosely</p>
-				</a> <a class='friend' href="#">
-					<div class="dp">
-						<img src="./images/shoes.jpg" alt="">
-					</div>
-					<p class="name">George</p>
-				</a> <a class="friend" href="#">
-					<div class="dp">
-						<img src="./images/boy.jpg" alt="">
-					</div>
-					<p class="name">Aakash Malhotra</p>
-				</a> <a class="friend" href="#">
-					<div class="dp">
-						<img src="./images/model.jpg" alt="">
-					</div>
-					<p class="name">Ragini Khanna</p>
-				</a> <a class="friend" href="#">
-					<div class="dp">
-						<img src="./images/boy.jpg" alt="">
-					</div>
-					<p class="name">Justin Bieber</p>
-				</a> <a class="friend" href="#">
-					<div class="dp">
-						<img src="./images/dp.jpg" alt="">
-					</div>
-					<p class="name">Ramesh GC</p>
-				</a> <a class="friend" href="#">
-					<div class="dp">
-						<img src="./images/model.jpg" alt="">
-					</div>
-					<p class="name">Sajita Gurung</p>
-				</a>
-
-			</div>
-		</div>
 	</div>
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', () => {
+		†††††
+		†††††
+		††††const images = document.querySelectorAll('.image');
+		†††††
+		††††images.forEach(image => (
+		††††††††image.addEventListener('click', function(event) {
+		†††††††††
+		††††††††††††const clickedImage = this;
+		†††††††††††††
+		††††††††††††console.log(this.id);
+		const elt1=document.getElementById("img0").style.border="none";
+		const elt2=document.getElementById("img1").style.border="none";
+		const elt3=document.getElementById("img2").style.border="none";
+		const elt4=document.getElementById("img3").style.border="none";
+
+		††††††††††††switch (this.id) {
+		  case "img0":
+			  this.style.border = "5px solid #8AABBE";
+			    break;
+			  case "img1":
+				  this.style.border = "5px solid #8AABBE";
+			    break;
+			  case "img2":
+				  this.style.border = "5px solid #8AABBE";
+			    break;
+			  case "img3":
+				  this.style.border = "5px solid #8AABBE";
+
+				    break;
+			  
+			}
+		††††††††})
+		††††))
+		});
+	
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+	††††const likes = document.querySelectorAll('.like');
+	†††††
+	††††likes.forEach(like => (
+	††††††††like.addEventListener('click', function(event) {
+	†††††††††
+	††††††††††††const clickedlike = this;
+	††††††††††††console.log(this.id);
+
+	†switch (this.id) {
+	  case "like1":
+		  document.getElementById("l1").style.color = "red";
+		    break;
+		  case "like2":
+			  document.getElementById("l2").style.color = "red";
+	}
+	††††††††})
+	††††))
+	});
+
+</script>
 </body>
 
 </html>

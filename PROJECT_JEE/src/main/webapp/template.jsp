@@ -271,8 +271,6 @@
 </script>
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', () => {
-	     
-	     
 	    const likes = document.querySelectorAll('.like');
 	     
 	    likes.forEach(like => (

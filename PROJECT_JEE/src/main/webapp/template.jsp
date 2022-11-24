@@ -21,9 +21,6 @@ pageEncoding="UTF-8"%>
 	integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="style.css">
-<style >
-
-</style>
 <title>MediaBook</title>
 </head>
 
@@ -88,38 +85,24 @@ pageEncoding="UTF-8"%>
 
 		<div class="middle-panel">
 
-			<div class="story-section">
-                
+			<div class="story-section">           
+
+				<div  class="story">
+					<img src="./images/sang.jpg" alt="sang" id="img0" class="image">
+				</div>
+							
 				
-
-				<div onclick="sang();" class="story">
-					<img src="./images/model.jpg" alt="Anuska's story">
-					<div class="dp-container">
-						<img src="./images/girl.jpg" alt="">
-					</div>
-					<input name="categorie" type="submit" value="sang" hidden>
-					<p class="name">Anuska Sharma</p>
-				</div>
       
-				<div onclick="savoir();" name="categorie" class="story">
-					<img src="./images/boy.jpg" alt="Story image"> <span
-						class="dp-container"> <img src="./images/dp.jpg"
-						alt="Profile pic">
-					</span> <span class="name">Gaurav Gall</span>
+				<div  class="story">
+					<img src="./images/savoir.jpg" alt="savoir" id="img1" class="image"> 			
 				</div>
 
-				<div onclick="nourriture();" class="story">
-					<img src="./images/mountains.jpg" alt="Story image"> <span
-						class="dp-container"> <img src="./images/boy.jpg"
-						alt="Profile pic">
-					</span> <span class="name">Priyank Saksena</span>
+				<div  class="story">
+					<img src="./images/nouriture.jpg" alt="nouriture" id="img2" class="image">
 				</div>
 
-				<div onclick="autre();" class="story">
-					<img src="./images/shoes.jpg" alt="Story image"> <span
-						class="dp-container"> <img src="./images/model.jpg"
-						alt="Profile pic">
-					</span> <span class="name">Pragati Adhikari</span>
+				<div  class="story">
+					<img src="./images/autree.jpg" alt="autre" id="img3" class="image"> 
 				</div>
 			</div>
 			
@@ -233,91 +216,49 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 		  }
 %>
 		</div>
-		<div class="right-panel">
-			<div class="pages-section">
-				<h4>Your pages</h4>
-				<a class='page' href="#">
-					<div class="dp">
-						<img src="./images/logo.png" alt="">
-					</div>
-					<p class="name">Cody</p>
-				</a> <a class='page' href="#">
-					<div class="dp">
-						<img src="./images/dp.jpg" alt="">
-					</div>
-					<p class="name">Cody Tutorials</p>
-				</a>
-			</div>
-
-			<div class="friends-section">
-				<h4>Friends</h4>
-				<a class='friend' href="#">
-					<div class="dp">
-						<img src="./images/dp.jpg" alt="">
-					</div>
-					<p class="name">Henry Mosely</p>
-				</a> <a class='friend' href="#">
-					<div class="dp">
-						<img src="./images/shoes.jpg" alt="">
-					</div>
-					<p class="name">George</p>
-				</a> <a class="friend" href="#">
-					<div class="dp">
-						<img src="./images/boy.jpg" alt="">
-					</div>
-					<p class="name">Aakash Malhotra</p>
-				</a> <a class="friend" href="#">
-					<div class="dp">
-						<img src="./images/model.jpg" alt="">
-					</div>
-					<p class="name">Ragini Khanna</p>
-				</a> <a class="friend" href="#">
-					<div class="dp">
-						<img src="./images/boy.jpg" alt="">
-					</div>
-					<p class="name">Justin Bieber</p>
-				</a> <a class="friend" href="#">
-					<div class="dp">
-						<img src="./images/dp.jpg" alt="">
-					</div>
-					<p class="name">Ramesh GC</p>
-				</a> <a class="friend" href="#">
-					<div class="dp">
-						<img src="./images/model.jpg" alt="">
-					</div>
-					<p class="name">Sajita Gurung</p>
-				</a>
-
-			</div>
-		</div>
+		
 	</div>
-	<script>
-	 function sang(){
-		 window.location.href='IntermediaireCategorie?nom=sang';
-		 
-	 }
-	 function savoir(){
-		 window.location.href='IntermediaireCategorie?nom=savoir';
-		 
-	 }
-	 function autre(){
-		 window.location.href='IntermediaireCategorie?nom=autre';
-		 
-	 }
-	 function nourriture(){
-		 window.location.href='IntermediaireCategorie?nom=nourriture';
-		 
-	 }
-	 function like(item){
-		 //var icon = anchor.querySelector("i");
-		  //icon.classList.toggle('far fa-thumbs-up');
-		  //icon.classList.toggle('fa-sharp fa-solid fa-heart');
-		//  anchor.querySelector("span").textContent = icon.classList.contains('fa-sharp fa-solid fa-heart') ? "Read more" : "Read less";
-		// window.alert('assia');
-		// var element = document.getElementById("like_post");
-		// document.element.style.color='blue';
-		 //item.classList.toggle("far fa-comment");
-	 }
+
+
+
+	<script type="text/javascript">
+	
+	document.addEventListener('DOMContentLoaded', () => {
+		const images = document.querySelectorAll('.image');
+
+		images.forEach(image => (
+		image.addEventListener('click', function(event) {
+		const clickedImage = this;
+		console.log(this.id);
+		const elt1=document.getElementById("img0").style.border="none";
+		const elt2=document.getElementById("img1").style.border="none";
+		const elt3=document.getElementById("img2").style.border="none";
+		const elt4=document.getElementById("img3").style.border="none";
+		switch (this.id) {
+		  case "img0":
+			  window.location.href='IntermediaireCategorie?nom=sang';
+			  document.getElementById("img0").style.border = "5px solid #8AABBE";
+			    break;
+			  case "img1":
+				  this.style.border = "5px solid #8AABBE";
+				  window.location.href='IntermediaireCategorie?nom=savoir';
+			    break;
+			  case "img2":
+				  this.style.border = "5px solid #8AABBE";
+				  window.location.href='IntermediaireCategorie?nom=nourriture';
+			    break;
+			  case "img3":
+				  this.style.border = "5px solid #8AABBE";
+				  window.location.href='IntermediaireCategorie?nom=autre';
+
+				    break;
+			  
+			}
+})
+	))
+		});
+	
+	
 	 function create_comment(){
 		 var input1 = document.getElementById("commentaire_text");
 		 var input2 = document.getElementById("create_comment");
@@ -325,7 +266,27 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 		 input1.style.visibility='visible';
 		 input2.style.visibility='visible';
 	 }
-	</script>
+
+	
+document.addEventListener('DOMContentLoaded', () => {
+	const likes = document.querySelectorAll('.like');
+	likes.forEach(like => (
+	like.addEventListener('click', function(event) {
+	const clickedlike = this;
+	console.log(this.id);
+
+	switch (this.id) {
+	  case "like1":
+		  document.getElementById("l1").style.color = "red";
+		    break;
+		  case "like2":
+			  document.getElementById("l2").style.color = "red";
+	}
+	})
+	))
+	});
+
+</script>
 </body>
 
 </html>

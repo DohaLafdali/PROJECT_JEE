@@ -12,4 +12,6 @@ public interface IDAO<T> {
 
     public List<T> getAll();
 
+	//List getPosts(int id_category);
+
 }

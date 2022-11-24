@@ -90,6 +90,25 @@ public class UtilisateurDaoImpl extends AbstractDAOA implements IDAO{
         }
         return null;
 	}
+	public Utilisateur getOneO(int id) {
+		// TODO Auto-generated method stub
+		PreparedStatement pst = null;
+        ResultSet rs;
+        String sql = "select *from Utilisateur where id= ?";
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setInt(1, id);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+               // System.out.println(rs.getInt("id") + "" + rs.getString("username"));
+                
+                return new Utilisateur(rs.getInt("id"),rs.getString("username"), rs.getString("image_profil"), rs.getString("email"),rs.getString("password"));
+            }
+        } catch (SQLException exp) {
+            System.out.println(exp.getMessage());
+        }
+        return null;
+	}
 
 	@Override
 	public List getAll() {
@@ -109,6 +128,28 @@ public class UtilisateurDaoImpl extends AbstractDAOA implements IDAO{
             System.out.println(exp.getMessage());
         }
         return list;
+	}
+	public  Integer getByEmail(String email) {
+		// TODO Auto-generated method stub
+		PreparedStatement pst = null;
+        ResultSet rs;
+        System.out.println("email: "+email);
+        String sql = "select *from Utilisateur where email=?";
+      
+        System.out.println("sql : "+sql);
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setString(1, email);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                System.out.println(rs.getInt("id") + "" + rs.getString("username"));
+                 
+                 return rs.getInt("id");
+             }
+        } catch (SQLException exp) {
+            System.out.println(exp.getMessage());
+        }
+        return null;
 	}
 
 }

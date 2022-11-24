@@ -1,3 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+    <%@page import="java.util.List"%>
+      <%@page import="java.util.ArrayList"%>
+   <%@ page import="MDP.Utilisateur" %>
+   <%@ page import="MDP.Post"%>
+   <%@ page import="MDP.Commentaire"%>
+   <%@ page import="MDP.PostDaoImpl" %>
+   <%@ page import="MDP.UtilisateurDaoImpl" %>
+   <%@ page import="MDP.CommentaireDaoImpl" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +21,9 @@
 	integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="style.css">
+<style >
+
+</style>
 <title>MediaBook</title>
 </head>
 
@@ -76,52 +89,51 @@
 		<div class="middle-panel">
 
 			<div class="story-section">
+                
+				
 
-				<div class="story create">
-					<div class="dp-image">
-						<img src="./images/dp.jpg" alt="Profile pic">
-					</div>
-					<span class="dp-container"> <i class="fa fa-plus"></i>
-					</span> <span class="name">Create Story</span>
-				</div>
-
-
-				<div class="story">
+				<div onclick="sang();" class="story">
 					<img src="./images/model.jpg" alt="Anuska's story">
 					<div class="dp-container">
 						<img src="./images/girl.jpg" alt="">
 					</div>
+					<input name="categorie" type="submit" value="sang" hidden>
 					<p class="name">Anuska Sharma</p>
 				</div>
-
-				<div class="story">
+      
+				<div onclick="savoir();" name="categorie" class="story">
 					<img src="./images/boy.jpg" alt="Story image"> <span
 						class="dp-container"> <img src="./images/dp.jpg"
 						alt="Profile pic">
 					</span> <span class="name">Gaurav Gall</span>
 				</div>
 
-				<div class="story">
+				<div onclick="nourriture();" class="story">
 					<img src="./images/mountains.jpg" alt="Story image"> <span
 						class="dp-container"> <img src="./images/boy.jpg"
 						alt="Profile pic">
 					</span> <span class="name">Priyank Saksena</span>
 				</div>
 
-				<div class="story">
+				<div onclick="autre();" class="story">
 					<img src="./images/shoes.jpg" alt="Story image"> <span
 						class="dp-container"> <img src="./images/model.jpg"
 						alt="Profile pic">
 					</span> <span class="name">Pragati Adhikari</span>
 				</div>
 			</div>
-
+			
+            <!-- create new post -->
+            
 			<div class="post create">
 				<div class="post-top">
 					<div class="dp">
 						<img src="./images/girl.jpg" alt="">
 					</div>
-					<input type="text" placeholder="What's on your mind, Aashish ?" />
+					<form action="./CreatePost">
+					<input type="text" name="post" placeholder="What's on your mind, Aashish ?" />
+					<input type="submit" value="publier">
+					</form>
 				</div>
 
 				<div class="post-bottom">
@@ -136,122 +148,90 @@
 					</div>
 				</div>
 			</div>
+<% 
+List<Integer> list = new ArrayList<Integer>();
+list.add(2);
+list.add(23);
+Integer id=(Integer) session.getAttribute("idcategorie");
 
+//d=0;
+//System.out.print(id);
+
+	if(id != null){
+  final List<Post> posts = PostDaoImpl.getPosts(id);
+		for(int i=0;i<posts.size();i++){	
+			final List<Commentaire> cmnts=CommentaireDaoImpl.getCmnt(posts.get(i).getId());
+			UtilisateurDaoImpl user=new UtilisateurDaoImpl();
+			System.out.println("red "+cmnts);
+			Utilisateur utilisateur =  user.getOneO(posts.get(i).getUser());
+		    session.setAttribute("idpost", posts.get(i).getId());
+		  
+		 
+			//Integer idpost= (Integer) session.getAttribute("idpost");
+		    //request.setAttribute("idpost",idpost);
+		    
+		   
+		%>
 			<div class="post">
 				<div class="post-top">
 					<div class="dp">
 						<img src="./images/girl.jpg" alt="">
 					</div>
 					<div class="post-info">
-						<p class="name">Anuska Sharma</p>
-						<span class="time">12 hrs ago</span>
+						<p class="name"><%out.println(utilisateur.getUsername());%></p>
+						
+						<span class="time"><%out.println(posts.get(i).getTime_post());%></span>
 					</div>
 					<i class="fas fa-ellipsis-h"></i>
 				</div>
 
 				<div class="post-content">
-					Roses are red <br> Violets are blue <br> I'm ugly & you
-					are too😏
+					<%out.println(posts.get(i).getText());%>
 				</div>
-
+			
 				<div class="post-bottom">
-					<div class="action">
-						<i class="far fa-thumbs-up"></i> <span>Like</span>
+					<div onclick="like(this);" class="action">
+						<i class="fa fa-heart" aria-hidden="true"></i> <span>Like</span>
 					</div>
-					<div class="action">
+					<div onclick="create_comment();" class="action">
 						<i class="far fa-comment"></i> <span>Comment</span>
 					</div>
+					
 					<div class="action">
 						<i class="fa fa-share"></i> <span>Share</span>
 					</div>
+					
+					
 				</div>
+				<div>
+					<div>
+					
+					<p><%
+					  for(int j=0;j<cmnts.size();j++){
+					    	if(cmnts.get(j).getPost() == posts.get(i).getId()){
+					    	System.out.println("j= "+j+" : commnts "+cmnts.get(j).getText());
+					out.println(cmnts.get(j).getText()); %>
+					</br>
+					<% }  } 
+					%></p>
+					</div>
+				
+					<form action="./CreateCommentaire" method="post">
+					<div>
+					<input id="commentaire_text" name="comment" type="text" value="sang">
+					
+					<input name="idpost" type="submit" value="<%=posts.get(i).getId() %>" hidden>
+					<input id="create_comment" type="submit">
+					</div>
+					</form>
+					
+					</div>
+					
 			</div>
-
-			<div class="post">
-				<div class="post-top">
-					<div class="dp">
-						<img src="./images/dp.jpg" alt="">
-					</div>
-					<div class="post-info">
-						<p class="name">Ramesh GC</p>
-						<span class="time">2 days ago</span>
-					</div>
-					<i class="fas fa-ellipsis-h"></i>
-				</div>
-
-				<div class="post-content">
-					Mountains are so cool <img src="images/mountains.jpg" />
-				</div>
-
-				<div class="post-bottom">
-					<div class="action">
-						<i class="far fa-thumbs-up"></i> <span>Like</span>
-					</div>
-					<div class="action">
-						<i class="far fa-comment"></i> <span>Comment</span>
-					</div>
-					<div class="action">
-						<i class="fa fa-share"></i> <span>Share</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="post">
-				<div class="post-top">
-					<div class="dp">
-						<img src="./images/boy.jpg" alt="">
-					</div>
-					<div class="post-info">
-						<p class="name">Priyank Saksena</p>
-						<span class="time">1 week ago</span>
-					</div>
-					<i class="fas fa-ellipsis-h"></i>
-				</div>
-				<div class="post-content">
-					Happy birthday dear <img src="./images/girl_with_light.jpg"
-						alt="Mountains">
-				</div>
-				<div class="post-bottom">
-					<div class="action">
-						<i class="far fa-thumbs-up"></i> <span>Like</span>
-					</div>
-					<div class="action">
-						<i class="far fa-comment"></i> <span>Comment</span>
-					</div>
-					<div class="action">
-						<i class="fa fa-share"></i> <span>Share</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="post">
-				<div class="post-top">
-					<div class="dp">
-						<img src="./images/model.jpg" alt="">
-					</div>
-					<div class="post-info">
-						<p class="name">Pragati Adhikari</p>
-						<span class="time">5 mins ago</span>
-					</div>
-					<i class="fas fa-ellipsis-h"></i>
-				</div>
-				<div class="post-content">
-					Hey, everybody! My new shoes are here <img src="./images/shoes.jpg"
-						alt="Shoes">
-				</div>
-				<div class="post-bottom">
-					<div class="action">
-						<i class="far fa-thumbs-up"></i> <span>Like</span>
-					</div>
-					<div class="action">
-						<i class="far fa-comment"></i> <span>Comment</span>
-					</div>
-					<div class="action">
-						<i class="fa fa-share"></i> <span>Share</span>
-					</div>
-				</div>
-			</div>
-
+		<%	 }  
+		  
+		  }
+%>
 		</div>
 		<div class="right-panel">
 			<div class="pages-section">
@@ -311,6 +291,41 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	 function sang(){
+		 window.location.href='IntermediaireCategorie?nom=sang';
+		 
+	 }
+	 function savoir(){
+		 window.location.href='IntermediaireCategorie?nom=savoir';
+		 
+	 }
+	 function autre(){
+		 window.location.href='IntermediaireCategorie?nom=autre';
+		 
+	 }
+	 function nourriture(){
+		 window.location.href='IntermediaireCategorie?nom=nourriture';
+		 
+	 }
+	 function like(item){
+		 //var icon = anchor.querySelector("i");
+		  //icon.classList.toggle('far fa-thumbs-up');
+		  //icon.classList.toggle('fa-sharp fa-solid fa-heart');
+		//  anchor.querySelector("span").textContent = icon.classList.contains('fa-sharp fa-solid fa-heart') ? "Read more" : "Read less";
+		// window.alert('assia');
+		// var element = document.getElementById("like_post");
+		// document.element.style.color='blue';
+		 //item.classList.toggle("far fa-comment");
+	 }
+	 function create_comment(){
+		 var input1 = document.getElementById("commentaire_text");
+		 var input2 = document.getElementById("create_comment");
+		 //var visible = x.querySelector("input");
+		 input1.style.visibility='visible';
+		 input2.style.visibility='visible';
+	 }
+	</script>
 </body>
 
 </html>

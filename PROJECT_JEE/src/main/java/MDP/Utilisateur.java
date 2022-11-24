@@ -13,6 +13,9 @@ public class Utilisateur {
 	public Utilisateur() {
 		// TODO Auto-generated constructor stub
 	}
+	public Utilisateur(int id) {
+		this.id=id;
+	}
 	public Utilisateur(int id,String username,String image_profil,String email,String password) {
 		super();
 		this.id=id;

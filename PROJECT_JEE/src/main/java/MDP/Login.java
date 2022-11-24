@@ -55,11 +55,17 @@ public class Login extends HttpServlet {
 			    throws Exception {
 	        String email = request.getParameter("email");
 	        String password = request.getParameter("pass");
-	        System.out.println("from line 57: "+email+" "+ password);
+	       // System.out.println("from line 57: "+email+" "+ password);
+	        HttpSession session=request.getSession();
 	        
+			//session.setAttribute("iduser", id_user);
 	        if (compte.validate(email, password)) {
-	        	
-	            RequestDispatcher dispatcher = request.getRequestDispatcher("template.html");
+	        	Integer ls =compte.getByEmail(email);
+	        	 //System.out.println(UtilisateurDaoImpl.getByEmail(email));
+	        	 session.setAttribute("iduser", ls);
+	        	 //String n=ls.get(0).getNomAdh()+" "+ls.get(0).getPrenomAdh();
+	        	// session.setAttribute("nc", n);
+	        	 System.out.println("bcbcbchdh"+session.getAttribute("iduser"));	            RequestDispatcher dispatcher = request.getRequestDispatcher("template.jsp");
 	            dispatcher.forward(request, response);
 	        } else {
 	        	

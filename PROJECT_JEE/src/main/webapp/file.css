@@ -1,4 +1,10 @@
 @charset "ISO-8859-1";
+a{
+	text-decoration-style: none;
+	text-decoration-line:none;
+	text-color:white;
+	color:white;
+}
 body{
 	  background-image: url(images/lol.jpg);
 	

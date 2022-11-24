@@ -142,14 +142,14 @@ input{
     <h3>Connectez-vous</h3>
                     <label for="username">Email</label>
                     <input type="text" class="form-control" name="email" id="username" required>
-                    
+                   
                     <label for="password">Mot de passe</label>
                     <input type="password" class="form-control" name="pass" id="password" placeholder="" required>
                     <input type="submit" value="Se connecter" class="button">
                 
                 <div class="social">
           <div class="go"><a href="index.jsp" class="forgot-pass">Mot de passe oublieé</a></div>
-          <div class="fb">S'inscrire <a href="register.jsp"></div>
+          <div class="fb"> <a href="formulaireregister.jsp">S'inscrire</a></div>
         </div>
            
                 </form>

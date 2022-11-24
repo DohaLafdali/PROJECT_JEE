@@ -146,6 +146,7 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 			final List<Commentaire> cmnts=CommentaireDaoImpl.getCmnt(posts.get(i).getId());
 			UtilisateurDaoImpl user=new UtilisateurDaoImpl();
 			System.out.println("red "+cmnts);
+			int idp;
 			Utilisateur utilisateur =  user.getOneO(posts.get(i).getUser());
 		    session.setAttribute("idpost", posts.get(i).getId());
 		  
@@ -192,7 +193,9 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 					<p><%
 					  for(int j=0;j<cmnts.size();j++){
 					    	if(cmnts.get(j).getPost() == posts.get(i).getId()){
+					    		 idp=posts.get(i).getId();
 					    	System.out.println("j= "+j+" : commnts "+cmnts.get(j).getText());
+					    	
 					out.println(cmnts.get(j).getText()); %>
 					</br>
 					<% }  } 
@@ -203,7 +206,7 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 					<div>
 					<input id="commentaire_text" name="comment" type="text" value="sang">
 					
-					<input name="idpost" type="submit" value="<%=posts.get(i).getId() %>" hidden>
+					<input name="idpost" type="text" value="<%=  posts.get(i).getId() %>" hidden>
 					<input id="create_comment" type="submit">
 					</div>
 					</form>

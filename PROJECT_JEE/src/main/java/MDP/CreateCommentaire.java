@@ -43,13 +43,12 @@ public class CreateCommentaire extends HttpServlet {
 		doGet(request, response);
 		String text = request.getParameter("comment");
 		 HttpSession session=request.getSession();
-		 session.getAttribute("iduser");
-		// request.getAttribute("idpost");
-		// String idpost= request.getParameter("idpost");
+		 System.out.println("idpost: "+request.getParameter("idpost"));
+				 session.getAttribute("iduser");
 		 
 
 		 Commentaire c = new Commentaire();
-			c.setPost((Integer) session.getAttribute("idpost"));
+			c.setPost(Integer.parseInt(request.getParameter("idpost")));
 			c.setText(text);
 			c.setUser((Integer) session.getAttribute("iduser"));
 			comment.add(c);

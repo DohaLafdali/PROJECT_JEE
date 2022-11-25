@@ -10,7 +10,14 @@ public class Utilisateur {
 	private String image_profil;
 	private String email;
 	private String password;
+	public Utilisateur() {
+		// TODO Auto-generated constructor stub
+	}
+	public Utilisateur(int id) {
+		this.id=id;
+	}
 	public Utilisateur(int id,String username,String image_profil,String email,String password) {
+		super();
 		this.id=id;
 		this.username=username;
 		this.image_profil=image_profil;
@@ -19,6 +26,8 @@ public class Utilisateur {
 		
 	}
 	
+	
+
 	public int getId() {
 		return id;
 	}

@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+ 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="ISO-8859-1">
 <title>Insert title here</title>
- <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <!--Stylesheet-->
@@ -29,8 +29,8 @@ body{
     top: 50%;
 }
 .background .shape{
-    height: 200px;
-    width: 200px;
+    height: 170px;
+    width: 170px;
     position: absolute;
     border-radius: 50%;
 }
@@ -48,23 +48,23 @@ body{
         #D2C3BE,
         #D2C3BE
     );
-    right: -30px;
-    bottom: -80px;
+    right: -100px;
+    bottom: -20px;
 }
 form{
     height: 520px;
-    width: 400px;
+    width: 470px;
     background-color: rgba(255,255,255,0);
     position: absolute;
     transform: translate(-50%,-50%);
     top: 50%;
     left: 50%;
     border-radius: 10px;
-    border: 2px solid rgba(255,255,255,0.1);
+    border: 2px solid rgba(255,255,255,0.2);
     padding: 50px 35px;
     box-shadow: -3px -4px 76px 6px #97726A;
--webkit-box-shadow: -3px -4px 76px 6px #97726A);
--moz-box-shadow: -3px -4px 76px 6px #97726A;
+     -webkit-box-shadow: -3px -4px 76px 6px #97726A);
+   -moz-box-shadow: -3px -4px 76px 6px #97726A;
 }
 form *{
     font-family: 'Poppins',sans-serif;
@@ -82,7 +82,7 @@ form h3{
 
 label{
     display: block;
-    margin-top: 30px;
+    margin-top: 10px;
     font-size: 16px;
     font-weight: 500;
 }
@@ -101,7 +101,7 @@ input{
     color: #e5e5e5;
 }
 .button{
-    margin-top: 50px;
+    margin-top: 10px;
     width: 100%;
     background-color: #ffffff;
     color: #080710;
@@ -130,28 +130,34 @@ input{
   margin-left: 25px;
 }
 
-
+button{
+    margin-top: 10px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
     </style>
+
 </head>
 <body>
 <div class="background">
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form action="<%=request.getContextPath()%>/Login" method="post">
+<form action="./Register" method="GET">
     <h3>Connectez-vous</h3>
-                    <label for="username">Email</label>
-                    <input type="text" class="form-control" name="email" id="username" required>
-                   
-                    <label for="password">Mot de passe</label>
-                    <input type="password" class="form-control" name="pass" id="password" placeholder="" required>
-                    <input type="submit" value="Se connecter" class="button">
-                
-                <div class="social">
-          <div class="go"><a href="index.jsp" class="forgot-pass">Mot de passe oublieé</a></div>
-          <div class="fb"> <a href="formulaireregister.jsp">S'inscrire</a></div>
-        </div>
-           
-                </form>
+<label for="username">username</label>
+<input type="text" name="username"  placeholder="Saisissez votre username"></br>
+<label for="email">email</label>
+<input type="text" name="email" placeholder="Saisissez votre email"></br>
+<label for="password">password</label>
+<input type="password" name="password" placeholder="veuillez saisir votre password"></br>
+<input type="submit" value="register" class="button">
+<a href="login.jsp" style="text-decoration: none;color:white;">avez-vous deja compte </a></button>
 </body>
 </html>

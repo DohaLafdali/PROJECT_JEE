@@ -80,4 +80,28 @@ public class CategorieDaoImpl extends AbstractDAOA implements IDAO{
         return list;
 	}
 
+	
+	public List getPosts(int category) {
+		
+		// TODO Auto-generated method stub
+		List<Categorie> list = new ArrayList<Categorie>();
+        PreparedStatement pst = null;
+        ResultSet rs;
+        String sql = "select *from Categorie";
+        try {
+            pst = connection.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                System.out.println(rs.getLong("id") + "" + rs.getString("nom_categorie"));
+                list.add(new Categorie(rs.getInt("id"), rs.getString("nom_categorie")));
+            }
+        } catch (SQLException exp) {
+            System.out.println(exp.getMessage());
+        }
+		return list;
+	}
+
+
+	
+
 }

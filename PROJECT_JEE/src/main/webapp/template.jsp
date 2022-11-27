@@ -52,7 +52,7 @@ pageEncoding="UTF-8"%>
 	</nav>
 
 
-	<div class="container">
+	<div class="container"  id="blur">
 		<div class="left-panel">
 			<ul>
 				<li><span class="profile"></span>
@@ -118,9 +118,10 @@ pageEncoding="UTF-8"%>
 					<div class="dp">
 						<img src="./images/girl.jpg" alt="">
 					</div>
+
 					<form action="./CreatePost" method="post">
-					<input type="text" name="post" placeholder="What's on your mind, Aashish ?" />
-					<input type="submit" value="publier">
+					<input type="text" name="post" placeholder="What's on your mind, Aashish ?" id="post"/>
+					<input type="submit" value="publier" id="public_post">
 					</form>
 				</div>
 
@@ -190,13 +191,18 @@ final String usersnames="";
 				</div>
 
 				<div class="post-content">
-					<%out.println(posts.get(i).getText());%>
+					<%out.println(posts.get(i).getText());%><br>
+					<!-- test popUP -->
+					            <a href="#" onclick="toggle()">Readmore</a>
+						
+					<!-- test popUP -->
 				</div>
 			
 				<div class="post-bottom">
 					<div onclick="like(this);" class="action">
 						
 					<%int help = posts.get(i).getId();%>
+					
 					    <form action="./CreateLike" method="post">
 						<!-- <input type="submit" value="n"> -->
 						<!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
@@ -212,7 +218,7 @@ final String usersnames="";
 						
 						
 					</div>
-					<div onclick="create_comment();" class="action">
+					<div onclick="togg(<%= i %>);" class="action" >
 						<i class="far fa-comment"></i> <span>Comment</span>
 					</div>
 					
@@ -235,33 +241,34 @@ final String usersnames="";
 					%></p>
 					
 				</div>
-				<div>
-					<div>
-					
-					<div><%
-					  for(int j=0;j<cmnts.size();j++){
-					    	if(cmnts.get(j).getPost() == posts.get(i).getId() ){
-					    		 idp=posts.get(i).getId();
-					    	System.out.println("j= "+j+" : commnts "+cmnts.get(j).getText());
-					    	
-					out.println(commentaireDaoImpl.getUsers(posts.get(i).getId(),cmnts.get(j).getUser())+" \n"+cmnts.get(j).getText()); %>
-					</br>
-					<img alt="profile" src="./images/logo.png" width="20px" height="20px" onclick="profile();">
-					<% }  } 
-					%>
-					
-					</div>
-					</div>
-				
+
+				<div class="sendComment">
 					<form action="./CreateCommentaire" method="post">
 					<div>
-					<input id="commentaire_text" name="comment" type="text" value="sang">
-					
+					<input id="commentaire_text" name="comment" type="text">
 					<input name="idpost" type="text" value="<%=  posts.get(i).getId() %>" hidden>
-					<input id="create_comment" type="submit">
+					<button id="create_comment" type="submit"><i class="fa fa-light fa-location-arrow"></i></button>
+					
 					</div>
 					</form>
 					
+					</div>
+					<div class="afficheComment" id=<%= i %>  style="display: none;">
+					
+					<%
+					  for(int j=0;j<cmnts.size();j++){
+					    	if(cmnts.get(j).getPost() == posts.get(i).getId()){
+					    		 idp=posts.get(i).getId();%>
+					    		 <div class="uniqueComment">
+					<h5><%out.println(commentaireDaoImpl.getUsers(posts.get(i).getId(),cmnts.get(j).getUser())); %></h5><br>
+					<p>
+					<% 
+				
+					out.println(cmnts.get(j).getText()); %>
+					<img alt="profile" src="./images/logo.png" width="20px" height="20px" onclick="profile();">
+					</p></div></br>
+					<% }  } 
+					%>
 					</div>
 					
 			</div>
@@ -273,6 +280,17 @@ final String usersnames="";
 		
 	</div>
 
+
+
+	<div id="popup">
+        <h2>Hello World!!!</h2>
+        <p>koko</p>
+                <p>doha</p>
+                <p>lafdali</p>
+                <p>lol</p>
+        
+        <a href="#" onclick="toggle()">Close</a>
+    </div>
 
 
 	<script type="text/javascript">
@@ -312,16 +330,6 @@ final String usersnames="";
 	))
 		});
 	
-	
-	 function create_comment(){
-		 var input1 = document.getElementById("commentaire_text");
-		 var input2 = document.getElementById("create_comment");
-		 //var visible = x.querySelector("input");
-		 input1.style.visibility='visible';
-		 input2.style.visibility='visible';
-	 }
-
-	
 document.addEventListener('DOMContentLoaded', () => {
 	const likes = document.querySelectorAll('.like');
 	likes.forEach(like => (
@@ -340,6 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	))
 	});
 	
+
 	function getIdPost(help){
 		window.location.href='CreateLike?help='+help;
 	}
@@ -347,7 +356,24 @@ document.addEventListener('DOMContentLoaded', () => {
 		document.location.href='Profile';
 		
 	}
+			
+function togg(i){
+   uniqueCommentaire=document.getElementById(i);
+console.log(uniqueCommentaire)
+  if(uniqueCommentaire.style.display != "none"){
+	  uniqueCommentaire.style.display = "none";
+  } else {
+	  uniqueCommentaire.style.display= "block";
+  }
+};
 
+
+function toggle() {
+    var blur=document.getElementById('blur');
+    blur.classList.toggle('active');
+    var popup = document.getElementById('popup');
+    popup.classList.toggle('active');
+}
 </script>
 </body>
 

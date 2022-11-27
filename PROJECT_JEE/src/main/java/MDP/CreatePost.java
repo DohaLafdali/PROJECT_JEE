@@ -39,6 +39,15 @@ public class CreatePost extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	//	doGet(request, response);
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String text= request.getParameter("post");
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -59,14 +68,6 @@ public class CreatePost extends HttpServlet {
 		//response.sendRedirect("template.jsp");
 		RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
 		dispatcher.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

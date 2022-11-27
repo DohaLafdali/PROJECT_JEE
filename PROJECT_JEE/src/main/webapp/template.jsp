@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
     <%@page import="java.util.List"%>
+    <%@page import="java.sql.Timestamp"%>
+    <%@page import="java.util.Date"%>
+    <%@page import="java.text.SimpleDateFormat"%>
       <%@page import="java.util.ArrayList"%>
    <%@ page import="MDP.Utilisateur" %>
    <%@ page import="MDP.Post"%>
+   <%@ page import="MDP.Like"%>
+   <%@ page import="MDP.LikeDaoImpl"%>
    <%@ page import="MDP.Commentaire"%>
    <%@ page import="MDP.PostDaoImpl" %>
    <%@ page import="MDP.UtilisateurDaoImpl" %>
@@ -21,7 +26,7 @@ pageEncoding="UTF-8"%>
 	integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="style.css">
-<title>MediaBook</title>
+<title>Aatae</title>
 </head>
 
 <body>
@@ -113,7 +118,7 @@ pageEncoding="UTF-8"%>
 					<div class="dp">
 						<img src="./images/girl.jpg" alt="">
 					</div>
-					<form action="./CreatePost">
+					<form action="./CreatePost" method="post">
 					<input type="text" name="post" placeholder="What's on your mind, Aashish ?" />
 					<input type="submit" value="publier">
 					</form>
@@ -136,17 +141,22 @@ List<Integer> list = new ArrayList<Integer>();
 list.add(2);
 list.add(23);
 Integer id=(Integer) session.getAttribute("idcategorie");
-
+final String usersnames="";
 //d=0;
 //System.out.print(id);
 
 	if(id != null){
+		LikeDaoImpl like = new LikeDaoImpl();
+		CommentaireDaoImpl commentaireDaoImpl = new CommentaireDaoImpl();
   final List<Post> posts = PostDaoImpl.getPosts(id);
+ 
 		for(int i=0;i<posts.size();i++){	
 			final List<Commentaire> cmnts=CommentaireDaoImpl.getCmnt(posts.get(i).getId());
+			final List<Like> likes=LikeDaoImpl.getLikes(posts.get(i).getId());
 			UtilisateurDaoImpl user=new UtilisateurDaoImpl();
 			System.out.println("red "+cmnts);
 			int idp;
+			int cmp=0;
 			Utilisateur utilisateur =  user.getOneO(posts.get(i).getUser());
 		    session.setAttribute("idpost", posts.get(i).getId());
 		  
@@ -163,8 +173,18 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 					</div>
 					<div class="post-info">
 						<p class="name"><%out.println(utilisateur.getUsername());%></p>
-						
-						<span class="time"><%out.println(posts.get(i).getTime_post());%></span>
+						<%  SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss"); 
+						    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+						   // Date d1 = sdf.parse(timestamp);
+						    long difference_in_time =  timestamp.getTime()- posts.get(i).getTime_post().getTime();
+						    long difference_in_secondes = (difference_in_time/1000)%60;
+						    long difference_in_minutes = (difference_in_time/(1000*60))%60;
+						    long difference_in_hours = (difference_in_time/(1000*60*60))%24;
+						    long difference_In_Years= (difference_in_time/ (1000l * 60 * 60 * 24 * 365));			  
+			            	long difference_In_Days = (difference_in_time / (1000 * 60 * 60 * 24))% 365;
+						    System.out.println("time: "+difference_in_hours);
+						%>
+						<span class="time"><%out.println("il y a "+difference_In_Days +":"+difference_in_hours+":"+difference_in_minutes+":"+difference_in_secondes);%></span>
 					</div>
 					<i class="fas fa-ellipsis-h"></i>
 				</div>
@@ -175,7 +195,22 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 			
 				<div class="post-bottom">
 					<div onclick="like(this);" class="action">
-						<i class="fa fa-heart" aria-hidden="true"></i> <span>Like</span>
+						
+					<%int help = posts.get(i).getId();%>
+					    <form action="./CreateLike" method="post">
+						<!-- <input type="submit" value="n"> -->
+						<!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
+						<span onclick="getIdPost(<%=help%>);">
+						<%out.print(like.nombreLikes(posts.get(i).getId())); %>
+						
+						<button type="submit" value="n"><i class="fa fa-heart" aria-hidden="true"></i></button>Like</span>
+						
+						<input type="text" name="help" value="<%=posts.get(i).getId()%>" hidden>
+						</form>
+						 <a href="CreateLike?help=<%=help %>"></a>
+						<% System.out.println("Id post ============>"+help); %>
+						
+						
 					</div>
 					<div onclick="create_comment();" class="action">
 						<i class="far fa-comment"></i> <span>Comment</span>
@@ -184,22 +219,38 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 					<div class="action">
 						<i class="fa fa-share"></i> <span>Share</span>
 					</div>
-					
+					<p><%
+					    for(int j=0;j<likes.size();j++){
+					    	if(likes.get(j).getPost() == posts.get(i).getId()){
+					    		 idp=posts.get(i).getId();
+					    	      //System.out.println("j= "+j+" : username  "+likes.get(j).getUser());
+					             //  out.println(like.UtilisateurUnique(likes.get(j).getPost(), utilisateur.getId()));
+					               //out.println(likes.get(j).getUser()); 
+					               //usersnames=like.getUsers(posts.get(i).getId(),likes.get(j).getUser());
+					              out.println(like.getUsers(posts.get(i).getId(),likes.get(j).getUser()));
+					               
+					               %>
+					</br>
+					<% }} 
+					%></p>
 					
 				</div>
 				<div>
 					<div>
 					
-					<p><%
+					<div><%
 					  for(int j=0;j<cmnts.size();j++){
-					    	if(cmnts.get(j).getPost() == posts.get(i).getId()){
+					    	if(cmnts.get(j).getPost() == posts.get(i).getId() ){
 					    		 idp=posts.get(i).getId();
 					    	System.out.println("j= "+j+" : commnts "+cmnts.get(j).getText());
 					    	
-					out.println(cmnts.get(j).getText()); %>
+					out.println(commentaireDaoImpl.getUsers(posts.get(i).getId(),cmnts.get(j).getUser())+" \n"+cmnts.get(j).getText()); %>
 					</br>
+					<img alt="profile" src="./images/logo.png" width="20px" height="20px" onclick="profile();">
 					<% }  } 
-					%></p>
+					%>
+					
+					</div>
 					</div>
 				
 					<form action="./CreateCommentaire" method="post">
@@ -214,9 +265,9 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 					</div>
 					
 			</div>
-		<%	 }  
+		<%}	 }  
 		  
-		  }
+		  
 %>
 		</div>
 		
@@ -288,6 +339,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	})
 	))
 	});
+	
+	function getIdPost(help){
+		window.location.href='CreateLike?help='+help;
+	}
+	function profile(){
+		document.location.href='Profile';
+		
+	}
 
 </script>
 </body>

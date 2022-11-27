@@ -47,7 +47,7 @@ pageEncoding="UTF-8"%>
 	</nav>
 
 
-	<div class="container">
+	<div class="container"  id="blur">
 		<div class="left-panel">
 			<ul>
 				<li><span class="profile"></span>
@@ -114,8 +114,8 @@ pageEncoding="UTF-8"%>
 						<img src="./images/girl.jpg" alt="">
 					</div>
 					<form action="./CreatePost">
-					<input type="text" name="post" placeholder="What's on your mind, Aashish ?" />
-					<input type="submit" value="publier">
+					<input type="text" name="post" placeholder="What's on your mind, Aashish ?" id="post"/>
+					<input type="submit" value="publier" id="public_post">
 					</form>
 				</div>
 
@@ -170,14 +170,18 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 				</div>
 
 				<div class="post-content">
-					<%out.println(posts.get(i).getText());%>
+					<%out.println(posts.get(i).getText());%><br>
+					<!-- test popUP -->
+					            <a href="#" onclick="toggle()">Readmore</a>
+						
+					<!-- test popUP -->
 				</div>
 			
 				<div class="post-bottom">
 					<div onclick="like(this);" class="action">
 						<i class="fa fa-heart" aria-hidden="true"></i> <span>Like</span>
 					</div>
-					<div onclick="create_comment();" class="action">
+					<div onclick="togg(<%= i %>);" class="action" >
 						<i class="far fa-comment"></i> <span>Comment</span>
 					</div>
 					
@@ -187,30 +191,34 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 					
 					
 				</div>
-				<div>
-					<div>
-					
-					<p><%
-					  for(int j=0;j<cmnts.size();j++){
-					    	if(cmnts.get(j).getPost() == posts.get(i).getId()){
-					    		 idp=posts.get(i).getId();
-					    	System.out.println("j= "+j+" : commnts "+cmnts.get(j).getText());
-					    	
-					out.println(cmnts.get(j).getText()); %>
-					</br>
-					<% }  } 
-					%></p>
-					</div>
-				
+				<div class="sendComment">
+			
 					<form action="./CreateCommentaire" method="post">
 					<div>
-					<input id="commentaire_text" name="comment" type="text" value="sang">
-					
+					<input id="commentaire_text" name="comment" type="text">
 					<input name="idpost" type="text" value="<%=  posts.get(i).getId() %>" hidden>
-					<input id="create_comment" type="submit">
+					<button id="create_comment" type="submit"><i class="fa fa-light fa-location-arrow"></i></button>
+					
 					</div>
 					</form>
 					
+					</div>
+					<div class="afficheComment" id=<%= i %>  style="display: none;">
+					
+					<%
+					  for(int j=0;j<cmnts.size();j++){
+					    	if(cmnts.get(j).getPost() == posts.get(i).getId()){
+					    		 idp=posts.get(i).getId();%>
+					    		 <div class="uniqueComment">
+					<h5>doha lafdali </h5><br>
+					<p>
+					<% 
+					    	System.out.println("j= "+j+" : commnts "+cmnts.get(j).getText());
+					    	
+					out.println(cmnts.get(j).getText()); %>
+					</p></div></br>
+					<% }  } 
+					%>
 					</div>
 					
 			</div>
@@ -222,6 +230,17 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 		
 	</div>
 
+
+
+	<div id="popup">
+        <h2>Hello World!!!</h2>
+        <p>koko</p>
+                <p>doha</p>
+                <p>lafdali</p>
+                <p>lol</p>
+        
+        <a href="#" onclick="toggle()">Close</a>
+    </div>
 
 
 	<script type="text/javascript">
@@ -288,7 +307,29 @@ document.addEventListener('DOMContentLoaded', () => {
 	})
 	))
 	});
+	
+	
+	
+		
+			
+function togg(i){
+   uniqueCommentaire=document.getElementById(i);
+console.log(uniqueCommentaire)
+  if(uniqueCommentaire.style.display != "none"){
+	  uniqueCommentaire.style.display = "none";
+  } else {
+	  uniqueCommentaire.style.display= "block";
+  }
+};
 
+
+
+function toggle() {
+    var blur=document.getElementById('blur');
+    blur.classList.toggle('active');
+    var popup = document.getElementById('popup');
+    popup.classList.toggle('active');
+}
 </script>
 </body>
 

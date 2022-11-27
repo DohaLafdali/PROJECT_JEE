@@ -27,8 +27,7 @@ pageEncoding="UTF-8"%>
 <body>
 	<nav>
 		<div class="nav-left">
-			<img src="./images/logo.png" alt="Logo"> <input type="text"
-				placeholder="Search Mediabook..">
+			<img src="./images/logo.png" alt="Logo">
 		</div>
 
 		<div class="nav-middle">

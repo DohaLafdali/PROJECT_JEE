@@ -20,22 +20,16 @@ nav{
 
 nav .nav-left, nav .nav-right{
     display:flex;
-    align-items: center;
+    align-items: center;    
 }
 
 nav .nav-left > img{
-    width:40px;
+	
+    width:150px;
+    height:90px;
+  
 }
 
-nav .nav-left > input{
-    height:40px;
-    padding:5px 10px;
-    border:none;
-    border-radius: 25px;
-    outline:none;
-    background-color: #eee;
-    margin-left: 10px;
-}
 
 nav .nav-middle{
     display:flex;

@@ -33,7 +33,22 @@ public class LikeDaoImpl extends AbstractDAOA implements IDAO{
 		// TODO Auto-generated method stub
 		
 	}
+	public void deleteLike(int idpost,int iduser) {
+		// TODO Auto-generated method stub
+		PreparedStatement pst = null;
+        String sql = "delete from likepost where id_post= ? and id_user=?";
+        //DELETE FROM `likepost` WHERE `id_post`=1 and `id_user`=2;
 
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setInt(1, idpost);
+            pst.setInt(2, iduser);
+            pst.executeUpdate();
+        } catch (SQLException exp) {
+            System.out.println(exp.getMessage());
+        }
+		
+	}
 	@Override
 	public Object getOne(int id) {
 		// TODO Auto-generated method stub

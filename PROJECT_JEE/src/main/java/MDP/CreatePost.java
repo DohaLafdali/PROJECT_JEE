@@ -50,12 +50,9 @@ public class CreatePost extends HttpServlet {
 	
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		// TODO Auto-generated method stub
 	//	doGet(request, response);
 		response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -64,6 +61,25 @@ public class CreatePost extends HttpServlet {
 		 // Input stream of the upload file
         //InputStream inputStream;
         Part filePart= request.getPart("photo");
+
+	
+            // Prints out some information
+            // for debugging
+            System.out.println(
+                filePart.getName());
+            System.out.println(
+                filePart.getSize());
+            System.out.println(
+                filePart.getContentType());
+  
+            // Obtains input stream of the upload file
+            InputStream inputStream
+                = filePart.getInputStream();
+       
+            System.out.println("input: "+
+            		inputStream );
+		//System.out.println("photo"+photo);
+
         //Start
         String imageFileName=filePart.getSubmittedFileName();  // get selected image file name
 		String uploadPath="C:/Users/Dell/git/PROJECT_JEE/PROJECT_JEE/src/main/webapp/images/posts/"+imageFileName;  // upload path where we have to upload our actual image		
@@ -85,9 +101,7 @@ public class CreatePost extends HttpServlet {
 		}
         
         //End
-            InputStream inputStream
-                = filePart.getInputStream();
-		
+         
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		HttpSession session=request.getSession();
 		Integer idcategorie=(Integer) session.getAttribute("idcategorie");
@@ -105,6 +119,7 @@ public class CreatePost extends HttpServlet {
 		post.setTime_post(timestamp);
 		System.out.println(post);
 		postdao.add(post);
+
 		RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
 		dispatcher.forward(request, response);
 

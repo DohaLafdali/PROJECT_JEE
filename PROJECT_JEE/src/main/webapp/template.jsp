@@ -22,6 +22,7 @@ pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta http-equiv="refresh" content="1000">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
 <link rel="stylesheet"
@@ -117,8 +118,9 @@ pageEncoding="UTF-8"%>
             <!-- create new post -->
            <% 
            String type_user=request.getParameter("visiteur");
+           Object id_user=session.getAttribute("iduser");
            String disabled="";
-           if(type_user == null){ 
+           if(id_user != null){ 
         	  
         %>
           
@@ -129,10 +131,10 @@ pageEncoding="UTF-8"%>
 						<img src="./images/girl.jpg" alt="">
 					</div>
 					
-						<input type="text" name="post" placeholder="What's on your mind, Aashish ?" id="post"/>
-						<input type="submit" value="publier" id="public_post">				
+				<input type="text" name="post" placeholder="What's on your mind, Aashish ?" id="post"/>
+				<input type="submit" value="publier" id="public_post">	
 				</div>
-			
+				
 				<div class="post-bottom">
 					<div class="action">
 						<i class="fa fa-video"></i> <span>Live video</span>
@@ -146,7 +148,7 @@ pageEncoding="UTF-8"%>
 					</div>
 				</div>
 				</form>
-				
+
 			</div>
 		<% 	 }
            else{ 
@@ -211,6 +213,7 @@ final String usersnames="";
 				</div>
 
 				<div class="post-content">
+
 					<%out.println(posts.get(i).getText());%><br>
 
 		<%
@@ -235,7 +238,7 @@ final String usersnames="";
 						<!-- <input type="submit" value="n"> -->
 						<!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
 						<span onclick="getIdPost(<%=help%>);">
-						<button type="submit" value="n"><i class="fa fa-heart" aria-hidden="true"></i></button>Like</span>
+						<button type="submit" value="n" <%=disabled %>><i class="fa fa-heart" aria-hidden="true"></i></button>Like</span>
 						
 						<input type="text" name="help" value="<%=posts.get(i).getId()%>" hidden>
 
@@ -266,7 +269,7 @@ final String usersnames="";
         <a href="#" onclick="toggle(<%=i%>)">Close</a>
     </div>
 				</div>
-			<% if(type_user == null){  %>
+			<% if(id_user != null){  %>
 				<div class="sendComment">
 					<form action="./CreateCommentaire" method="post">
 						<div>

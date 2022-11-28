@@ -57,8 +57,10 @@ public class Login extends HttpServlet {
 		  String logout=request.getParameter("logout");
 		  if(logout.equals("true")) {
 			  HttpSession session = request.getSession();
+			  System.out.println("session: "+session.getAttribute("iduser"));
 				session.invalidate();
-			    response.sendRedirect("index.jsp");
+				 //System.out.println("session: "+session.getAttribute("iduser"));
+				response.sendRedirect("template.jsp");
 			    return; 
 		  }
 		

@@ -354,13 +354,9 @@ nav .nav-right a > i{
     padding:10px;
 }
 /*   style popUp */ 
-.container#blur.active{
-    filter: blur(10px);
-    pointer-events: auto;
-    user-select: none;
-}
 
-#popup a{
+
+.popup a{
 	
 	position: relative;
     padding: 5px 20px;
@@ -372,11 +368,11 @@ nav .nav-right a > i{
     transition: 1s;
     background-color: #333;
 }
- #popup a:hover{
+ .popup a:hover{
     transition: 1s;
     background: #2b5c59;
 }
-#popup{
+.popup{
    position: absolute;
     top: 500px;
    z-index: 10000;
@@ -390,7 +386,7 @@ nav .nav-right a > i{
     opacity: 0;
     transition: 0.5s;
 }
-#popup.active{
+.popup.active{
     top: 50%;
     visibility: visible;
     opacity: 1;

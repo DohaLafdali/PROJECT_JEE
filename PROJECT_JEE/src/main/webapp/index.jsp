@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,12 +11,13 @@
 <blockquote class="sidekick">
  Alone we can do so little 
 together we can do so mush 
+
   </blockquote> 
 
 <div class="index">
 
-<button ><a href="formulaireregister.jsp" style='text-decoration: none;color:white;'>visiteur</a></button>
-<button ><a href="formulaireregister.jsp" style="text-decoration: none;color:white;">creer compte </a> </button>
+<button ><a href="template.jsp?visiteur=visiteur" style='text-decoration: none;color:white;'>visiteur</a></button>
+<button ><a href="formulaireregister.jsp" style='text-decoration: none;color:white;'>creer compte </a> </button>
 
 </div>
 

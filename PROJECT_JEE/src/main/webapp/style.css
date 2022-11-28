@@ -20,22 +20,16 @@ nav{
 
 nav .nav-left, nav .nav-right{
     display:flex;
-    align-items: center;
+    align-items: center;    
 }
 
 nav .nav-left > img{
-    width:40px;
+	
+    width:150px;
+    height:90px;
+  
 }
 
-nav .nav-left > input{
-    height:40px;
-    padding:5px 10px;
-    border:none;
-    border-radius: 25px;
-    outline:none;
-    background-color: #eee;
-    margin-left: 10px;
-}
 
 nav .nav-middle{
     display:flex;
@@ -98,6 +92,7 @@ nav .nav-right a > i{
 .container{
     background:#eee;
     display:flex;
+    position:relative;
 }
 
 .container .left-panel, .container .right-panel{
@@ -171,8 +166,8 @@ nav .nav-right a > i{
 .middle-panel .story-section{
     display:flex;
     padding:1rem;
-    width:100%;
 }
+
 
 .middle-panel .story-section .story{
     height:230px;
@@ -226,7 +221,71 @@ nav .nav-right a > i{
     margin:10px;
     
 }
-
+.post .sendComment{
+    display:flex;
+    padding:1rem;
+    background:#eee;
+    position: relative;
+    width: 100%;
+      border-bottom: 1px solid #c0c0c0;
+    
+}
+.post .sendComment #commentaire_text{
+  width: 600px;
+  border: 1px solid #ccc;
+  border-radius: 100px;
+  padding: 10px 100px 10px 20px; 
+  line-height: 1;
+  box-sizing: border-box;
+  outline: none;
+  margin-left: 70px;
+  height:40px;
+}
+.post .sendComment #create_comment{
+	background:#fff;
+  position: absolute;
+  right: 115px; 
+  top: 18px;
+  bottom: 3px;
+  outline: none;
+  margin: 0;
+  padding: 0 10px;
+  border-radius: 0px 100px  100px  0px ;
+  z-index: 2;
+  height:38px;
+  border:none;
+  width:60px;
+}
+.post .sendComment #create_comment i{
+	font-size:28px;
+	color:#c0c0c0;
+}
+.post  .afficheComment{
+	display:flex;
+    padding:1rem;
+    background:#eee;
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #c0c0c0;
+    flex-wrap: wrap;
+    
+}
+.post  .afficheComment .uniqueComment{
+	 background:#fff;
+    width: 100%;
+    border-radius: 20px;
+    margin:10px;
+    background-color: rgba(0,0,0,0.05);
+    	
+}
+.post  .afficheComment .uniqueComment h5 {
+	
+    margin:10px;	
+}
+.post  .afficheComment .uniqueComment p {
+	
+    margin:10px;	
+}
 .post .post-top{
     display:flex;
     align-items: center;
@@ -265,7 +324,18 @@ nav .nav-right a > i{
     cursor: pointer;
 }
 
-.post .post-top > input{
+.post .post-top form > #post{
+    height:40px;
+    padding:5px 10px;
+    border-radius:25px;
+    outline:none;
+    border:none;
+    flex:1;
+    background:#eee;
+    margin-left:10px;
+    width:600px;
+}
+.post form .post-top  > #public_post{
     height:40px;
     padding:5px 10px;
     border-radius:25px;
@@ -276,11 +346,54 @@ nav .nav-right a > i{
     margin-left:10px;
 }
 
+
+
 .post .post-content{
     font-size:16px;
     font-weight:normal;
     padding:10px;
 }
+/*   style popUp */ 
+
+
+.popup a{
+	
+	position: relative;
+    padding: 5px 20px;
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #fff;
+    background: rgb (134,43,43);
+    transition: 1s;
+    background-color: #333;
+}
+ .popup a:hover{
+    transition: 1s;
+    background: #2b5c59;
+}
+.popup{
+   position: absolute;
+    top: 500px;
+   z-index: 10000;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px;
+    padding: 50px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, .30);
+    background: #fff;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+}
+.popup.active{
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
+    transform: 0.5s;
+}
+
+/*   fin style popUp */ 
 
 .post .post-content > img{
     width:100%;

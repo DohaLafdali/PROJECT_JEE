@@ -2,6 +2,7 @@ package MDP;
 
 
 import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -9,6 +10,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -48,46 +50,19 @@ public class CreatePost extends HttpServlet {
 	
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
+	//	doGet(request, response);
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String text= request.getParameter("post");
 		String photo= request.getParameter("photo");
 		 // Input stream of the upload file
         //InputStream inputStream;
         Part filePart= request.getPart("photo");
-        System.out.println("filepart: "+filePart);
-        
-        //Start
-        String imageFileName=filePart.getSubmittedFileName();  // get selected image file name
-		System.out.println("Selected Image File Name : "+imageFileName);
-		
-		String uploadPath="C:/Users/Dell/git/PROJECT_JEE/PROJECT_JEE/src/main/webapp/images/posts/"+imageFileName;  // upload path where we have to upload our actual image
-		System.out.println("Upload Path : "+uploadPath);
-		
-		try
-		{
-		
-		FileOutputStream fos=new FileOutputStream(uploadPath);
-		InputStream is=filePart.getInputStream();
-		
-		byte[] data=new byte[is.available()];
-		is.read(data);
-		fos.write(data);
-		fos.close();
-		
-		}
-		
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-        
-        //End
+
+	
             // Prints out some information
             // for debugging
             System.out.println(
@@ -104,9 +79,29 @@ public class CreatePost extends HttpServlet {
             System.out.println("input: "+
             		inputStream );
 		//System.out.println("photo"+photo);
-		
 
+        //Start
+        String imageFileName=filePart.getSubmittedFileName();  // get selected image file name
+		String uploadPath="C:/Users/Dell/git/PROJECT_JEE/PROJECT_JEE/src/main/webapp/images/posts/"+imageFileName;  // upload path where we have to upload our actual image		
+		try
+		{
+		FileOutputStream fos=new FileOutputStream(uploadPath);
+		InputStream is=filePart.getInputStream();
 		
+		byte[] data=new byte[is.available()];
+		is.read(data);
+		fos.write(data);
+		fos.close();
+		
+		}
+		
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+        
+        //End
+         
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		HttpSession session=request.getSession();
 		Integer idcategorie=(Integer) session.getAttribute("idcategorie");
@@ -124,10 +119,10 @@ public class CreatePost extends HttpServlet {
 		post.setTime_post(timestamp);
 		System.out.println(post);
 		postdao.add(post);
-		//response.sendRedirect("template.jsp");
-		//RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
-		//dispatcher.forward(request, response);
-		response.sendRedirect("template.jsp");   
+
+		RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
+		dispatcher.forward(request, response);
+
 	}
 
 }

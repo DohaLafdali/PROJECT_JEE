@@ -6,19 +6,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentaireDaoImpl extends AbstractDAOA implements IDAO{
+public class LikeDaoImpl extends AbstractDAOA implements IDAO{
+
+	public LikeDaoImpl() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void add(Object obj) {
 		// TODO Auto-generated method stub
 		PreparedStatement pst = null;
-        String sql = "insert into Commentaire (text,id_post,id_user) values (?,?,?)";
+        String sql = "insert into LikePost (id_post,id_user) values (?,?)";
         try {
             pst = connection.prepareStatement(sql);
-            //pst.setLong(1, ((Commentaire) obj).getId());
-            pst.setString(1, ((Commentaire) obj).getText());
-            pst.setInt(2, ((Commentaire) obj).getPost());
-            pst.setInt(3, ((Commentaire) obj).getUser());
+            pst.setInt(1, ((Like) obj).getPost());
+            pst.setInt(2, ((Like) obj).getUser());
+           
             pst.executeUpdate();
         } catch (SQLException exp) {
             System.out.println(exp.getMessage());
@@ -28,15 +31,7 @@ public class CommentaireDaoImpl extends AbstractDAOA implements IDAO{
 	@Override
 	public void delete(int id) {
 		// TODO Auto-generated method stub
-		PreparedStatement pst = null;
-        String sql = "delete *from Commentaire where id= ?";
-        try {
-            pst = connection.prepareStatement(sql);
-            pst.setLong(1, id);
-            pst.executeUpdate();
-        } catch (SQLException exp) {
-            System.out.println(exp.getMessage());
-        }
+		
 	}
 
 	@Override
@@ -44,7 +39,7 @@ public class CommentaireDaoImpl extends AbstractDAOA implements IDAO{
 		// TODO Auto-generated method stub
 		PreparedStatement pst = null;
         ResultSet rs;
-        String sql = "select *from Commentaire where id= ?";
+        String sql = "select *from LikePost where id= ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setLong(1, id);
@@ -52,7 +47,7 @@ public class CommentaireDaoImpl extends AbstractDAOA implements IDAO{
             if (rs.next()) {
                 System.out.println(rs.getLong("id") + "" + rs.getString("text"));
                 
-                return new Commentaire(rs.getInt("id"), rs.getString("text"),rs.getInt("id_post"),rs.getInt("id_user"));
+                return new Like(rs.getInt("id"), rs.getInt("id_post"),rs.getInt("id_user"));
             }
         } catch (SQLException exp) {
             System.out.println(exp.getMessage());
@@ -63,16 +58,60 @@ public class CommentaireDaoImpl extends AbstractDAOA implements IDAO{
 	@Override
 	public List getAll() {
 		// TODO Auto-generated method stub
-		List<Commentaire> list = new ArrayList<Commentaire>();
-        PreparedStatement pst = null;
+		return null;
+	}
+	public int nombreLikes(int idpost) {
+		PreparedStatement pst = null;
         ResultSet rs;
-        String sql = "select *from Commentaire";
+        String sql = "select count(*) AS total from LikePost where id_post=?";
         try {
             pst = connection.prepareStatement(sql);
+            pst.setInt(1, idpost);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+            	 System.out.println("nombre likes: "+rs.getInt("total"));
+                return rs.getInt("total");
+            }
+        } catch (SQLException exp) {
+            System.out.println(exp.getMessage());
+        }
+        return 1;
+	}
+	//fonction pour compter le nombre de like d'un utilisateur par poste 
+	
+	public int UtilisateurUnique(int idpost,int iduser) {
+		PreparedStatement pst = null;
+        ResultSet rs;
+        String sql = "select count(*) AS nombre from LikePost where id_post=? and id_user=?";
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setInt(1, idpost);
+            pst.setInt(2, iduser);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+            	 System.out.println("nombre likes: "+rs.getInt("nombre"));
+                return rs.getInt("nombre");
+            }
+        } catch (SQLException exp) {
+            System.out.println(exp.getMessage());
+        }
+        return 1;
+	}
+	
+	
+	public static  List getLikes(int post) {
+		// TODO Auto-generated method stub
+		List<Like> list = new ArrayList<Like>();
+        PreparedStatement pst = null;
+        ResultSet rs;
+        String sql = "select *from likepost where id_post=?";
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setInt(1, post);
             rs = pst.executeQuery();
             while (rs.next()) {
-                System.out.println(rs.getLong("id") + "" + rs.getString("text"));
-                list.add(new Commentaire(rs.getInt("id"), rs.getString("text"),rs.getInt("id_post"),rs.getInt("id_user")));
+                System.out.println(rs.getLong("id"));
+                list.add(new Like(rs.getInt("id"),rs.getInt("id_user"),rs.getInt("id_post")));
             }
         } catch (SQLException exp) {
             System.out.println(exp.getMessage());
@@ -80,33 +119,13 @@ public class CommentaireDaoImpl extends AbstractDAOA implements IDAO{
         return list;
 	}
 
-	public static  List getCmnt(int post) {
-		// TODO Auto-generated method stub
-		List<Commentaire> list = new ArrayList<Commentaire>();
-        PreparedStatement pst = null;
-        ResultSet rs;
-        String sql = "select *from Commentaire where id_post=?";
-        try {
-            pst = connection.prepareStatement(sql);
-            pst.setInt(1, post);
-            rs = pst.executeQuery();
-            while (rs.next()) {
-                System.out.println(rs.getLong("id") + "" + rs.getString("text"));
-                list.add(new Commentaire(rs.getInt("id"), rs.getString("text"),rs.getInt("id_post"),rs.getInt("id_user")));
-            }
-        } catch (SQLException exp) {
-            System.out.println(exp.getMessage());
-        }
-        return list;
-	}
-	
 	public String getUsers(int post,int user) {
 		// TODO Auto-generated method stub
 		List<Like> list = new ArrayList<Like>();
         PreparedStatement pst = null;
         ResultSet rs;
         String value="";
-        String sql = "select u.username from Utilisateur u,Commentaire c where c.id_post=? and u.id=?";
+        String sql = "select u.username from Utilisateur u,LikePost p where p.id_post=? and u.id=?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, post);

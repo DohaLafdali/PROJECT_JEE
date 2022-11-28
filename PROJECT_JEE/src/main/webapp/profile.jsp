@@ -13,6 +13,7 @@ pageEncoding="UTF-8"%>
    <%@ page import="MDP.PostDaoImpl" %>
    <%@ page import="MDP.UtilisateurDaoImpl" %>
    <%@ page import="MDP.CommentaireDaoImpl" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

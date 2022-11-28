@@ -13,12 +13,16 @@ pageEncoding="UTF-8"%>
    <%@ page import="MDP.PostDaoImpl" %>
    <%@ page import="MDP.UtilisateurDaoImpl" %>
    <%@ page import="MDP.CommentaireDaoImpl" %>
+<%@ page import="java.io.InputStream" %>
+<%@ page import="java.io.OutputStream" %>
+<%@ page import="java.sql.Blob" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta http-equiv="refresh" content="1000">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
 <link rel="stylesheet"
@@ -32,21 +36,21 @@ pageEncoding="UTF-8"%>
 <body>
 	<nav>
 		<div class="nav-left">
-			<img src="./images/logo.png" alt="Logo"> <input type="text"
-				placeholder="Search Mediabook..">
+			<img src="./images/logo.png" alt="Logo">
 		</div>
 
 		<div class="nav-middle">
 			<a href="#" class="active"> <i class="fa fa-home"></i>
 			</a> <a href="#"> <i class="fa fa-user-friends"></i>
 			</a> <a href="#"> <i class="fa fa-play-circle"></i>
+		     
 			</a> <a href="#"> <i class="fa fa-users"></i>
 			</a>
 		</div>
-
 		<div class="nav-right">
 			<span class="profile"></span> <a href="#"> <i class="fa fa-bell"></i>
-			</a> <a href="#"> <i class="fas fa-ellipsis-h"></i>
+			</a> 
+			<a href="Login?logout=true"><i class="fas fa-ellipsis-h"></i>
 			</a>
 		</div>
 	</nav>
@@ -112,31 +116,54 @@ pageEncoding="UTF-8"%>
 			</div>
 			
             <!-- create new post -->
-            
+           <% 
+           String type_user=request.getParameter("visiteur");
+           Object id_user=session.getAttribute("iduser");
+           String disabled="";
+           if(id_user != null){ 
+        	  
+        %>
+          
 			<div class="post create">
+			<form action="./CreatePost" method="post" enctype="multipart/form-data">
 				<div class="post-top">
 					<div class="dp">
 						<img src="./images/girl.jpg" alt="">
 					</div>
-
-					<form action="./CreatePost" method="post">
-					<input type="text" name="post" placeholder="What's on your mind, Aashish ?" id="post"/>
-					<input type="submit" value="publier" id="public_post">
-					</form>
+					
+				<input type="text" name="post" placeholder="What's on your mind, Aashish ?" id="post"/>
+				<input type="submit" value="publier" id="public_post">	
 				</div>
-
+				
 				<div class="post-bottom">
 					<div class="action">
 						<i class="fa fa-video"></i> <span>Live video</span>
 					</div>
-					<div class="action">
-						<i class="fa fa-image"></i> <span>Photo/Video</span>
+					<div>
+					
+						<i class="fa fa-image"></i> <span><input type = "file" name ="photo"  /></span>
 					</div>
 					<div class="action">
 						<i class="fa fa-smile"></i> <span>Feeling/Activity</span>
 					</div>
 				</div>
+				</form>
+
 			</div>
+		<% 	 }
+           else{ 
+        	    disabled="disabled";
+           %>
+        	   <div class="post create">
+   			
+   		<h3>		Join us and help others.
+   					They need you. </h3>
+   					
+   				<button ><a href="formulaireregister.jsp" style='text-decoration: none;color:black;'>creer compte </a> </button>
+   				
+   			</div>
+          <%  }
+		%> 
 <% 
 List<Integer> list = new ArrayList<Integer>();
 list.add(2);
@@ -160,12 +187,7 @@ final String usersnames="";
 			int cmp=0;
 			Utilisateur utilisateur =  user.getOneO(posts.get(i).getUser());
 		    session.setAttribute("idpost", posts.get(i).getId());
-		  
-		 
-			//Integer idpost= (Integer) session.getAttribute("idpost");
-		    //request.setAttribute("idpost",idpost);
-		    
-		   
+
 		%>
 			<div class="post">
 				<div class="post-top">
@@ -193,11 +215,19 @@ final String usersnames="";
 				</div>
 
 				<div class="post-content">
+
 					<%out.println(posts.get(i).getText());%><br>
+
+		<%
+					String imgFileName=posts.get(i).getPhoto_name();
+				%>
+				  <img src="./images/posts/<%= imgFileName%>"  style="width:300px;height:250px">
+
 					<!-- test popUP -->
-					            <a href="#" onclick="toggle()">Readmore</a>
+				<a href="#" onclick="toggle(<%=i%>)"><%out.print(like.nombreLikes(posts.get(i).getId())); %></a>
 						
-					<!-- test popUP -->
+					<!-- test popUP -->
+
 				</div>
 			
 				<div class="post-bottom">
@@ -206,18 +236,15 @@ final String usersnames="";
 					<%int help = posts.get(i).getId();%>
 					
 					    <form action="./CreateLike" method="post">
+
 						<!-- <input type="submit" value="n"> -->
 						<!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
 						<span onclick="getIdPost(<%=help%>);">
-						<%out.print(like.nombreLikes(posts.get(i).getId())); %>
-						
-						<button type="submit" value="n"><i class="fa fa-heart" aria-hidden="true"></i></button>Like</span>
+						<button type="submit" value="n" <%=disabled %>><i class="fa fa-heart" aria-hidden="true"></i></button>Like</span>
 						
 						<input type="text" name="help" value="<%=posts.get(i).getId()%>" hidden>
+
 						</form>
-						 <a href="CreateLike?help=<%=help %>"></a>
-						<% System.out.println("Id post ============>"+help); %>
-						
 						
 					</div>
 					<div onclick="togg(<%= i %>);" class="action" >
@@ -227,34 +254,36 @@ final String usersnames="";
 					<div class="action">
 						<i class="fa fa-share"></i> <span>Share</span>
 					</div>
-					<p><%
+					
+					
+					<div id=<%= i %> class="popup">
+                    <p><%
 					    for(int j=0;j<likes.size();j++){
 					    	if(likes.get(j).getPost() == posts.get(i).getId()){
 					    		 idp=posts.get(i).getId();
-					    	      //System.out.println("j= "+j+" : username  "+likes.get(j).getUser());
-					             //  out.println(like.UtilisateurUnique(likes.get(j).getPost(), utilisateur.getId()));
-					               //out.println(likes.get(j).getUser()); 
-					               //usersnames=like.getUsers(posts.get(i).getId(),likes.get(j).getUser());
 					              out.println(like.getUsers(posts.get(i).getId(),likes.get(j).getUser()));
 					               
 					               %>
 					</br>
 					<% }} 
 					%></p>
-					
+        
+        <a href="#" onclick="toggle(<%=i%>)">Close</a>
+    </div>
 				</div>
-
+			<% if(id_user != null){  %>
 				<div class="sendComment">
 					<form action="./CreateCommentaire" method="post">
-					<div>
-					<input id="commentaire_text" name="comment" type="text">
-					<input name="idpost" type="text" value="<%=  posts.get(i).getId() %>" hidden>
-					<button id="create_comment" type="submit"><i class="fa fa-light fa-location-arrow"></i></button>
-					
-					</div>
+						<div>
+							<input id="commentaire_text" name="comment" type="text">
+							<input name="idpost" type="text" value="<%=  posts.get(i).getId() %>" hidden>
+							<button id="create_comment" type="submit"><i class="fa fa-light fa-location-arrow"></i></button>
+							
+						</div>
 					</form>
 					
-					</div>
+				</div>
+			<% } %>
 					<div class="afficheComment" id=<%= i %>  style="display: none;">
 					
 					<%
@@ -284,15 +313,7 @@ final String usersnames="";
 
 
 
-	<div id="popup">
-        <h2>Hello World!!!</h2>
-        <p>koko</p>
-                <p>doha</p>
-                <p>lafdali</p>
-                <p>lol</p>
-        
-        <a href="#" onclick="toggle()">Close</a>
-    </div>
+	
 
 
 	<script type="text/javascript">
@@ -370,10 +391,10 @@ console.log(uniqueCommentaire)
 };
 
 
-function toggle() {
+function toggle(i) {
     var blur=document.getElementById('blur');
     blur.classList.toggle('active');
-    var popup = document.getElementById('popup');
+    var popup = document.getElementById(i);
     popup.classList.toggle('active');
 }
 function deletepost(aide){

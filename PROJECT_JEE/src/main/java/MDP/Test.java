@@ -38,8 +38,8 @@ public class Test {
    //Like like= new Like();
    //like.setPost(5);
   // like.setUser(3);
-   //LikeDaoImpl likeDaoImpl = new LikeDaoImpl();
-   //likeDaoImpl.add(like);
+   LikeDaoImpl likeDaoImpl = new LikeDaoImpl();
+   likeDaoImpl.deleteLike(19,2);
    // String value = likeDaoImpl.getUsers(5,2);
    // System.out.println(value);
   // int compteur = likeDaoImpl.nombreLikes(1);

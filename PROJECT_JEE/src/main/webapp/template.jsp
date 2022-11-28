@@ -35,8 +35,7 @@ pageEncoding="UTF-8"%>
 <body>
 	<nav>
 		<div class="nav-left">
-			<img src="./images/logo.png" alt="Logo"> <input type="text"
-				placeholder="Search Mediabook..">
+			<img src="./images/logo.png" alt="Logo">
 		</div>
 
 		<div class="nav-middle">
@@ -213,11 +212,16 @@ final String usersnames="";
 
 				<div class="post-content">
 					<%out.println(posts.get(i).getText());%><br>
+
 		<%
 					String imgFileName=posts.get(i).getPhoto_name();
 				%>
-				  <img src="./images/posts/<%= imgFileName%>"  style="width:300px;height:250px">
-				  <a href="#" onclick="toggle()">Readmore</a>
+				  <img src="./images/posts/<%= imgFileName%>"  style="width:300px;height:250px">
+
+					<!-- test popUP -->
+				<a href="#" onclick="toggle(<%=i%>)"><%out.print(like.nombreLikes(posts.get(i).getId())); %></a>
+						
+					<!-- test popUP -->
 
 				</div>
 			
@@ -227,12 +231,14 @@ final String usersnames="";
 					<%int help = posts.get(i).getId();%>
 					
 					    <form action="./CreateLike" method="post">
-							<span >
-								<%out.print(like.nombreLikes(posts.get(i).getId())); %>
-								<button type="submit" value="n"  <%=disabled %>><i class="fa fa-heart" aria-hidden="true"  ></i></button>Like
-							</span>
-							
-							<input type="text" name="help" value="<%=posts.get(i).getId()%>" hidden>
+
+						<!-- <input type="submit" value="n"> -->
+						<!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
+						<span onclick="getIdPost(<%=help%>);">
+						<button type="submit" value="n"><i class="fa fa-heart" aria-hidden="true"></i></button>Like</span>
+						
+						<input type="text" name="help" value="<%=posts.get(i).getId()%>" hidden>
+
 						</form>
 						
 					</div>
@@ -243,21 +249,22 @@ final String usersnames="";
 					<div class="action">
 						<i class="fa fa-share"></i> <span>Share</span>
 					</div>
-					<p><%
+					
+					
+					<div id=<%= i %> class="popup">
+                    <p><%
 					    for(int j=0;j<likes.size();j++){
 					    	if(likes.get(j).getPost() == posts.get(i).getId()){
 					    		 idp=posts.get(i).getId();
-					    	      //System.out.println("j= "+j+" : username  "+likes.get(j).getUser());
-					             //  out.println(like.UtilisateurUnique(likes.get(j).getPost(), utilisateur.getId()));
-					               //out.println(likes.get(j).getUser()); 
-					               //usersnames=like.getUsers(posts.get(i).getId(),likes.get(j).getUser());
 					              out.println(like.getUsers(posts.get(i).getId(),likes.get(j).getUser()));
 					               
 					               %>
 					</br>
 					<% }} 
 					%></p>
-					
+        
+        <a href="#" onclick="toggle(<%=i%>)">Close</a>
+    </div>
 				</div>
 			<% if(type_user == null){  %>
 				<div class="sendComment">
@@ -301,15 +308,7 @@ final String usersnames="";
 
 
 
-	<div id="popup">
-        <h2>Hello World!!!</h2>
-        <p>koko</p>
-                <p>doha</p>
-                <p>lafdali</p>
-                <p>lol</p>
-        
-        <a href="#" onclick="toggle()">Close</a>
-    </div>
+	
 
 
 	<script type="text/javascript">
@@ -387,10 +386,10 @@ console.log(uniqueCommentaire)
 };
 
 
-function toggle() {
+function toggle(i) {
     var blur=document.getElementById('blur');
     blur.classList.toggle('active');
-    var popup = document.getElementById('popup');
+    var popup = document.getElementById(i);
     popup.classList.toggle('active');
 }
 </script>

@@ -173,7 +173,7 @@ final String usersnames="";
 						<img src="./images/girl.jpg" alt="">
 					</div>
 					<div class="post-info">
-						<p class="name"><%out.println(utilisateur.getUsername());%></p>
+						<p class="name" onclick="profile(<%=utilisateur.getId()%>);"><%out.println(utilisateur.getUsername());%></p>
 						<%  SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss"); 
 						    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 						   // Date d1 = sdf.parse(timestamp);
@@ -188,6 +188,8 @@ final String usersnames="";
 						<span class="time"><%out.println("il y a "+difference_In_Days +":"+difference_in_hours+":"+difference_in_minutes+":"+difference_in_secondes);%></span>
 					</div>
 					<i class="fas fa-ellipsis-h"></i>
+					<% int aide= posts.get(i).getId(); %> 
+					<img alt="delete post" src="" onclick="deletepost(<%=aide%>);">
 				</div>
 
 				<div class="post-content">
@@ -352,8 +354,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	function getIdPost(help){
 		window.location.href='CreateLike?help='+help;
 	}
-	function profile(){
-		document.location.href='Profile';
+	function profile(id){
+		document.location.href='profile.jsp?id='+id;
 		
 	}
 			
@@ -373,6 +375,9 @@ function toggle() {
     blur.classList.toggle('active');
     var popup = document.getElementById('popup');
     popup.classList.toggle('active');
+}
+function deletepost(aide){
+	document.location.href='CreatePost?aide='+aide;
 }
 </script>
 </body>

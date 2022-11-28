@@ -29,7 +29,7 @@ public class CommentaireDaoImpl extends AbstractDAOA implements IDAO{
 	public void delete(int id) {
 		// TODO Auto-generated method stub
 		PreparedStatement pst = null;
-        String sql = "delete *from Commentaire where id= ?";
+        String sql = "delete from Commentaire where id= ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setLong(1, id);

@@ -65,6 +65,8 @@ public class CreatePost extends HttpServlet {
 		post.setTime_post(timestamp);
 		System.out.println(post);
 		postdao.add(post);
+		//int id =Integer.parseInt(request.getParameter("aide"));
+	//	System.out.println(id);
 		//response.sendRedirect("template.jsp");
 		RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
 		dispatcher.forward(request, response);

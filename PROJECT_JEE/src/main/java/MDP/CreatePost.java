@@ -1,27 +1,33 @@
 package MDP;
 
-import jakarta.servlet.http.HttpServlet;
 
-
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
 /**
  * Servlet implementation class CreatePost
  */
 @WebServlet("/CreatePost")
+@MultipartConfig(fileSizeThreshold=1024*1024*10, 	// 10 MB 
+maxFileSize=1024*1024*50,      	// 50 MB
+maxRequestSize=1024*1024*100)  
 public class CreatePost extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	//public static InputStream fis;
     PostDaoImpl postdao=new PostDaoImpl();
     Post post=new Post();
     DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -37,10 +43,70 @@ public class CreatePost extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("resource")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String text= request.getParameter("post");
+		String photo= request.getParameter("photo");
+		 // Input stream of the upload file
+        //InputStream inputStream;
+        Part filePart= request.getPart("photo");
+        System.out.println("filepart: "+filePart);
+        
+        //Start
+        String imageFileName=filePart.getSubmittedFileName();  // get selected image file name
+		System.out.println("Selected Image File Name : "+imageFileName);
+		
+		String uploadPath="C:/Users/Dell/git/PROJECT_JEE/PROJECT_JEE/src/main/webapp/images/posts/"+imageFileName;  // upload path where we have to upload our actual image
+		System.out.println("Upload Path : "+uploadPath);
+		
+		try
+		{
+		
+		FileOutputStream fos=new FileOutputStream(uploadPath);
+		InputStream is=filePart.getInputStream();
+		
+		byte[] data=new byte[is.available()];
+		is.read(data);
+		fos.write(data);
+		fos.close();
+		
+		}
+		
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+        
+        //End
+            // Prints out some information
+            // for debugging
+            System.out.println(
+                filePart.getName());
+            System.out.println(
+                filePart.getSize());
+            System.out.println(
+                filePart.getContentType());
+  
+            // Obtains input stream of the upload file
+            InputStream inputStream
+                = filePart.getInputStream();
+       
+            System.out.println("input: "+
+            		inputStream );
+		//System.out.println("photo"+photo);
+		
+
+		
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		HttpSession session=request.getSession();
 		Integer idcategorie=(Integer) session.getAttribute("idcategorie");
@@ -49,7 +115,9 @@ public class CreatePost extends HttpServlet {
 		System.out.println("user "+iduser);
 		post.setId_categorie(idcategorie);
 		post.setText(text);
-		post.setPhoto("cc");
+		post.setPhoto(inputStream);
+		post.setPhoto_name(imageFileName);
+		System.out.println(post.getPhoto());
 	//	post.setTime_post(date);
 		post.setUser(iduser);
 		System.out.println(idcategorie);
@@ -57,16 +125,9 @@ public class CreatePost extends HttpServlet {
 		System.out.println(post);
 		postdao.add(post);
 		//response.sendRedirect("template.jsp");
-		RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
-		dispatcher.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		//RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
+		//dispatcher.forward(request, response);
+		response.sendRedirect("template.jsp");   
 	}
 
 }

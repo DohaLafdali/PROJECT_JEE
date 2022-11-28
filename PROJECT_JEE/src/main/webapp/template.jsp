@@ -8,6 +8,9 @@ pageEncoding="UTF-8"%>
    <%@ page import="MDP.PostDaoImpl" %>
    <%@ page import="MDP.UtilisateurDaoImpl" %>
    <%@ page import="MDP.CommentaireDaoImpl" %>
+<%@ page import="java.io.InputStream" %>
+<%@ page import="java.io.OutputStream" %>
+<%@ page import="java.sql.Blob" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -109,27 +112,30 @@ pageEncoding="UTF-8"%>
             <!-- create new post -->
             
 			<div class="post create">
+			<form action="./CreatePost" method="post" enctype="multipart/form-data">
 				<div class="post-top">
 					<div class="dp">
 						<img src="./images/girl.jpg" alt="">
 					</div>
-					<form action="./CreatePost">
+					
 					<input type="text" name="post" placeholder="What's on your mind, Aashish ?" />
 					<input type="submit" value="publier">
-					</form>
+					
 				</div>
 
 				<div class="post-bottom">
 					<div class="action">
 						<i class="fa fa-video"></i> <span>Live video</span>
 					</div>
-					<div class="action">
-						<i class="fa fa-image"></i> <span>Photo/Video</span>
+					<div>
+					
+						<i class="fa fa-image"></i> <span><input type = "file" name ="photo"  /></span>
 					</div>
 					<div class="action">
 						<i class="fa fa-smile"></i> <span>Feeling/Activity</span>
 					</div>
 				</div>
+				</form>
 			</div>
 <% 
 List<Integer> list = new ArrayList<Integer>();
@@ -149,12 +155,7 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 			int idp;
 			Utilisateur utilisateur =  user.getOneO(posts.get(i).getUser());
 		    session.setAttribute("idpost", posts.get(i).getId());
-		  
-		 
-			//Integer idpost= (Integer) session.getAttribute("idpost");
-		    //request.setAttribute("idpost",idpost);
-		    
-		   
+
 		%>
 			<div class="post">
 				<div class="post-top">
@@ -170,7 +171,14 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 				</div>
 
 				<div class="post-content">
-					<%out.println(posts.get(i).getText());%>
+					<%out.println(posts.get(i).getText());
+					String imgFileName=posts.get(i).getPhoto_name();
+					
+				out.println("C:/Users/Dell/git/PROJECT_JEE/PROJECT_JEE/src/main/webapp/images/posts/"+imgFileName);
+				%>
+				Image : <img src="./images/posts/<%= imgFileName%>"  style="width:300px;height:250px">
+				
+				
 				</div>
 			
 				<div class="post-bottom">

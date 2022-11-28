@@ -341,7 +341,7 @@ nav .nav-right a > i{
     margin-left:10px;
     width:600px;
 }
-.post .post-top form > #public_post{
+.post form .post-top  > #public_post{
     height:40px;
     padding:5px 10px;
     border-radius:25px;

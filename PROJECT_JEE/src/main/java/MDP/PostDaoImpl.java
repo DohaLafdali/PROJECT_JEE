@@ -42,7 +42,7 @@ public class PostDaoImpl extends AbstractDAOA implements IDAO{
 	public void delete(int id) {
 		// TODO Auto-generated method stub
 		PreparedStatement pst = null;
-        String sql = "delete *from Post where id= ?";
+        String sql = "delete from Post where id= ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, id);
@@ -139,5 +139,37 @@ public class PostDaoImpl extends AbstractDAOA implements IDAO{
 	    	 
 	    	 
 	     }
+	  
+	  
+	  public  ArrayList<Post> getPostsUser(int iduser){
+	    	
+	    	 ArrayList<Post> ls=new ArrayList<Post>();
+	         PreparedStatement pst = null;
+	         ResultSet rs;
+	         String sql = "select *from Post where user=?";
+	         
+	     
+	         try {
+	 			 pst = connection.prepareStatement(sql);
+	 			 pst.setInt(1, iduser);
+	             rs = pst.executeQuery();
+	            // n=rs.getInt("in");
+	            
+	             while (rs.next()) {
+	            	
+	            	UtilisateurDaoImpl utilisateurDaoImpl = new UtilisateurDaoImpl();
+	                
+	                 ls.add(new Post(rs.getInt("id"), rs.getString("text"), rs.getString("photo"),rs.getInt("id_categorie"), rs.getInt("user"),rs.getTimestamp("time_post")));
+	                 System.out.println("cg: "+ls);
+	             }
+	         } catch (SQLException exp) {
+	             System.out.println(exp.getMessage());
+	         }
+	         return ls;
+	    	 
+	    	 
+	     }
+	  
+	  
 
 }

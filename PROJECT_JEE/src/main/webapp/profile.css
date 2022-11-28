@@ -106,7 +106,6 @@ nav .nav-right a > i{
     position: sticky;
     top:70px;
     height:calc(100vh - 70px);
-    
 }
 .container .top-profile{
 	display:block;

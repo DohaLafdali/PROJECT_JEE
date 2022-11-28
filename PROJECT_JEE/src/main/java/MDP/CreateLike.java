@@ -41,7 +41,7 @@ public class CreateLike extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		//doGet(request, response);
 		int i = Integer.parseInt(request.getParameter("help"));
 		HttpSession session=request.getSession();
 		//Integer idcategorie=(Integer) session.getAttribute("idcategorie");
@@ -55,11 +55,14 @@ public class CreateLike extends HttpServlet {
 		if(likeDaoImpl.UtilisateurUnique(i,iduser)<1) {
 		likeDaoImpl.add(like);
 		System.out.print("good!");
-		response.sendRedirect("template.jsp");
+		//response.sendRedirect("template.jsp");
+    	 RequestDispatcher dispatcher = request.getRequestDispatcher("template.jsp");
+         dispatcher.forward(request, response);
 		}
 		else {
 			System.out.print("gher mara whda a shrif !!");
-			response.sendRedirect("template.jsp");
+	     	 RequestDispatcher dispatcher = request.getRequestDispatcher("template.jsp");
+	            dispatcher.forward(request, response);
 		}
 	}
 

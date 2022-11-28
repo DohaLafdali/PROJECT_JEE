@@ -35,7 +35,7 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		 logout(request, response);
 	}
 
 	/**
@@ -46,12 +46,25 @@ public class Login extends HttpServlet {
 		 try {
 			 //procedure d'authentification
 	            authenticate(request, response);
+	           
 	        } catch (Exception e) {
 	            // TODO Auto-generated catch block
 	            e.printStackTrace();
 	        }
 	}
-	  private void authenticate(HttpServletRequest request, HttpServletResponse response)
+	  private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	
+		  String logout=request.getParameter("logout");
+		  if(logout.equals("true")) {
+			  HttpSession session = request.getSession();
+				session.invalidate();
+			    response.sendRedirect("index.jsp");
+			    return; 
+		  }
+		
+	}
+
+	private void authenticate(HttpServletRequest request, HttpServletResponse response)
 			    throws Exception {
 	        String email = request.getParameter("email");
 	        String password = request.getParameter("pass");
@@ -65,7 +78,8 @@ public class Login extends HttpServlet {
 	        	 session.setAttribute("iduser", ls);
 	        	 //String n=ls.get(0).getNomAdh()+" "+ls.get(0).getPrenomAdh();
 	        	// session.setAttribute("nc", n);
-	        	 System.out.println("bcbcbchdh"+session.getAttribute("iduser"));	            RequestDispatcher dispatcher = request.getRequestDispatcher("template.jsp");
+	        	 System.out.println("bcbcbchdh"+session.getAttribute("iduser"));	            
+	        	 RequestDispatcher dispatcher = request.getRequestDispatcher("template.jsp");
 	            dispatcher.forward(request, response);
 	        } else {
 	        	

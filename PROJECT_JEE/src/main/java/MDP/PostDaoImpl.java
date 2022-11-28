@@ -1,6 +1,7 @@
 package MDP;
 
 import java.util.Date;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,15 +14,20 @@ public class PostDaoImpl extends AbstractDAOA implements IDAO{
 	public void add(Object obj) {
 		// TODO Auto-generated method stub
 		PreparedStatement pst = null;
-        String sql = "insert into Post (text,photo,id_categorie,user,time_post) values (?,?,?,?,?)";
+        String sql = "insert into Post (text,photo,photo_name,id_categorie,user,time_post) values (?,?,?,?,?,?)";
         try {
             pst = connection.prepareStatement(sql);
            // pst.setLong(1, ((Post) obj).getId());
             pst.setString(1, ((Post) obj).getText());
-            pst.setString(2, ((Post) obj).getPhoto());
-            pst.setInt(3, ((Post) obj).getId_categorie());
-            pst.setInt(4, ((Post) obj).getUser());
-            pst.setTimestamp(5, ((Post) obj).getTime_post());
+         //   if(((Post) obj).getPhoto() != null) {
+            pst.setBlob(2, ((Post) obj).getPhoto());
+            pst.setString(3, ((Post) obj).getPhoto_name());
+           // }
+            System.out.println("kol="+((Post) obj).getPhoto());
+            pst.setInt(4, ((Post) obj).getId_categorie());
+            pst.setInt(5, ((Post) obj).getUser());
+            pst.setTimestamp(6, ((Post) obj).getTime_post()); 
+    		//pst.setBlob(2,  (((Post) obj).getPhoto()); 
            // pst.setDate(4, (getTimestamp) ((Post) obj).getTime_post());
            
             pst.executeUpdate();
@@ -59,7 +65,7 @@ public class PostDaoImpl extends AbstractDAOA implements IDAO{
             if (rs.next()) {
                 System.out.println(rs.getLong("id") + "" + rs.getString("text"));
                 
-                return new Post(rs.getInt("id"), rs.getString("text"), rs.getString("photo"),rs.getTimestamp("time_post"), rs.getInt("user"));
+                return new Post(rs.getInt("id"), rs.getString("text"), (InputStream) rs.getBinaryStream("photo"),rs.getTimestamp("time_post"), rs.getInt("user"));
             }
         } catch (SQLException exp) {
             System.out.println(exp.getMessage());
@@ -79,7 +85,7 @@ public class PostDaoImpl extends AbstractDAOA implements IDAO{
             rs = pst.executeQuery();
             while (rs.next()) {
                 System.out.println(rs.getLong("id") + "" + rs.getString("text"));
-                list.add(new Post(rs.getInt("id"), rs.getString("text"), rs.getString("photo"),rs.getTimestamp("time_post"), rs.getInt("user")));
+                list.add(new Post(rs.getInt("id"), rs.getString("text"), (InputStream) rs.getBinaryStream("photo"),rs.getTimestamp("time_post"), rs.getInt("user")));
             }
         } catch (SQLException exp) {
             System.out.println(exp.getMessage());
@@ -124,7 +130,7 @@ public class PostDaoImpl extends AbstractDAOA implements IDAO{
 	            	
 	            	UtilisateurDaoImpl utilisateurDaoImpl = new UtilisateurDaoImpl();
 	                 System.out.println("cg: "+utilisateurDaoImpl.getOneO(rs.getInt("user")));
-	                 ls.add(new Post(rs.getInt("id"), rs.getString("text"), rs.getString("photo"),rs.getTimestamp("time_post"), rs.getInt("user")));
+	                 ls.add(new Post(rs.getInt("id"), rs.getString("text"),rs.getInt("id_categorie"),rs.getInt("user"),rs.getString("photo_name"),rs.getTimestamp("time_post")));
 	             }
 	         } catch (SQLException exp) {
 	             System.out.println(exp.getMessage());

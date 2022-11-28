@@ -17,6 +17,7 @@ pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta http-equiv="refresh" content="1000">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
 <link rel="stylesheet"
@@ -119,7 +120,7 @@ pageEncoding="UTF-8"%>
 					</div>
 					
 					<input type="text" name="post" placeholder="What's on your mind, Aashish ?" />
-					<input type="submit" value="publier">
+					<input type="submit" value="publier"  onClick="window.location.reload();">
 					
 				</div>
 
@@ -173,8 +174,6 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 				<div class="post-content">
 					<%out.println(posts.get(i).getText());
 					String imgFileName=posts.get(i).getPhoto_name();
-					
-				out.println("C:/Users/Dell/git/PROJECT_JEE/PROJECT_JEE/src/main/webapp/images/posts/"+imgFileName);
 				%>
 				Image : <img src="./images/posts/<%= imgFileName%>"  style="width:300px;height:250px">
 				

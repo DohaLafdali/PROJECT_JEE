@@ -6,13 +6,13 @@ pageEncoding="UTF-8"%>
     <%@page import="java.text.SimpleDateFormat"%>
       <%@page import="java.util.ArrayList"%>
    <%@ page import="MDP.Utilisateur" %>
-   <%@ page import="MDP.Post"%>
+   <%@ page import="MDP.Post"%>
    <%@ page import="MDP.Like"%>
    <%@ page import="MDP.LikeDaoImpl"%>
-   <%@ page import="MDP.Commentaire"%>
-   <%@ page import="MDP.PostDaoImpl" %>
-   <%@ page import="MDP.UtilisateurDaoImpl" %>
-   <%@ page import="MDP.CommentaireDaoImpl" %>
+   <%@ page import="MDP.Commentaire"%>
+   <%@ page import="MDP.PostDaoImpl" %>
+   <%@ page import="MDP.UtilisateurDaoImpl" %>
+   <%@ page import="MDP.CommentaireDaoImpl" %>
 <%@ page import="java.io.InputStream" %>
 <%@ page import="java.io.OutputStream" %>
 <%@ page import="java.sql.Blob" %>
@@ -172,7 +172,6 @@ Integer id=(Integer) session.getAttribute("idcategorie");
 final String usersnames="";
 //d=0;
 //System.out.print(id);
-
 	if(id != null){
 		LikeDaoImpl like = new LikeDaoImpl();
 		CommentaireDaoImpl commentaireDaoImpl = new CommentaireDaoImpl();
@@ -187,7 +186,6 @@ final String usersnames="";
 			int cmp=0;
 			Utilisateur utilisateur =  user.getOneO(posts.get(i).getUser());
 		    session.setAttribute("idpost", posts.get(i).getId());
-
 		%>
 			<div class="post">
 				<div class="post-top">
@@ -195,7 +193,7 @@ final String usersnames="";
 						<img src="./images/girl.jpg" alt="">
 					</div>
 					<div class="post-info">
-						<p class="name" onclick="profile(<%=utilisateur.getId()%>);"><%out.println(utilisateur.getUsername());%></p>
+						<p class="name" onclick="profile(<%=posts.get(i).getUser()%>);"><%out.println(utilisateur.getUsername());%></p>
 						<%  SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss"); 
 						    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 						   // Date d1 = sdf.parse(timestamp);
@@ -256,27 +254,13 @@ final String usersnames="";
 					</div>
 					
 					
-					<div id=<%= i %> class="popup">
-                    <p><%
-					    for(int j=0;j<likes.size();j++){
-					    	if(likes.get(j).getPost() == posts.get(i).getId()){
-					    		 idp=posts.get(i).getId();
-					              out.println(like.getUsers(posts.get(i).getId(),likes.get(j).getUser()));
-					               
-					               %>
-					</br>
-					<% }} 
-					%></p>
-        
-        <a href="#" onclick="toggle(<%=i%>)">Close</a>
-    </div>
 				</div>
 			<% if(id_user != null){  %>
 				<div class="sendComment">
 					<form action="./CreateCommentaire" method="post">
 						<div>
 							<input id="commentaire_text" name="comment" type="text">
-							<input name="idpost" type="text" value="<%=  posts.get(i).getId() %>" hidden>
+							<input name="idpost" type="text" value="<%=posts.get(i).getId() %>" hidden>
 							<button id="create_comment" type="submit"><i class="fa fa-light fa-location-arrow"></i></button>
 							
 						</div>
@@ -294,10 +278,12 @@ final String usersnames="";
 					<h5><%out.println(commentaireDaoImpl.getUsers(posts.get(i).getId(),cmnts.get(j).getUser())); %></h5><br>
 					<p>
 					<% 
-				
+					
 					out.println(cmnts.get(j).getText()); %>
-					<img alt="profile" src="./images/logo.png" width="20px" height="20px" onclick="profile();">
-					</p></div></br>
+				<% if(cmnts.get(j).getUser() == (Integer)session.getAttribute("iduser") || posts.get(i).getUser() == (Integer)session.getAttribute("iduser")){%>
+					<img alt="profile" src="./images/logo.png" width="20px" height="20px" onclick="deleteComnt(<%=cmnts.get(j).getId()%>,<%=posts.get(i).getUser()%>,<%=cmnts.get(j).getUser()%>);">
+					<%} %>
+					</p></div></br>);">
 					<% }  } 
 					%>
 					</div>
@@ -320,7 +306,6 @@ final String usersnames="";
 	
 	document.addEventListener('DOMContentLoaded', () => {
 		const images = document.querySelectorAll('.image');
-
 		images.forEach(image => (
 		image.addEventListener('click', function(event) {
 		const clickedImage = this;
@@ -345,7 +330,6 @@ final String usersnames="";
 			  case "img3":
 				  this.style.border = "5px solid #8AABBE";
 				  window.location.href='IntermediaireCategorie?nom=autre';
-
 				    break;
 			  
 			}
@@ -359,7 +343,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	like.addEventListener('click', function(event) {
 	const clickedlike = this;
 	console.log(this.id);
-
 	switch (this.id) {
 	  case "like1":
 		  document.getElementById("l1").style.color = "red";
@@ -371,11 +354,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	))
 	});
 	
-
 	function getIdPost(help){
 		window.location.href='CreateLike?help='+help;
 	}
 	function profile(id){
+		console.log(id);
 		document.location.href='profile.jsp?id='+id;
 		
 	}
@@ -390,15 +373,12 @@ console.log(uniqueCommentaire)
   }
 };
 
-
-function toggle(i) {
-    var blur=document.getElementById('blur');
-    blur.classList.toggle('active');
-    var popup = document.getElementById(i);
-    popup.classList.toggle('active');
-}
 function deletepost(aide){
 	document.location.href='CreatePost?aide='+aide;
+}
+function deleteComnt(idcoment,idu,idc){
+	document.location.href='DeleteCommentaire?idcoment='+idcoment+"&idu="+idu+"&idc="+idc;
+
 }
 </script>
 </body>

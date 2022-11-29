@@ -56,6 +56,8 @@ public class updateProfile extends HttpServlet {
 	    user.setPassword(password);
 	    UtilisateurDaoImpl userdao = new UtilisateurDaoImpl();
 	    userdao.update(user);
+	    
+	    response.sendRedirect("profile.jsp?id="+id);
 	}
 
 }

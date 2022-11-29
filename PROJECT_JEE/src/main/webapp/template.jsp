@@ -30,6 +30,41 @@ pageEncoding="UTF-8"%>
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="style.css">
 <title>Aatae</title>
+<style type="text/css">
+
+.upload_wrapper {
+            position: relative;
+            overflow: hidden;
+                cursor: pointer;
+        }
+        .upload_wrapper input.upload {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+        
+        .mystere {
+    background-color: rgba(0, 0, 0, 0.05);
+	position: relative;
+	border-radius: 10px;
+	width:100px;
+	-webkit-box-shadow: -2px 0px 11px 5px rgba(183,183,183,0.8); 
+    box-shadow: -2px 0px 11px 5px rgba(183,183,183,0.8);
+}
+ .mystere p {
+	font-family: cursive;
+	font-style: italic;
+	font-weight: bold;
+	margin-left:10px;
+   
+}
+</style>
 </head>
 
 <body>
@@ -128,18 +163,23 @@ pageEncoding="UTF-8"%>
 					<div class="dp">
 						<img src="./images/girl.jpg" alt="">
 					</div>
-					
+					<div class="db">
 						<input type="text" name="post" placeholder="What's on your mind, Aashish ?" id="post"/>
-						<input type="submit" value="publier" id="public_post">				
+						<input type="submit" value="publier" id="public_post">
+							</div>			
 				</div>
 			
 				<div class="post-bottom">
 					<div class="action">
 						<i class="fa fa-video"></i> <span>Live video</span>
 					</div>
-					<div>
-					
-						<i class="fa fa-image"></i> <span><input type = "file" name ="photo"  /></span>
+					<div class="action">
+					 <div class="upload_wrapper" style="float: left;" id="up0">
+                     <div style="text-align: center;">
+                      <i class="fa fa-image"></i> <span>Photo/Video</span>
+                      </div>
+                      <input type = "file" name ="photo"  style="width: 100px;height:100px;" class="upload" />
+                      </div>
 					</div>
 					<div class="action">
 						<i class="fa fa-smile"></i> <span>Feeling/Activity</span>
@@ -217,28 +257,40 @@ final String usersnames="";
 					String imgFileName=posts.get(i).getPhoto_name();
 				%>
 				  <img src="./images/posts/<%= imgFileName%>"  style="width:300px;height:250px">
-
-					<!-- test popUP -->
-				<a href="#" onclick="toggle(<%=i%>)"><%out.print(like.nombreLikes(posts.get(i).getId())); %></a>
-						
-					<!-- test popUP -->
+                             
 
 				</div>
+				 <br><a style="text-decoration:none" href="#" onMouseover="javascript:showMystere(<%=i %>)" onMouseout="javascript:hideMystere(<%=i %>)"> il y a <%out.print(like.nombreLikes(posts.get(i).getId())); %>  likes</a>
+           
+					<!-- test popUP -->
+					<div id="mystere<%=i %>" style="display:none" class="mystere">
+                      <p> 
+                      <%
+					    for(int j=0;j<likes.size();j++){
+					    	if(likes.get(j).getPost() == posts.get(i).getId()){
+					    		 idp=posts.get(i).getId();%>
+					    		 <i class="fa fa-heart" aria-hidden="true" style="color:red"></i>
+					            <%  out.println(like.getUsers(posts.get(i).getId(),likes.get(j).getUser()));
+					               
+					               %>
+					</br>
+					<% }} 
+					%></p>
+                   </div>
+					<!-- test popUP -->
 			
 				<div class="post-bottom">
-					<div onclick="like(this);" class="action">
+					<div  class="action" >
 						
 					<%int help = posts.get(i).getId();%>
 					
 					    <form action="./CreateLike" method="post">
-
-						<!-- <input type="submit" value="n"> -->
-						<!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
-						<span onclick="getIdPost(<%=help%>);">
-						<button type="submit" value="n"><i class="fa fa-heart" aria-hidden="true"></i></button>Like</span>
+						<span onclick="like(<%=i %>);">
+						<i  class="fa fa-heart" aria-hidden="true" id="likes<%=i %>" style="color:red;" ></i>
+						<button type="submit" value="n" >Like</button></span>
 						
 						<input type="text" name="help" value="<%=posts.get(i).getId()%>" hidden>
-
+						
 						</form>
 						
 					</div>
@@ -251,20 +303,8 @@ final String usersnames="";
 					</div>
 					
 					
-					<div id=<%= i %> class="popup">
-                    <p><%
-					    for(int j=0;j<likes.size();j++){
-					    	if(likes.get(j).getPost() == posts.get(i).getId()){
-					    		 idp=posts.get(i).getId();
-					              out.println(like.getUsers(posts.get(i).getId(),likes.get(j).getUser()));
-					               
-					               %>
-					</br>
-					<% }} 
-					%></p>
-        
-        <a href="#" onclick="toggle(<%=i%>)">Close</a>
-    </div>
+                    
+     
 				</div>
 			<% if(type_user == null){  %>
 				<div class="sendComment">
@@ -348,24 +388,7 @@ final String usersnames="";
 	))
 		});
 	
-document.addEventListener('DOMContentLoaded', () => {
-	const likes = document.querySelectorAll('.like');
-	likes.forEach(like => (
-	like.addEventListener('click', function(event) {
-	const clickedlike = this;
-	console.log(this.id);
 
-	switch (this.id) {
-	  case "like1":
-		  document.getElementById("l1").style.color = "red";
-		    break;
-		  case "like2":
-			  document.getElementById("l2").style.color = "red";
-	}
-	})
-	))
-	});
-	
 
 	function getIdPost(help){
 		window.location.href='CreateLike?help='+help;
@@ -386,12 +409,30 @@ console.log(uniqueCommentaire)
 };
 
 
-function toggle(i) {
-    var blur=document.getElementById('blur');
-    blur.classList.toggle('active');
-    var popup = document.getElementById(i);
-    popup.classList.toggle('active');
-}
+
+function like(i){
+	   like=document.getElementById('likes'+i);
+	console.log(like)
+	if(like.style.color != "black"){
+		 like.style.color = "black";
+	 } else {
+		  like.style.color= "red";
+	}
+	};
+
+
+function showMystere(i){
+	var objMysere = document.getElementById('mystere'+i);
+	if(objMysere){
+	objMysere.style.display = 'block';
+	}
+	}
+	function hideMystere(i){
+	var objMysere = document.getElementById('mystere'+i);
+	if(objMysere){
+	objMysere.style.display = 'none';
+	}
+	}
 </script>
 </body>
 

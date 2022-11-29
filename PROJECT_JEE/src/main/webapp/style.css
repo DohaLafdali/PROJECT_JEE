@@ -209,10 +209,6 @@ nav .nav-right a > i{
     border:royalblue 4px solid; 
 }
 
-
-
-
-
 .post {
     width:820px;
     background:#fff;
@@ -291,12 +287,21 @@ nav .nav-right a > i{
     align-items: center;
     padding:10px;
 }
+.post form .post-top{
+    display:flex;
+    align-items: center;
+    padding:10px;
+}
 
 .post .post-top .dp{
     width:40px;
     height:40px;
     border-radius: 50%;
     overflow:hidden;
+}
+.post form .post-top .db{
+    width:100%;
+    display :inline;
 }
 
 .post .post-top .dp > img{
@@ -324,7 +329,7 @@ nav .nav-right a > i{
     cursor: pointer;
 }
 
-.post .post-top form > #post{
+.post form .post-top  .db > #post{
     height:40px;
     padding:5px 10px;
     border-radius:25px;
@@ -335,15 +340,16 @@ nav .nav-right a > i{
     margin-left:10px;
     width:600px;
 }
-.post form .post-top  > #public_post{
+.post form .post-top  .db > #public_post{
     height:40px;
+    width:100px;
     padding:5px 10px;
     border-radius:25px;
     outline:none;
     border:none;
     flex:1;
     background:#eee;
-    margin-left:10px;
+    margin-left:10px;    
 }
 
 
@@ -353,6 +359,7 @@ nav .nav-right a > i{
     font-weight:normal;
     padding:10px;
 }
+
 /*   style popUp */ 
 
 
@@ -412,6 +419,12 @@ nav .nav-right a > i{
     border-radius:10px;
     transition: .3s ease-in;
     cursor: pointer;
+}
+.post .post-bottom .action button{
+    border:none;background:#fff;
+}
+.post .post-bottom .action button:hover{
+    background:#eee;
 }
 
 .post .post-bottom .action:hover{

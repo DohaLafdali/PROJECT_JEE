@@ -66,7 +66,7 @@ public class CreatePost extends HttpServlet {
         Part filePart= request.getPart("photo");
         //Start
         String imageFileName=filePart.getSubmittedFileName();  // get selected image file name
-		String uploadPath="C:/Users/Dell/git/PROJECT_JEE/PROJECT_JEE/src/main/webapp/images/posts/"+imageFileName;  // upload path where we have to upload our actual image		
+		String uploadPath="C:/Users/simens/git/PROJECT_JEE/PROJECT_JEE/src/main/webapp/images/posts/"+imageFileName;  // upload path where we have to upload our actual image		
 		try
 		{
 		FileOutputStream fos=new FileOutputStream(uploadPath);

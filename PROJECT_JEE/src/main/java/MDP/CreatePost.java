@@ -58,6 +58,7 @@ public class CreatePost extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String text= request.getParameter("post");
 		String photo= request.getParameter("photo");
+		
 		 // Input stream of the upload file
         //InputStream inputStream;
         Part filePart= request.getPart("photo");
@@ -120,6 +121,9 @@ public class CreatePost extends HttpServlet {
 		System.out.println(post);
 		postdao.add(post);
 
+		//delete POST
+		
+		
 		RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
 		dispatcher.forward(request, response);
 

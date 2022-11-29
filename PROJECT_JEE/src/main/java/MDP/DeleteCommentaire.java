@@ -1,28 +1,26 @@
 package MDP;
 
-import jakarta.servlet.http.HttpServlet;
-
 import java.io.IOException;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class CreateCommentaire
+ * Servlet implementation class DeleteCommentaire
  */
-@WebServlet("/CreateCommentaire")
-public class CreateCommentaire extends HttpServlet {
+@WebServlet("/DeleteCommentaire")
+public class DeleteCommentaire extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    CommentaireDaoImpl comment = new  CommentaireDaoImpl(); 
+    CommentaireDaoImpl commentaire = new CommentaireDaoImpl();
     /**
-     * @see HttpServlet#HttpServlet()
+     * Default constructor. 
      */
-    public CreateCommentaire() {
-        super();
+    public DeleteCommentaire() {
         // TODO Auto-generated constructor stub
     }
 
@@ -32,6 +30,24 @@ public class CreateCommentaire extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		Integer idcommentaire = Integer.parseInt(request.getParameter("idcoment"));
+		Integer idu = Integer.parseInt(request.getParameter("idu"));
+		Integer idc = Integer.parseInt(request.getParameter("idc"));
+		HttpSession session = request.getSession();
+		int idsession = (Integer) session.getAttribute("iduser");
+		if(idsession==idu) {
+			commentaire.delete(idcommentaire);
+			System.out.println("ala slamtna");
+			RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
+			dispatcher.forward(request, response);
+		}
+		if(idsession==idc) {
+			commentaire.delete(idcommentaire);
+			RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
+			dispatcher.forward(request, response);
+			
+		}
+		
 	}
 
 	/**
@@ -39,26 +55,7 @@ public class CreateCommentaire extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
 		doGet(request, response);
-		String text = request.getParameter("comment");
-		 HttpSession session=request.getSession();
-		 System.out.println("idpost: "+request.getParameter("idpost"));
-				 session.getAttribute("iduser");
-		 
-
-		 Commentaire c = new Commentaire();
-			c.setPost(Integer.parseInt(request.getParameter("idpost")));
-			c.setText(text);
-			c.setUser((Integer) session.getAttribute("iduser"));
-			
-			comment.add(c);
-			System.out.println("comments "+c.getUser());
-			response.sendRedirect("template.jsp");
-		//	RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
-			//dispatcher.forward(request, response);
-		// System.out.println(session.getAttribute("idpost"));
-		 }
-	
+	}
 
 }

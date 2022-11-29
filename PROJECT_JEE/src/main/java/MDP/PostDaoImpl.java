@@ -159,7 +159,7 @@ public class PostDaoImpl extends AbstractDAOA implements IDAO{
 	            	
 	            	UtilisateurDaoImpl utilisateurDaoImpl = new UtilisateurDaoImpl();
 	                
-	                 ls.add(new Post(rs.getInt("id"), rs.getString("text"), rs.getString("photo"),rs.getInt("id_categorie"), rs.getInt("user"),rs.getTimestamp("time_post")));
+	                 ls.add(new Post(rs.getInt("id"), rs.getString("text"), rs.getBinaryStream("photo"),rs.getInt("id_categorie"), rs.getInt("user"),rs.getTimestamp("time_post")));
 	                 System.out.println("cg: "+ls);
 	             }
 	         } catch (SQLException exp) {

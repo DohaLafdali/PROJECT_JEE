@@ -77,7 +77,7 @@ pageEncoding="UTF-8"%>
 	  
 	  </form>
    <% }else{
-	   %>    <button>Message</button> 
+	   %>    <button onclick='send(<%=id%>)'>Message</button> 
 	   <%
    }
         
@@ -293,6 +293,9 @@ function deleteComnt(idcoment,idu,idc){
 
 }
 
+function send(id){
+	document.location.href='chat.jsp?id='+id;
+}
 </script>
  
 </body> 

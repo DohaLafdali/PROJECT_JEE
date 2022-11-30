@@ -46,9 +46,23 @@
     <version>5.0.0</version>
     <scope>provided</scope>
 </dependency>
-
+ <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.9</version>
+        </dependency>
+<!-- https://mvnrepository.com/artifact/org.json/json -->
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20220924</version>
+</dependency>
 <!-- https://mvnrepository.com/artifact/org.eclipse.sw360/commonIO -->
-
+<dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+      <version>1.1.1</version>
+   </dependency>
 
   </dependencies>
 </project>

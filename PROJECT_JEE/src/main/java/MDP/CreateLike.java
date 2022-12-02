@@ -61,6 +61,7 @@ public class CreateLike extends HttpServlet {
 		}
 		else {
 			System.out.print("gher mara whda a shrif !!");
+			likeDaoImpl.deleteLike(i, iduser);
 	     	 RequestDispatcher dispatcher = request.getRequestDispatcher("template.jsp");
 	            dispatcher.forward(request, response);
 		}

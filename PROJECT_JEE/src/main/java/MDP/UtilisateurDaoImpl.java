@@ -151,5 +151,23 @@ public class UtilisateurDaoImpl extends AbstractDAOA implements IDAO{
         }
         return null;
 	}
+	
+
+	public void update(Object obj) {
+		// TODO Auto-generated method stub
+		PreparedStatement pst = null;
+        String sql = "update Utilisateur SET username=?, email=?, image_profil=?, password=? where id= ?";
+        try {
+            pst = connection.prepareStatement(sql); 
+            pst.setString(1, ((Utilisateur) obj).getUsername());
+            pst.setString(3, ((Utilisateur) obj).getImage_profil());
+            pst.setString(2, ((Utilisateur) obj).getEmail());
+            pst.setString(4, ((Utilisateur) obj).getPassword());
+            pst.setInt(5,((Utilisateur) obj).getId());
+            pst.executeUpdate();
+        } catch (SQLException exp) {
+            System.out.println(exp.getMessage());
+        }
+	}
 
 }

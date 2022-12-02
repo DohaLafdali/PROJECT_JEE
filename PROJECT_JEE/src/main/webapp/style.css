@@ -220,10 +220,9 @@ nav .nav-right a > i{
 .post .sendComment{
     display:flex;
     padding:1rem;
-    background:#eee;
     position: relative;
     width: 100%;
-      border-bottom: 1px solid #c0c0c0;
+     border-bottom: 1px solid #c0c0c0;
     
 }
 .post .sendComment #commentaire_text{
@@ -236,9 +235,11 @@ nav .nav-right a > i{
   outline: none;
   margin-left: 70px;
   height:40px;
+  background:#eee;
+  
 }
 .post .sendComment #create_comment{
-	background:#fff;
+	background:#eee;
   position: absolute;
   right: 115px; 
   top: 18px;
@@ -253,13 +254,12 @@ nav .nav-right a > i{
   width:60px;
 }
 .post .sendComment #create_comment i{
-	font-size:28px;
-	color:#c0c0c0;
+	color:#0080ff;
+	font-size:20px;
 }
 .post  .afficheComment{
 	display:flex;
     padding:1rem;
-    background:#eee;
     position: relative;
     width: 100%;
     border-bottom: 1px solid #c0c0c0;
@@ -438,4 +438,3 @@ nav .nav-right a > i{
 .container .right-panel{
     padding:1rem;
 }
-

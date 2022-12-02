@@ -27,9 +27,28 @@ pageEncoding="UTF-8"%>
  crossorigin="anonymous" referrerpolicy="no-referrer" /> 
 <link rel="stylesheet" href="profile.css"> 
 <title>Aatae</title> 
+
+
 </head> 
 <meta charset="ISO-8859-1"> 
 <title>Insert title here</title> 
+<style>
+.mystere {
+    background-color: rgba(0, 0, 0, 0.05);
+	position: relative;
+	border-radius: 10px;
+	width:100px;
+	-webkit-box-shadow: -2px 0px 11px 5px rgba(183,183,183,0.8); 
+    box-shadow: -2px 0px 11px 5px rgba(183,183,183,0.8);
+}
+ .mystere p {
+	font-family: cursive;
+	font-style: italic;
+	font-weight: bold;
+	margin-left:10px;
+   
+}
+</style>
 </head> 
 <body> 
 <nav> 
@@ -40,14 +59,12 @@ pageEncoding="UTF-8"%>
   <div class="nav-middle"> 
    <a href="#" class="active"> <i class="fa fa-home"></i> 
    </a> <a href="#"> <i class="fa fa-user-friends"></i> 
-   </a> <a href="#"> <i class="fa fa-play-circle"></i> 
-   </a> <a href="#"> <i class="fa fa-users"></i> 
    </a> 
   </div> 
  
   <div class="nav-right"> 
-   <span class="profile"></span> <a href="#"> <i class="fa fa-bell"></i> 
-   </a> <a href="#"> <i class="fas fa-ellipsis-h"></i> 
+   <span class="profile"></span> <a href="#"> <i class="fa fa-bell"></i> </a> 
+   <a href="#"><i class="fa fa-sign-out-alt"></i>
    </a> 
   </div> 
  </nav> 
@@ -57,31 +74,14 @@ pageEncoding="UTF-8"%>
  UtilisateurDaoImpl userdao=new UtilisateurDaoImpl();
  %>
  
- <div class="container"  > 
+ <div class="container" id="blur" > 
  <div class="top-profile"> 
 
     <div class="pro">    
 
      <div class="pro-img"> 
       <img src="./images/user.png" alt="Logo"> 
-        <%  if(id == session.getAttribute("iduser")){
-               %>    <button >Update</button> 
-               <button>Update</button>
-	  <form id="updateform" action="./updateProfile" method="post">
-	  <button type="submit" >Edit</button>
-	  <input name="username"  type="text" value="<%= userdao.getOneO(id).getUsername() %>"></br>
-	  <input name="email" type="text" value="<%= userdao.getOneO(id).getEmail() %>"></br>
-	  <input name="password" type="text" value="<%= userdao.getOneO(id).getPassword() %>"></br>
-	  <input name="profile" type="text" value="<%= userdao.getOneO(id).getImage_profil() %>"></br>
-	  <input name="id" value="<%=id%>" hidden>
-	  
-	  </form>
-   <% }else{
-	   %>    <button onclick='send(<%=id%>)'>Message</button> 
-	   <%
-   }
         
-        %>
    
     <% 	
 	
@@ -95,7 +95,20 @@ pageEncoding="UTF-8"%>
     
     
      </div> 
+      <div class="edit">
+      <%  if(id == session.getAttribute("iduser")){
+               %>    
+               <button onclick="toggle()"><i class="fas fa-edit"></i>edit profile</button>
+              
+	 
+   <% }else{
+	   %>    <button ><i class="fas fa-comments"></i>Message</button> 
+	   <%
+   }
+        
+        %>
       
+      </div>
     </div> 
     <div class="test"> 
      
@@ -137,11 +150,12 @@ pageEncoding="UTF-8"%>
                   
                     </div> 
                     <%  if(id == session.getAttribute("iduser")){
-                    	%> <i class="fas fa-ellipsis-h"></i> 
-     					<%  aide= posts.get(i).getId(); 
+                    	%> 
+                    	<%  aide= posts.get(i).getId(); 
      					System.out.println("test "+aide);
      					%> 
-     					<img alt="delete post" src="" class="test" id="<%=aide %>" onclick="deletepost(<%=aide %>)"> 
+                    	<i class="fa fa-trash" id="<%=aide %>" onclick="deletepost(<%=aide %>)"></i>
+     					
                     	
                 <%    } %>
                    
@@ -155,26 +169,37 @@ pageEncoding="UTF-8"%>
 				%>
 				  <img src="./images/posts/<%= imgFileName%>"  style="width:300px;height:250px">
 
-					<!-- test popUP -->
-				<a href="#" onclick="toggle(<%=i%>)"><%out.print(like.nombreLikes(posts.get(i).getId())); %></a>
-						
-					<!-- test popUP -->
-
+					
 			</div>
-				
+				<br><a style="text-decoration:none" href="#" onMouseover="javascript:showMystere(<%=i %>)" onMouseout="javascript:hideMystere(<%=i %>)"> il y a <%out.print(like.nombreLikes(posts.get(i).getId())); %>  likes</a>
+           
+					<!-- test popUP -->
+					<div id="mystere<%=i %>" style="display:none" class="mystere">
+                      <p> 
+                      <%
+					    for(int j=0;j<likes.size();j++){
+					    	if(likes.get(j).getPost() == posts.get(i).getId()){
+					    		 idp=posts.get(i).getId();%>
+					    		 <i class="fa fa-heart" aria-hidden="true" style="color:red"></i>
+					            <%  out.println(like.getUsers(posts.get(i).getId(),likes.get(j).getUser()));
+					               
+					               %>
+					</br>
+					<% }} 
+					%></p>
+                   </div>
+					<!-- test popUP -->
 				<div class="post-bottom">
 					<div onclick="like(this);" class="action">
+					<%int help = posts.get(i).getId();%>			
+						<form action="./CreateLike" method="post">
+						<span onclick="like(<%=i %>);">
+						<i  class="fa fa-heart" aria-hidden="true" id="likes<%=i %>" style="color:red;" ></i>
+						<button type="submit" value="n" >Like</button></span>
 						
-					<%int help = posts.get(i).getId();%>
-					
-					    <form action="./CreateLike" method="post">
-							<span onclick="getIdPost(<%=help%>);">
-							<button type="submit" value="n" ><i class="fa fa-heart" aria-hidden="true"></i></button>Like</span>
-							
-							<input type="text" name="help" value="<%=posts.get(i).getId()%>" hidden>
-
+						<input type="text" name="help" value="<%=posts.get(i).getId()%>" hidden>
+						
 						</form>
-						
 					</div>
 					<div onclick="togg(<%= i %>);" class="action" >
 						<i class="far fa-comment"></i> <span>Comment</span>
@@ -211,7 +236,7 @@ pageEncoding="UTF-8"%>
 					
 					out.println(cmnts.get(j).getText()); %>
 					<% if(cmnts.get(j).getUser() == (Integer)session.getAttribute("iduser") ||posts.get(i).getUser() == (Integer)session.getAttribute("iduser")){%>
-					<img alt="profile" src="./images/logo.png" width="20px" height="20px" onclick="deleteComnt(<%=cmnts.get(j).getId()%>,<%=posts.get(i).getUser()%>,<%=cmnts.get(j).getUser()%>);">
+					<i   class="fa fa-trash" width="20px" height="20px" onclick="deleteComnt(<%=cmnts.get(j).getId()%>,<%=posts.get(i).getUser()%>,<%=cmnts.get(j).getUser()%>);"></i>
 					<%} %>
 					</p></div></br>
 					<% }  } 
@@ -230,13 +255,36 @@ pageEncoding="UTF-8"%>
 					
 				
      
-     
+     </div>
  </div> 
   
  </div> 
- 
+ </div>
+   <div id="popup">
+          <a href="#" onclick="toggle()"><span aria-hidden="true" class="close">×</span></a>
+         <form id="updateform" action="./updateProfile" method="post">
+         <div class="img">
+         <img alt="" src="<%= userdao.getOneO(id).getImage_profil() %>"></div>
+         <div class="upload_wrapper" style="float: left;" id="up0">
+                     <div style="text-align: center;">
+                      <i class="fa fa-image"></i>edit photo
+                      </div>
+                      <input type = "file" name ="photo"  style="width: 100px;height:100px;" class="upload" />
+                      </div><br>
+	  <input name="username"  type="text" value="<%= userdao.getOneO(id).getUsername() %>"></br>
+	  <input name="email" type="text" value="<%= userdao.getOneO(id).getEmail() %>"></br>
+	  <input name="password" type="text" value="<%= userdao.getOneO(id).getPassword() %>"></br>
+	  <input name="id" value="<%=id%>" type="hidden">
+	  <button type="submit" >Edit</button>
+	  </form>
+    </div>
 <script type="text/javascript">
-	
+function toggle() {
+    var blur=document.getElementById('blur');
+    blur.classList.toggle('active');
+    var popup = document.getElementById('popup');
+    popup.classList.toggle('active');
+}
 
 	
 document.addEventListener('DOMContentLoaded', () => {
@@ -275,27 +323,36 @@ console.log(uniqueCommentaire)
 };
 
 function deletepost(aide){
-	
-	
-	//Integer aide=Integer.parseInt(request.getParameter("aide"));
-	//System.out.print("aide:"+aide);
 	console.log(aide);
-	
-<%	
-	
-	
-%>	
-//location.reload();
+
 document.location.href='DeletePost?aide='+aide;
 }
 function deleteComnt(idcoment,idu,idc){
 	document.location.href='DeleteCommentaire?idcoment='+idcoment+"&idu="+idu+"&idc="+idc;
+
+
+}
+
+function showMystere(i){
+	var objMysere = document.getElementById('mystere'+i);
+	if(objMysere){
+	objMysere.style.display = 'block';
+	}
+	}
+	function hideMystere(i){
+	var objMysere = document.getElementById('mystere'+i);
+	if(objMysere){
+	objMysere.style.display = 'none';
+	}
+	}
+
 
 }
 
 function send(id){
 	document.location.href='chat.jsp?id='+id;
 }
+
 </script>
  
 </body> 

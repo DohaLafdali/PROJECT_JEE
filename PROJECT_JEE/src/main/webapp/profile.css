@@ -183,6 +183,18 @@ nav .nav-right a > i{
 .top-profile .pro .edit button:active {
   box-shadow: none;
   transform: translateY(0);
+
+.top-profile .pro .pro-img{ 
+ background:#eee; 
+    width:300px; 
+    height:360px; 
+     margin-top:70px; 
+     margin-left:50px; 
+     border-radius:20px; 
+     border:solirgb(128, 0, 0) #8AABBE; 
+     -webkit-box-shadow: -2px -2px 16px 10px #A9A9A9;  
+box-shadow: -2px -2px 16px 10px #A9A9A9; 
+
 }
 
 .top-profile  .pro .pro-img  img{

@@ -28,6 +28,7 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="profile.css"> 
 <title>Aatae</title> 
 
+
 </head> 
 <meta charset="ISO-8859-1"> 
 <title>Insert title here</title> 
@@ -323,10 +324,12 @@ console.log(uniqueCommentaire)
 
 function deletepost(aide){
 	console.log(aide);
+
 document.location.href='DeletePost?aide='+aide;
 }
 function deleteComnt(idcoment,idu,idc){
 	document.location.href='DeleteCommentaire?idcoment='+idcoment+"&idu="+idu+"&idc="+idc;
+
 
 }
 
@@ -342,6 +345,13 @@ function showMystere(i){
 	objMysere.style.display = 'none';
 	}
 	}
+
+
+}
+
+function send(id){
+	document.location.href='chat.jsp?id='+id;
+}
 
 </script>
  

@@ -166,10 +166,12 @@ pageEncoding="UTF-8"%>
 						<img src="./images/girl.jpg" alt="">
 					</div>
 
+
 					<div class="db">
 						<input type="text" name="post" placeholder="What's on your mind, Aashish ?" id="post"/>
 						<input type="submit" value="publier" id="public_post">
 							</div>			
+
 
 
 				</div>
@@ -250,7 +252,8 @@ final String usersnames="";
 						%>
 						<span class="time"><%out.println("il y a "+difference_In_Days +":"+difference_in_hours+":"+difference_in_minutes+":"+difference_in_secondes);%></span>
 					</div>
-					
+
+
 				</div>
 
 				<div class="post-content">
@@ -290,9 +293,11 @@ final String usersnames="";
 					
 					    <form action="./CreateLike" method="post">
 
+
 						<span onclick="like(<%=i %>);">
 						<i  class="fa fa-heart" aria-hidden="true" id="likes<%=i %>" style="color:red;" ></i>
 						<button type="submit" value="n" <%=disabled %>>Like</button></span>
+
 						
 						<input type="text" name="help" value="<%=posts.get(i).getId()%>" hidden>
 						
@@ -308,8 +313,7 @@ final String usersnames="";
 					</div>
 					
 					
-               
-     
+
 				</div>
 			<% if(id_user != null){  %>
 				<div class="sendComment">
@@ -339,7 +343,10 @@ final String usersnames="";
 				<% if(cmnts.get(j).getUser() == (Integer)session.getAttribute("iduser") || posts.get(i).getUser() == (Integer)session.getAttribute("iduser")){%>
 					<img alt="profile" src="./images/logo.png" width="20px" height="20px" onclick="deleteComnt(<%=cmnts.get(j).getId()%>,<%=posts.get(i).getUser()%>,<%=cmnts.get(j).getUser()%>);">
 					<%} %>
+
+
 					</p></div></br>
+
 					<% }  } 
 					%>
 					</div>
@@ -394,7 +401,6 @@ final String usersnames="";
 		});
 	
 
-
 	function getIdPost(help){
 		window.location.href='CreateLike?help='+help;
 	}
@@ -421,7 +427,6 @@ function deleteComnt(idcoment,idu,idc){
 	document.location.href='DeleteCommentaire?idcoment='+idcoment+"&idu="+idu+"&idc="+idc;
 
 
-
 function like(i){
 	   like=document.getElementById('likes'+i);
 	console.log(like)
@@ -446,6 +451,8 @@ function showMystere(i){
 	objMysere.style.display = 'none';
 	}
 	}
+
+
 }
 </script>
 </body>

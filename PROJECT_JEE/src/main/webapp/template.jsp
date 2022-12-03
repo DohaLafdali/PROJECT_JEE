@@ -31,6 +31,41 @@ pageEncoding="UTF-8"%>
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="style.css">
 <title>Aatae</title>
+<style type="text/css">
+
+.upload_wrapper {
+            position: relative;
+            overflow: hidden;
+                cursor: pointer;
+        }
+        .upload_wrapper input.upload {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+        
+        .mystere {
+    background-color: rgba(0, 0, 0, 0.05);
+	position: relative;
+	border-radius: 10px;
+	width:100px;
+	-webkit-box-shadow: -2px 0px 11px 5px rgba(183,183,183,0.8); 
+    box-shadow: -2px 0px 11px 5px rgba(183,183,183,0.8);
+}
+ .mystere p {
+	font-family: cursive;
+	font-style: italic;
+	font-weight: bold;
+	margin-left:10px;
+   
+}
+</style>
 </head>
 
 <body>
@@ -41,16 +76,13 @@ pageEncoding="UTF-8"%>
 
 		<div class="nav-middle">
 			<a href="#" class="active"> <i class="fa fa-home"></i>
-			</a> <a href="#"> <i class="fa fa-user-friends"></i>
-			</a> <a href="#"> <i class="fa fa-play-circle"></i>
-		     
-			</a> <a href="#"> <i class="fa fa-users"></i>
+			
 			</a>
 		</div>
 		<div class="nav-right">
 			<span class="profile"></span> <a href="#"> <i class="fa fa-bell"></i>
 			</a> 
-			<a href="Login?logout=true"><i class="fas fa-ellipsis-h"></i>
+			<a href="Login?logout=true"><i class="fa fa-sign-out-alt"></i>
 			</a>
 		</div>
 	</nav>
@@ -59,36 +91,22 @@ pageEncoding="UTF-8"%>
 	<div class="container"  id="blur">
 		<div class="left-panel">
 			<ul>
+			
 				<li><span class="profile"></span>
-					<p>Aashish Panthi</p></li>
+					<p>dodo </p></li>
 				<li><i class="fa fa-user-friends"></i>
 					<p>Friends</p></li>
 				<li><i class="fa fa-play-circle"></i>
-					<p>Videos</p></li>
-				<li><i class="fa fa-flag"></i>
-					<p>Pages</p></li>
-				<li><i class="fa fa-users"></i>
-					<p>Groups</p></li>
+					<p>meet</p></li>
 				<li><i class="fa fa-bookmark"></i>
 					<p>Bookmark</p></li>
 				<li><i class="fab fa-facebook-messenger"></i>
 					<a href="postsaved.jsp"><p>Inbox</p></a></li>
 				<li><i class="fas fa-calendar-week"></i>
 					<p>Events</p></li>
-				<li><i class="fa fa-bullhorn"></i>
-					<p>Ads</p></li>
-				<li><i class="fas fa-hands-helping"></i>
-					<p>Offers</p></li>
-				<li><i class="fas fa-briefcase"></i>
-					<p>Jobs</p></li>
-				<li><i class="fa fa-star"></i>
-					<p>Favourites</p></li>
+				
 			</ul>
 
-			<div class="footer-links">
-				<a href="#">Privacy</a> <a href="#">Terms</a> <a href="#">Advance</a>
-				<a href="#">More</a>
-			</div>
 		</div>
 
 
@@ -98,20 +116,32 @@ pageEncoding="UTF-8"%>
 
 				<div  class="story">
 					<img src="./images/sang.jpg" alt="sang" id="img0" class="image">
+					<div class="text">
+                     <h1>Sang</h1>
+                    </div>
 				</div>
 							
 				
       
 				<div  class="story">
-					<img src="./images/savoir.jpg" alt="savoir" id="img1" class="image"> 			
+					<img src="./images/savoir.jpg" alt="savoir" id="img1" class="image"> 
+					<div class="text">
+                     <h1>Savoir</h1>
+                    </div>			
 				</div>
 
 				<div  class="story">
 					<img src="./images/nouriture.jpg" alt="nouriture" id="img2" class="image">
+					<div class="text">
+                     <h1>Nouriture</h1>
+                    </div>
 				</div>
 
 				<div  class="story">
 					<img src="./images/autree.jpg" alt="autre" id="img3" class="image"> 
+					<div class="text">
+                     <h1>autre</h1>
+                    </div>
 				</div>
 			</div>
 			
@@ -130,18 +160,28 @@ pageEncoding="UTF-8"%>
 					<div class="dp">
 						<img src="./images/girl.jpg" alt="">
 					</div>
-					
-				<input type="text" name="post" placeholder="What's on your mind, Aashish ?" id="post"/>
-				<input type="submit" value="publier" id="public_post">	
+
+
+					<div class="db">
+						<input type="text" name="post" placeholder="What's on your mind, Aashish ?" id="post"/>
+						<input type="submit" value="publier" id="public_post">
+							</div>			
+
+
+
 				</div>
 				
 				<div class="post-bottom">
 					<div class="action">
 						<i class="fa fa-video"></i> <span>Live video</span>
 					</div>
-					<div>
-					
-						<i class="fa fa-image"></i> <span><input type = "file" name ="photo"  /></span>
+					<div class="action">
+					 <div class="upload_wrapper" style="float: left;" id="up0">
+                     <div style="text-align: center;">
+                      <i class="fa fa-image"></i> <span>Photo/Video</span>
+                      </div>
+                      <input type = "file" name ="photo"  style="width: 100px;height:100px;" class="upload" />
+                      </div>
 					</div>
 					<div class="action">
 						<i class="fa fa-smile"></i> <span>Feeling/Activity</span>
@@ -207,9 +247,8 @@ final String usersnames="";
 						%>
 						<span class="time"><%out.println("il y a "+difference_In_Days +":"+difference_in_hours+":"+difference_in_minutes+":"+difference_in_secondes);%></span>
 					</div>
-					<i class="fas fa-ellipsis-h"></i>
-					<% int aide= posts.get(i).getId(); %> 
-					<img alt="delete post" src="" onclick="deletepost(<%=aide%>);">
+
+
 				</div>
 
 				<div class="post-content">
@@ -220,28 +259,43 @@ final String usersnames="";
 					String imgFileName=posts.get(i).getPhoto_name();
 				%>
 				  <img src="./images/posts/<%= imgFileName%>"  style="width:300px;height:250px">
-
-					<!-- test popUP -->
-				<a href="#" onclick="toggle(<%=i%>)"><%out.print(like.nombreLikes(posts.get(i).getId())); %></a>
-						
-					<!-- test popUP -->
+                             
 
 				</div>
+				 <br><a style="text-decoration:none" href="#" onMouseover="javascript:showMystere(<%=i %>)" onMouseout="javascript:hideMystere(<%=i %>)"> il y a <%out.print(like.nombreLikes(posts.get(i).getId())); %>  likes</a>
+           
+					<!-- test popUP -->
+					<div id="mystere<%=i %>" style="display:none" class="mystere">
+                      <p> 
+                      <%
+					    for(int j=0;j<likes.size();j++){
+					    	if(likes.get(j).getPost() == posts.get(i).getId()){
+					    		 idp=posts.get(i).getId();%>
+					    		 <i class="fa fa-heart" aria-hidden="true" style="color:red"></i>
+					            <%  out.println(like.getUsers(posts.get(i).getId(),likes.get(j).getUser()));
+					               
+					               %>
+					</br>
+					<% }} 
+					%></p>
+                   </div>
+					<!-- test popUP -->
 			
 				<div class="post-bottom">
-					<div onclick="like(this);" class="action">
+					<div  class="action" >
 						
 					<%int help = posts.get(i).getId();%>
 					
 					    <form action="./CreateLike" method="post">
 
-						<!-- <input type="submit" value="n"> -->
-						<!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
-						<span onclick="getIdPost(<%=help%>);">
-						<button type="submit" value="n" <%=disabled %>><i class="fa fa-heart" aria-hidden="true"></i></button>Like</span>
+
+						<span onclick="like(<%=i %>);">
+						<i  class="fa fa-heart" aria-hidden="true" id="likes<%=i %>" style="color:red;" ></i>
+						<button type="submit" value="n" <%=disabled %>>Like</button></span>
+
 						
 						<input type="text" name="help" value="<%=posts.get(i).getId()%>" hidden>
-
+						
 						</form>
 						
 					</div>
@@ -256,6 +310,7 @@ final String usersnames="";
 					</div>
 					</form>
 					
+
 				</div>
 			<% if(id_user != null){  %>
 				<div class="sendComment">
@@ -283,9 +338,12 @@ final String usersnames="";
 					
 					out.println(cmnts.get(j).getText()); %>
 				<% if(cmnts.get(j).getUser() == (Integer)session.getAttribute("iduser") || posts.get(i).getUser() == (Integer)session.getAttribute("iduser")){%>
-					<img alt="profile" src="./images/logo.png" width="20px" height="20px" onclick="deleteComnt(<%=cmnts.get(j).getId()%>,<%=posts.get(i).getUser()%>,<%=cmnts.get(j).getUser()%>);">
+					<i   class="fa fa-trash" onclick="deleteComnt(<%=cmnts.get(j).getId()%>,<%=posts.get(i).getUser()%>,<%=cmnts.get(j).getUser()%>);"></i>
 					<%} %>
-					</p></div></br>);">
+
+
+					</p></div></br>
+
 					<% }  } 
 					%>
 					</div>
@@ -339,23 +397,7 @@ final String usersnames="";
 	))
 		});
 	
-document.addEventListener('DOMContentLoaded', () => {
-	const likes = document.querySelectorAll('.like');
-	likes.forEach(like => (
-	like.addEventListener('click', function(event) {
-	const clickedlike = this;
-	console.log(this.id);
-	switch (this.id) {
-	  case "like1":
-		  document.getElementById("l1").style.color = "red";
-		    break;
-		  case "like2":
-			  document.getElementById("l2").style.color = "red";
-	}
-	})
-	))
-	});
-	
+
 	function getIdPost(help){
 		window.location.href='CreateLike?help='+help;
 	}
@@ -380,6 +422,33 @@ function deletepost(aide){
 }
 function deleteComnt(idcoment,idu,idc){
 	document.location.href='DeleteCommentaire?idcoment='+idcoment+"&idu="+idu+"&idc="+idc;
+
+
+function like(i){
+	   like=document.getElementById('likes'+i);
+	console.log(like)
+	if(like.style.color != "black"){
+		 like.style.color = "black";
+	 } else {
+		  like.style.color= "red";
+	}
+	};
+
+
+function showMystere(i){
+	var objMysere = document.getElementById('mystere'+i);
+	console.log(objMysere)
+	if(objMysere){
+	objMysere.style.display = 'block';
+	}
+	}
+	function hideMystere(i){
+	var objMysere = document.getElementById('mystere'+i);
+	if(objMysere){
+	objMysere.style.display = 'none';
+	}
+	}
+
 
 }
 </script>

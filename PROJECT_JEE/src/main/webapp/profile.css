@@ -6,7 +6,7 @@
     font-family: sans-serif;
 }
 body{    background:#eee;
-
+	
 }
 
 nav{
@@ -28,10 +28,10 @@ nav .nav-left, nav .nav-right{
 }
 
 nav .nav-left > img{
-
+	
     width:150px;
     height:90px;
- 
+  
 }
 
 
@@ -98,7 +98,7 @@ nav .nav-right a > i{
     display:block;
     position:relative;
      width:100%;
-   
+    
 }
 
 
@@ -108,10 +108,10 @@ nav .nav-right a > i{
     height:calc(100vh - 70px);
 }
 .container .top-profile{
-display:block;
+	display:block;
 }
 .container .top-profile .test{
-width:70%;
+	 width:70%;
      float:right;
      margin-right:3px;
      }
@@ -125,23 +125,23 @@ width:70%;
      height:70%;
 }
 
-.top-profile .pro .pro-img{
-position:absolute;
-     background:#eee;
-     width:250px;
-     margin-top:170px;
-     margin-left:50px;
-     border-radius:20px;
-     border:solirgb(128, 0, 0) #8AABBE;
+.top-profile .pro .pro-img{ 
+	position:absolute;
+     background:#eee; 
+     width:250px; 
+     margin-top:170px; 
+     margin-left:50px; 
+     border-radius:20px; 
+     border:solirgb(128, 0, 0) #8AABBE; 
      -webkit-box-shadow: -2px -2px 16px 10px #8AABBE;  
-     box-shadow: -2px -2px 16px 10px #8AABBE;
+     box-shadow: -2px -2px 16px 10px #8AABBE; 
      
 }
 .top-profile .pro .edit{
         margin-left:90%;
         margin-top:25%;
-      position:absolute;
-      height:40px;
+     	position:absolute;
+     	height:40px;
          
 }
 .top-profile .pro .edit button{
@@ -169,8 +169,8 @@ position:absolute;
   touch-action: manipulation;
   width: 100%;
   will-change: transform;}
- 
- 
+  
+  
   .top-profile .pro .edit button:disabled {
   pointer-events: none;
 }
@@ -184,16 +184,16 @@ position:absolute;
   box-shadow: none;
   transform: translateY(0);
 }
-.top-profile .pro .pro-img{
- background:#eee;
-    width:300px;
-    height:360px;
-     margin-top:70px;
-     margin-left:50px;
-     border-radius:20px;
-     border:solirgb(128, 0, 0) #8AABBE;
+.top-profile .pro .pro-img{ 
+ background:#eee; 
+    width:300px; 
+    height:360px; 
+     margin-top:70px; 
+     margin-left:50px; 
+     border-radius:20px; 
+     border:solirgb(128, 0, 0) #8AABBE; 
      -webkit-box-shadow: -2px -2px 16px 10px #A9A9A9;  
-box-shadow: -2px -2px 16px 10px #A9A9A9;
+box-shadow: -2px -2px 16px 10px #A9A9A9; 
 
 }
 
@@ -205,18 +205,18 @@ box-shadow: -2px -2px 16px 10px #A9A9A9;
   width: 50%;
   border-radius: 50%;
   border: solid 1px #8AABBE;
- 
+  
   }
   .top-profile  .pro .pro-img h1{
   padding-left: 15px;
  font-family: cursive;
- 
+  
   }
   .top-profile  .pro .pro-img p{
    padding-top: 15px;
    padding-left: 15px;
    font-family: cursive;
- 
+  
   }
 
 .container .bottom-profile{
@@ -236,7 +236,7 @@ box-shadow: -2px -2px 16px 10px #A9A9A9;
     border-radius:10px;
     padding:0px;
     margin-top:10px;
-   
+    
 }
 
 .post .post-top{
@@ -336,24 +336,24 @@ box-shadow: -2px -2px 16px 10px #A9A9A9;
     position: relative;
     width: 100%;
      border-bottom: 1px solid #c0c0c0;
-   
+    
 }
 .post .sendComment #commentaire_text{
   width: 600px;
   border: 1px solid #ccc;
   border-radius: 100px;
-  padding: 10px 100px 10px 20px;
+  padding: 10px 100px 10px 20px; 
   line-height: 1;
   box-sizing: border-box;
   outline: none;
   margin-left: 70px;
   height:40px;
       background:#eee;
- 
+  
 }
 .post .sendComment #create_comment{
   position: absolute;
-  right: 129px;
+  right: 129px; 
   top: 18px;
   bottom: 3px;
   outline: none;
@@ -366,36 +366,36 @@ box-shadow: -2px -2px 16px 10px #A9A9A9;
   width:60px;
 }
 .post .sendComment #create_comment i{
-font-size:20px;
-color:#0080ff;
+	font-size:20px;
+	color:#0080ff;
 }
 .post  .afficheComment{
-display:flex;
+	display:flex;
     padding:1rem;
     background:#fff;
     position: relative;
     width: 100%;
     border-bottom: 1px solid #c0c0c0;
     flex-wrap: wrap;
-   
+    
 }
 .post  .afficheComment .uniqueComment{
-background:#fff;
+	 background:#fff;
     width: 100%;
     border-radius: 20px;
     margin:10px;
     background-color: rgba(0,0,0,0.05);
-   
+    	
 }
 .post  .afficheComment .uniqueComment h5 {
-   padding: 16px;
+	    padding: 16px;
 }
 .post  .afficheComment .uniqueComment p {
-padding: 10px;
+	padding: 10px;
 }
 .post  .afficheComment .uniqueComment i {
-margin-top: -70px;
-    float: right;
+	margin-top: -70px;
+    float: right;	
 }
 #popup{
     position: fixed;
@@ -410,33 +410,33 @@ margin-top: -70px;
     visibility: hidden;
     opacity: 0;
     transition: 0.5s;
-       
+    	    
    background-color: rgba(255,255,255,0.8);
-   
-   
+    	
+    
 }
 #popup form{
 width: 100%;
     height: 430px;
     margin-top: -40px;}
 #popup a{
-   text-decoration:none;
-   color:#fff;
-   float:rigth;
-
-
+	    text-decoration:none;
+	    color:#fff;
+	    float:rigth;
+	
+	
 }
 #popup .close{
-text-align: center;
+	text-align: center;
     float: right;
     border-radius: 50%;
     background-color: #8AABBE;
     width: 20px;
         margin-right: -30px;
     margin-top: -30px;
-   
-
-
+	    
+	
+	
 }
 #popup form .img{
     margin-left: 70px;
@@ -444,11 +444,11 @@ text-align: center;
     width: 200px;
     height: 200px;
     background: red;
-
-
+	
+	
 }
 #popup form input{
-background: white;
+	background: white;
     box-shadow: 0 0 2em #e6e9f9;
     padding: 1em;
     display: flex;
@@ -456,7 +456,7 @@ background: white;
     color: #4d4d4d;
     border:none;
         width: 100%;
-   
+    
 }
 #popup form button{
     width: 40%;
@@ -468,9 +468,9 @@ background: white;
         border:none;
         height:45px;
       margin-left: 100px;
-     
-     
-   
+      
+      
+    
 }
 #popup.active{
     top: 56%;

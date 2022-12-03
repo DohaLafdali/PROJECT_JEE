@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 public class CreateLike extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     Like like = new Like();   
+    public static String heart="far fa-heart";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -43,6 +44,7 @@ public class CreateLike extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		int i = Integer.parseInt(request.getParameter("help"));
+		String page=request.getParameter("page");
 		HttpSession session=request.getSession();
 		//Integer idcategorie=(Integer) session.getAttribute("idcategorie");
 		Integer iduser=(Integer) session.getAttribute("iduser");
@@ -55,15 +57,23 @@ public class CreateLike extends HttpServlet {
 		if(likeDaoImpl.UtilisateurUnique(i,iduser)<1) {
 		likeDaoImpl.add(like);
 		System.out.print("good!");
-		//response.sendRedirect("template.jsp");
-    	 RequestDispatcher dispatcher = request.getRequestDispatcher("template.jsp");
-         dispatcher.forward(request, response);
+         heart="fa fa-heart";
+    	
+    	if(page.equals("template"))
+    		response.sendRedirect("template.jsp");
+    	
+    	else
+    		response.sendRedirect("profile.jsp?id="+(Integer) session.getAttribute("iduser"));
 		}
 		else {
-			System.out.print("gher mara whda a shrif !!");
 			likeDaoImpl.deleteLike(i, iduser);
-	     	 RequestDispatcher dispatcher = request.getRequestDispatcher("template.jsp");
-	            dispatcher.forward(request, response);
+			heart="far fa-heart";
+			if(page.equals("profile"))
+	    		response.sendRedirect("profile.jsp?id="+(Integer) session.getAttribute("iduser"));
+			else
+				response.sendRedirect("template.jsp");
+	      
+			 
 		}
 	}
 

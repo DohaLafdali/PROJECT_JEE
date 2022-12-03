@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="MDP.Login"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,7 +53,7 @@ body{
     bottom: -80px;
 }
 form{
-    height: 520px;
+    height: 560px;
     width: 400px;
     background-color: rgba(255,255,255,0);
     position: absolute;
@@ -73,6 +74,27 @@ form *{
     outline: none;
     border: none;
 }
+form .alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
 form h3{
     font-size: 32px;
     font-weight: 500;
@@ -140,6 +162,14 @@ input{
     </div>
     <form action="<%=request.getContextPath()%>/Login" method="post">
     <h3>Connectez-vous</h3>
+    
+    	<div class="alert"><% if(Login.info_wrong){ %>
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  <strong>Danger!</strong> email ou password incorrecte.
+  <%} %>
+</div>
+    	
+    	
                     <label for="username">Email</label>
                     <input type="text" class="form-control" name="email" id="username" required>
                    

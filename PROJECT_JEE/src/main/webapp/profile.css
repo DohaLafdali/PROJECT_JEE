@@ -118,7 +118,7 @@ nav .nav-right a > i{
 .container .top-profile .pro{
      background: #8AABBE;
      position:relative;
-     top:20%;
+     top:30%;
      left: 50%;
      transform: translate(-50% , -50%);
      width:100%;
@@ -129,7 +129,6 @@ nav .nav-right a > i{
 	position:absolute;
      background:#eee; 
      width:250px; 
-     margin-top:170px; 
      margin-left:50px; 
      border-radius:20px; 
      border:solirgb(128, 0, 0) #8AABBE; 
@@ -388,14 +387,16 @@ box-shadow: -2px -2px 16px 10px #A9A9A9;
     	
 }
 .post  .afficheComment .uniqueComment h5 {
-	    padding: 16px;
-}
+ 	    padding: 10px 0px 0px 10px;
+ 
+ }
 .post  .afficheComment .uniqueComment p {
-	padding: 10px;
+	padding: 0px 0px 5px 10px;
 }
 .post  .afficheComment .uniqueComment i {
-	margin-top: -70px;
-    float: right;	
+	margin-top: -40px;
+	margin-right:10px;
+    float: right	
 }
 #popup{
     position: fixed;

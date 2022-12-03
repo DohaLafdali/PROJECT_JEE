@@ -129,21 +129,11 @@ nav .nav-right a > i{
     color:slateblue;
 }
 
-.container .left-panel ul li > i.fa-calendar-week{
-    color:tomato;
+.container .left-panel ul li > i.fa-bookmark{
+    color:#C0A9A1;
 }
 
-.container .left-panel ul li i.fa-briefcase{
-    color:green;
-}
 
-.container .left-panel ul li i.fa-star{
-    color:yellowgreen;
-}
-
-.container .left-panel ul li i.fa-hands-helping{
-    color:indianred;
-}
 
 .container .left-panel .footer-links{
     padding:5px 1rem;

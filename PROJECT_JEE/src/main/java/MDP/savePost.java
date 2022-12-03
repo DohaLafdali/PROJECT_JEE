@@ -3,31 +3,25 @@ package MDP;
 import jakarta.servlet.http.HttpServlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Register
+ * Servlet implementation class savePost
  */
-@WebServlet("/Register")
-public class Register extends HttpServlet {
+@WebServlet("/savePost")
+public class savePost extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-
-   
+    PostDaoImpl postdao = new PostDaoImpl();   
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Register() {
+    public savePost() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,28 +32,15 @@ public class Register extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		String username = request.getParameter("username");
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		//out.print(username);	   
-		
-	    Utilisateur user = new Utilisateur();
-	    
-	    user.setEmail(email);
-	    user.setUsername(username);
-	    user.setImage_profil("");
-	    user.setPassword(password);
-	    UtilisateurDaoImpl help = new UtilisateurDaoImpl();
-	    if(username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-	    	out.println("Veuillez vérifier que vous avez rempli tous les champs !!");	    
-	    	}
-	    else {
-	    help.add(user);
-	    RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
+		int id_post = Integer.parseInt(request.getParameter("help"));
+		HttpSession session=request.getSession();
+		Integer id=(Integer) session.getAttribute("iduser");
+		PostSaved post = new PostSaved();
+		post.setId_post(id_post);
+		post.setId_user(id);
+		postdao.save(post);
+		RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
 		dispatcher.forward(request, response);
-	    }
 	}
 
 	/**

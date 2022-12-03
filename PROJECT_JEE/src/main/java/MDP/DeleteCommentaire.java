@@ -35,18 +35,13 @@ public class DeleteCommentaire extends HttpServlet {
 		Integer idc = Integer.parseInt(request.getParameter("idc"));
 		HttpSession session = request.getSession();
 		int idsession = (Integer) session.getAttribute("iduser");
-		if(idsession==idu) {
+		if(idsession==idu || idsession==idc ) {
 			commentaire.delete(idcommentaire);
 			System.out.println("ala slamtna");
 			RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
 			dispatcher.forward(request, response);
 		}
-		if(idsession==idc) {
-			commentaire.delete(idcommentaire);
-			RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
-			dispatcher.forward(request, response);
-			
-		}
+		
 		
 	}
 
@@ -55,7 +50,7 @@ public class DeleteCommentaire extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		//doGet(request, response);
 	}
 
 }

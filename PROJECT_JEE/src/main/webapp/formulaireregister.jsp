@@ -152,12 +152,12 @@ button{
 <form action="./Register" method="GET">
     <h3>Connectez-vous</h3>
 <label for="username">username</label>
-<input type="text" name="username"  placeholder="Saisissez votre username"></br>
+<input type="text" name="username"  placeholder="Saisissez votre username" required></br>
 <label for="email">email</label>
-<input type="text" name="email" placeholder="Saisissez votre email"></br>
+<input type="text" name="email" placeholder="Saisissez votre email" required></br>
 <label for="password">password</label>
-<input type="password" name="password" placeholder="veuillez saisir votre password"></br>
+<input type="password" name="password" placeholder="veuillez saisir votre password" required></br>
 <input type="submit" value="register" class="button">
-<a href="login.jsp" style="text-decoration: none;color:white;">avez-vous deja compte </a></button>
+<a href="login.jsp" style="text-decoration: none;color:white;">avez-vous déjà un compte </a></button>
 </body>
 </html>

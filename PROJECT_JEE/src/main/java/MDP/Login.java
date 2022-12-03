@@ -1,6 +1,7 @@
 package MDP;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 
@@ -68,6 +69,7 @@ public class Login extends HttpServlet {
 
 	private void authenticate(HttpServletRequest request, HttpServletResponse response)
 			    throws Exception {
+		    PrintWriter out = response.getWriter();
 	        String email = request.getParameter("email");
 	        String password = request.getParameter("pass");
 	       // System.out.println("from line 57: "+email+" "+ password);
@@ -87,5 +89,6 @@ public class Login extends HttpServlet {
 	        	
 	            throw new Exception("Login not successful..");
 	        }
-	    }
-}
+	    
+	        
+}}

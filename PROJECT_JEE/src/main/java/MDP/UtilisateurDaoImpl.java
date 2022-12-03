@@ -60,7 +60,7 @@ public class UtilisateurDaoImpl extends AbstractDAOA implements IDAO{
 	public void delete(int id) {
 		// TODO Auto-generated method stub
 		PreparedStatement pst = null;
-        String sql = "delete *from Utilisateur where id= ?";
+        String sql = "delete from Utilisateur where id= ?";
         try {
             pst = connection.prepareStatement(sql);
             

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PostDaoImpl extends AbstractDAOA implements IDAO{
@@ -153,14 +154,12 @@ public class PostDaoImpl extends AbstractDAOA implements IDAO{
 	 			 pst = connection.prepareStatement(sql);
 	 			 pst.setInt(1, iduser);
 	             rs = pst.executeQuery();
-	            // n=rs.getInt("in");
-	            
 	             while (rs.next()) {
 	            	
 	            	UtilisateurDaoImpl utilisateurDaoImpl = new UtilisateurDaoImpl();
 	                
 	                 ls.add(new Post(rs.getInt("id"), rs.getString("text"), rs.getBinaryStream("photo"),rs.getInt("id_categorie"), rs.getInt("user"),rs.getTimestamp("time_post")));
-	                 System.out.println("cg: "+ls);
+	                 System.out.println(": "+ls);
 	             }
 	         } catch (SQLException exp) {
 	             System.out.println(exp.getMessage());
@@ -170,6 +169,106 @@ public class PostDaoImpl extends AbstractDAOA implements IDAO{
 	    	 
 	     }
 	  
+	  // méthode pour enregister un post 
+	  
+	  public void save(Object obj) {
+			// TODO Auto-generated method stub
+			PreparedStatement pst = null;
+	        String sql = "insert into PostSaved (id_user,id_post) values (?,?)";
+	        try {
+	            pst = connection.prepareStatement(sql);
+	            pst.setInt(1, ((PostSaved) obj).getId_user());
+	            pst.setInt(2, ((PostSaved) obj).getId_post());
+	            pst.executeUpdate();
+	        } catch (SQLException exp) {
+	            System.out.println(exp.getMessage());
+	        }
+		}
+	  // cette méthode permet de récupérer les posts enregistrés 
+	  
+	  public  ArrayList<Integer> getPostSaved(int iduser){
+	    	
+		     ArrayList<Integer> ls = new ArrayList<Integer>();
+	    	 
+	         PreparedStatement pst = null;
+	         ResultSet rs;
+	         String sql = "select id_post from postsaved where id_user=?";
+	         int i=0;
+	     
+	         try {
+	 			 pst = connection.prepareStatement(sql);
+	 			 pst.setInt(1, iduser);
+	             rs = pst.executeQuery();
+	            
+	            
+	             while (rs.next()) {
+	            	
+	            	UtilisateurDaoImpl utilisateurDaoImpl = new UtilisateurDaoImpl();
+	                 ls.add(rs.getInt("id_post"));
+	                 //System.out.println("cg: "+ls);
+	             }
+	         } catch (SQLException exp) {
+	             System.out.println(exp.getMessage());
+	         }
+	         return ls;
+	    	 
+	    	 
+	     }
+	  public  Post getPost(int idpost){
+	    	
+	    	 ArrayList<Post> ls=new ArrayList<Post>();
+	    	 Post post = null;
+	         PreparedStatement pst = null;
+	         ResultSet rs;
+	         String sql = "select *from Post where id=?";
+	         
+	     
+	         try {
+	 			 pst = connection.prepareStatement(sql);
+	 			 pst.setInt(1, idpost);
+	             rs = pst.executeQuery();
+	             while (rs.next()) {
+	            	
+	            	UtilisateurDaoImpl utilisateurDaoImpl = new UtilisateurDaoImpl();
+	                
+	               post=  new Post(rs.getInt("id"), rs.getString("text"), rs.getBinaryStream("photo"),rs.getInt("id_categorie"), rs.getInt("user"),rs.getTimestamp("time_post"));
+	                 System.out.println(": "+post);
+	             }
+	         } catch (SQLException exp) {
+	             System.out.println(exp.getMessage());
+	         }
+	         return post;
+	    	 
+	    	 
+	     }
+	  public String getUsers(int user) {
+			// TODO Auto-generated method stub
+			List<Like> list = new ArrayList<Like>();
+	        PreparedStatement pst = null;
+	        ResultSet rs;
+	        String value="";
+	        String sql = "select u.username from Utilisateur u,postsaved ps where ps.id_user=? and u.id=?";
+	        try {
+	            pst = connection.prepareStatement(sql);
+	            
+	            pst.setInt(1, user);
+	            pst.setInt(2, user);
+	            rs = pst.executeQuery();
+	            //System.out.println(rs.getString(1));
+	            while (rs.next()) {
+	              // System.out.println(rs.getString(1));
+	               // list.add(new Like(rs.getInt("id"),rs.getInt("id_user"),rs.getInt("id_post")));
+	               value=rs.getString(1);
+	               
+	            }
+	            pst.close();
+	            
+	        } catch (SQLException exp) {
+	            System.out.println(exp.getMessage());
+	        }
+	        
+	        return value;
+		}
 	  
 
 }

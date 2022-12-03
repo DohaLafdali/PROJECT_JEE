@@ -72,6 +72,7 @@ pageEncoding="UTF-8"%>
  <% int aide=0;
  Integer id=Integer.parseInt(request.getParameter("id"));
  UtilisateurDaoImpl userdao=new UtilisateurDaoImpl();
+ Utilisateur user=userdao.getOneO(id);
  %>
  
  <div class="container" id="blur" > 
@@ -80,12 +81,16 @@ pageEncoding="UTF-8"%>
     <div class="pro">    
 
      <div class="pro-img"> 
-      <img src="./images/user.png" alt="Logo"> 
-        
+      
+        <%
+					String imgProfile=user.getImage_profil();
+				%>
+				  <img src="./images/posts/<%= imgProfile%>"  >
+                             
    
     <% 	
 	
-	Utilisateur user=userdao.getOneO(id);
+	
 	System.out.println("user: "+user);
     %>  
 		   <h1><%out.println(user.getUsername()); %></h1> 
@@ -130,7 +135,7 @@ pageEncoding="UTF-8"%>
 		   <div class="post"> 
 		  <div class="post-top"> 
                     <div class="dp"> 
-                        <img src="" alt=""> 
+           <img src="./images/posts/<%= userdao.getOneO(id).getImage_profil()%>" >
                     </div> 
                     <div class="post-info"> 
                         <p class="name"><% out.println(user.getUsername()); %></p> 
@@ -223,13 +228,18 @@ pageEncoding="UTF-8"%>
 					
 				</div>
 				<div class="afficheComment" id=<%= i %>  style="display: none;">
-					
+					 
 					<%
 					  for(int j=0;j<cmnts.size();j++){
 					    	if(cmnts.get(j).getPost() == posts.get(i).getId()){
 					    		 idp=posts.get(i).getId();%>
 					    		 <div class="uniqueComment">
+					    		 <div class="typePro">
+					    		 <div class="dp"> 
+                             <img src="./images/posts/<%= userdao.getOneO(cmnts.get(j).getUser()).getImage_profil()%>" >
+                    </div>
 					<h5><%out.println(commentaireDaoImpl.getUsers(posts.get(i).getId(),cmnts.get(j).getUser())); %></h5><br>
+					</div>
 					<p>
 					<% 
 					
@@ -261,9 +271,10 @@ pageEncoding="UTF-8"%>
  </div>
    <div id="popup">
           <a href="#" onclick="toggle()"><span aria-hidden="true" class="close">×</span></a>
-         <form id="updateform" action="./updateProfile" method="post">
+         <form id="updateform" action="./updateProfile" method="post"  enctype="multipart/form-data">
          <div class="img">
-         <img alt="" src="<%= userdao.getOneO(id).getImage_profil() %>"></div>
+           <img src="./images/posts/<%= userdao.getOneO(id).getImage_profil()%>" >
+         </div>
          <div class="upload_wrapper" style="float: left;" id="up0">
                      <div style="text-align: center;">
                       <i class="fa fa-image"></i>edit photo

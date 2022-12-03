@@ -25,6 +25,14 @@ public class Chat {
 		this.to_user = to_user;
 		this.time_msg = time_msg;
 	}
+	public Chat(int id, String content, int from_user, int to_user, Timestamp time_msg) {
+		super();
+		this.id=id;
+		this.content = content;
+		this.from_user = from_user;
+		this.to_user = to_user;
+		this.time_msg = time_msg;
+	}
 	public int getId() {
 		return id;
 	}

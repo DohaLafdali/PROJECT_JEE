@@ -63,15 +63,24 @@ nav .nav-middle a > i{
     font-size: 25px;
 }
 
-nav .nav-right .profile, .container .left-panel .profile{
-    background: url('./images/dp.jpg');
-    height:30px;
-    width:30px;
-    background-size: cover;
-    border-radius: 50%;
-    cursor: pointer;
+nav .nav-right .profile{
+   display :flex;
 }
 
+nav .nav-right .profile img{
+	border-radius: 50%;
+    margin-left: 20px;
+    margin-right: 8px;
+    width: 40px;
+    height: 40px;
+   display :inline-block;
+}
+nav .nav-right .profile p{
+	
+       margin-top: 10px;
+
+    
+}
 nav .nav-right a{
     text-decoration: none;
     color:#333;
@@ -102,48 +111,84 @@ nav .nav-right a > i{
     height:calc(100vh - 70px);
 }
 
-.container .left-panel ul{
-    padding:10px 0px;
-}
 
-.container .left-panel ul li{
-    list-style: none;
-    display: flex;
-    padding:.7rem 1rem;
-    align-items: center;
-    transition: .3s;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.container .left-panel ul li:hover{
-    background:#ddd;
-}
-
-.container .left-panel ul li > p{
-    margin-left: 10px;
-}
-
-.container .left-panel ul li > i{
-    font-size:20px;
-    color:slateblue;
-}
-
-.container .left-panel ul li > i.fa-bookmark{
-    color:#C0A9A1;
-}
-
-
-
-.container .left-panel .footer-links{
-    padding:5px 1rem;
-}
-
-.container .left-panel .footer-links a{
-    text-decoration: none;
-    color:#333;
-    font-size:12px;
-}
+.left-panel aside header{
+    padding: 30px 20px;
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+    font-family: cursive;
+        
+    }
+    aside{
+        width:260px;
+        height:800px;
+        background-color:#8AABBE;
+        display:inline-block;
+        font-size:15px;
+        vertical-align:top;
+    }
+    
+    aside ul{
+        padding-left:0;
+        margin:0;
+        list-style-type:none;
+        overflow-y:scroll;
+        height:690px;
+    }
+    aside li{
+        padding:10px 0;
+background: rgba(0, 0, 0, 0.19);
+    }
+    
+    aside li:hover{
+        background-color:#5e616a;
+    }
+    h2,h3{
+        margin:0;
+    }
+    aside li img{
+        border-radius:50%;
+        margin-left:20px;
+        margin-right:8px;
+        width: 60px;
+        height: 60px;
+    }
+    aside li div{
+        display:inline-block;
+        vertical-align:top;
+        margin-top:12px;
+    }
+    aside li h2{
+        font-size:14px;
+        color:#fff;
+        font-weight:normal;
+        margin-bottom:5px;
+    }
+    aside li h3{
+        font-size: 12px;
+    color: #565757ad;
+    font-weight: 900;
+    }
+    
+    .status{
+        width:8px;
+        height:8px;
+        border-radius:50%;
+        display:inline-block;
+        margin-right:7px;
+    }
+    .green{
+        background-color:#58b666;
+    }
+    .orange{
+        background-color:#ff725d;
+    }
+    .blue{
+        background-color:#6fbced;
+        margin-right:0;
+        margin-left:7px;
+    }
 
 .middle-panel{
     flex:1;
@@ -272,25 +317,40 @@ background: rgba(0, 0, 0, 0.19);
     flex-wrap: wrap;
     
 }
+.post  .afficheComment .uniqueComment .typePro .dp{
+    width:40px;
+    height:40px;
+    border-radius: 50%;
+    overflow:hidden;
+}
+.post  .afficheComment .uniqueComment .typePro {
+	display :flex;
+	    padding: 5px;
+	
+	
+}
 .post  .afficheComment .uniqueComment{
-	 background:#fff;
     width: 100%;
     border-radius: 20px;
     margin:10px;
     background-color: rgba(0,0,0,0.05);
     	
 }
-.post  .afficheComment .uniqueComment h5 {
-	    padding: 10px 0px 0px 10px;
+.post  .afficheComment .uniqueComment .typePro .dp > img{
+    width:100%;
+    cursor:pointer;
 }
+.post  .afficheComment .uniqueComment .typePro h5 {
+ 	    padding: 10px 0px 0px 10px;
+ 
+ }
 .post  .afficheComment .uniqueComment p {
-	    padding: 0px 0px 5px 10px;
 
-}
+    padding: 10px 0px 5px 10px;}
 .post  .afficheComment .uniqueComment i {
 	margin-top: -40px;
 	margin-right:10px;
-    float: right;	
+    float: right	
 }
 .post .post-top{
     display:flex;

@@ -112,21 +112,77 @@ nav .nav-right a > i{
 }
 .container .top-profile .test{
 	 width:70%;
-     height:50%;
      float:right;
      margin-right:3px;
      }
 .container .top-profile .pro{
-     background: linear-gradient(to right, #8AABBE, #D2C3BE);
+     background: #8AABBE;
      position:relative;
      top:20%;
      left: 50%;
      transform: translate(-50% , -50%);
      width:100%;
-     height:50%;
-	
+     height:70%;
 }
 
+.top-profile .pro .pro-img{ 
+	position:absolute;
+     background:#eee; 
+     width:250px; 
+     margin-left:50px; 
+     border-radius:20px; 
+     border:solirgb(128, 0, 0) #8AABBE; 
+     -webkit-box-shadow: -2px -2px 16px 10px #8AABBE;  
+     box-shadow: -2px -2px 16px 10px #8AABBE; 
+     
+}
+.top-profile .pro .edit{
+        margin-left:90%;
+        margin-top:25%;
+     	position:absolute;
+     	height:40px;
+         
+}
+.top-profile .pro .edit button{
+  appearance: none;
+  background-color: #8AABBE;
+  border: 2px solid #8AABBE;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 40px;
+  min-width: 0;
+  outline: none;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+  will-change: transform;}
+  
+  
+  .top-profile .pro .edit button:disabled {
+  pointer-events: none;
+}
+
+.top-profile .pro .edit button:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.top-profile .pro .edit button:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
 .top-profile .pro .pro-img{ 
  background:#eee; 
     width:300px; 
@@ -137,8 +193,9 @@ nav .nav-right a > i{
      border:solirgb(128, 0, 0) #8AABBE; 
      -webkit-box-shadow: -2px -2px 16px 10px #A9A9A9;  
 box-shadow: -2px -2px 16px 10px #A9A9A9; 
-     
+
 }
+
 .top-profile  .pro .pro-img  img{
  display: block;
   margin-left: auto;
@@ -155,16 +212,23 @@ box-shadow: -2px -2px 16px 10px #A9A9A9;
   
   }
   .top-profile  .pro .pro-img p{
-  padding-top: 15px;
+   padding-top: 15px;
    padding-left: 15px;
-  font-family: cursive;
+   font-family: cursive;
   
   }
 
 .container .bottom-profile{
      background:#008040;
 }
-
+.middle-panel{
+    flex:1;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    padding-right:40px;
+    padding-top:0;
+}
 .post{
     width:100%;
     background:#fff;
@@ -247,6 +311,15 @@ box-shadow: -2px -2px 16px 10px #A9A9A9;
     transition: .3s ease-in;
     cursor: pointer;
 }
+.post .post-bottom .action button {
+    border: none;
+    background: #fff;
+}
+.post .post-bottom .action button:hover {
+        background:#eee;
+
+}
+
 
 .post .post-bottom .action:hover{
     background:#eee;
@@ -256,4 +329,176 @@ box-shadow: -2px -2px 16px 10px #A9A9A9;
     color:#d74;
 }
 
+.post .sendComment{
+    display:flex;
+    padding:1rem;
+    position: relative;
+    width: 100%;
+     border-bottom: 1px solid #c0c0c0;
+    
+}
+.post .sendComment #commentaire_text{
+  width: 600px;
+  border: 1px solid #ccc;
+  border-radius: 100px;
+  padding: 10px 100px 10px 20px; 
+  line-height: 1;
+  box-sizing: border-box;
+  outline: none;
+  margin-left: 70px;
+  height:40px;
+      background:#eee;
+  
+}
+.post .sendComment #create_comment{
+  position: absolute;
+  right: 129px; 
+  top: 18px;
+  bottom: 3px;
+  outline: none;
+  margin: 0;
+  padding: 0 10px;
+  border-radius: 0px 100px  100px  0px ;
+  z-index: 2;
+  height:38px;
+  border:none;
+  width:60px;
+}
+.post .sendComment #create_comment i{
+	font-size:20px;
+	color:#0080ff;
+}
+.post  .afficheComment{
+	display:flex;
+    padding:1rem;
+    background:#fff;
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #c0c0c0;
+    flex-wrap: wrap;
+    
+}
+.post  .afficheComment .uniqueComment{
+	 background:#fff;
+    width: 100%;
+    border-radius: 20px;
+    margin:10px;
+    background-color: rgba(0,0,0,0.05);
+    	
+}
+.post  .afficheComment .uniqueComment h5 {
+	    padding: 16px;
+}
+.post  .afficheComment .uniqueComment p {
+	padding: 10px;
+}
+.post  .afficheComment .uniqueComment i {
+	margin-top: -70px;
+    float: right;	
+}
+#popup{
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px;
+    hiegth:400px;
+    padding: 50px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, .30);
+    background: #fff;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+    	    
+   background-color: rgba(255,255,255,0.8);
+    	
+    
+}
+#popup form{
+width: 100%;
+    height: 430px;
+    margin-top: -40px;}
+#popup a{
+	    text-decoration:none;
+	    color:#fff;
+	    float:rigth;
+	
+	
+}
+#popup .close{
+	text-align: center;
+    float: right;
+    border-radius: 50%;
+    background-color: #8AABBE;
+    width: 20px;
+        margin-right: -30px;
+    margin-top: -30px;
+	    
+	
+	
+}
+#popup form .img{
+    margin-left: 70px;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    background: red;
+	
+	
+}
+#popup form input{
+	background: white;
+    box-shadow: 0 0 2em #e6e9f9;
+    padding: 1em;
+    display: flex;
+    border-radius: 20px;
+    color: #4d4d4d;
+    border:none;
+        width: 100%;
+    
+}
+#popup form button{
+    width: 40%;
+    background-color: #8AABBE;
+    color: #080710;
+    font-size: 18px;
+    font-weight: 600px;
+    border-radius: 20px;
+        border:none;
+        height:45px;
+      margin-left: 100px;
+      
+      
+    
+}
+#popup.active{
+    top: 56%;
+    visibility: visible;
+    opacity: 1;
+    transform: 0.5s;
+    width: 40%;
+}
 
+.container#blur.active {
+    filter: blur(10px);
+    pointer-events: none;
+    user-select: none;
+}
+.upload_wrapper {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            margin-left: 120px;
+    padding: 10px;
+        }
+        .upload_wrapper input.upload {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }

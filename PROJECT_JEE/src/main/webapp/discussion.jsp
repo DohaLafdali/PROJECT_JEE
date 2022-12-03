@@ -1,68 +1,367 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ page import="MDP.ChatDaoImpl" %>
-    <%@ page import="MDP.UtilisateurDaoImpl" %>
-    <%@ page import="MDP.Utilisateur" %>
-    <%@ page import="MDP.Chat" %>
-    <%@page import="java.util.*"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@page import="java.util.List"%>
+    <%@page import="java.sql.Timestamp"%>
+    <%@page import="java.util.Date"%>
+    <%@page import="java.text.SimpleDateFormat"%>
+      <%@page import="java.util.ArrayList"%>
+      <%@page import="java.util.HashSet"%>
+      <%@page import="java.util.Set"%>
+   <%@ page import="MDP.Utilisateur" %>
+   <%@ page import="MDP.Post"%>
+   <%@ page import="MDP.Chat"%>
+   <%@ page import="MDP.ChatDaoImpl"%>
+   <%@ page import="MDP.Like"%>
+   <%@ page import="MDP.LikeDaoImpl"%>
+   <%@ page import="MDP.Commentaire"%>
+   <%@ page import="MDP.PostDaoImpl" %>
+   <%@ page import="MDP.UtilisateurDaoImpl" %>
+   <%@ page import="MDP.CommentaireDaoImpl" %>
+<%@ page import="java.io.InputStream" %>
+<%@ page import="java.io.OutputStream" %>
+<%@ page import="java.sql.Blob" %>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<html><head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <style>*{
+        box-sizing:border-box;
+    }
+    body{
+        background-color:#abd9e9;
+        font-family:Arial;
+    }
+    #container{
+        width:750px;
+        height:800px;
+        background:#eff3f7;
+        margin:0 auto;
+        font-size:0;
+        border-radius:5px;
+        overflow:hidden;
+    }
+    aside{
+        width:260px;
+        height:800px;
+        background-color:#3b3e49;
+        display:inline-block;
+        font-size:15px;
+        vertical-align:top;
+    }
+    main{
+        width:490px;
+        height:800px;
+        display:inline-block;
+        font-size:15px;
+        vertical-align:top;
+    }
+   
+    aside header{
+        padding:30px 20px;
+    }
+    aside input{
+        width:100%;
+        height:50px;
+        line-height:50px;
+        padding:0 50px 0 20px;
+        background-color:#5e616a;
+        border:none;
+        border-radius:3px;
+        color:#fff;
+        background-image:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_search.png);
+        background-repeat:no-repeat;
+        background-position:170px;
+        background-size:40px;
+    }
+    aside input::placeholder{
+        color:#fff;
+    }
+    aside ul{
+        padding-left:0;
+        margin:0;
+        list-style-type:none;
+        overflow-y:scroll;
+        height:690px;
+    }
+    aside li{
+        padding:10px 0;
+    }
+    aside li:hover{
+        background-color:#5e616a;
+    }
+    h2,h3{
+        margin:0;
+    }
+    aside li img{
+        border-radius:50%;
+        margin-left:20px;
+        margin-right:8px;
+    }
+    aside li div{
+        display:inline-block;
+        vertical-align:top;
+        margin-top:12px;
+    }
+    aside li h2{
+        font-size:14px;
+        color:#fff;
+        font-weight:normal;
+        margin-bottom:5px;
+    }
+    aside li h3{
+        font-size:12px;
+        color:#7e818a;
+        font-weight:normal;
+    }
+   
+    .status{
+        width:8px;
+        height:8px;
+        border-radius:50%;
+        display:inline-block;
+        margin-right:7px;
+    }
+    .green{
+        background-color:#58b666;
+    }
+    .orange{
+        background-color:#ff725d;
+    }
+    .blue{
+        background-color:#6fbced;
+        margin-right:0;
+        margin-left:7px;
+    }
+   
+    main header{
+        height:110px;
+        padding:30px 20px 30px 40px;
+    }
+    main header > *{
+        display:inline-block;
+        vertical-align:top;
+    }
+    main header img:first-child{
+        border-radius:50%;
+    }
+    main header img:last-child{
+        width:24px;
+        margin-top:8px;
+    }
+    main header div{
+        margin-left:10px;
+        margin-right:145px;
+    }
+    main header h2{
+        font-size:16px;
+        margin-bottom:5px;
+    }
+    main header h3{
+        font-size:14px;
+        font-weight:normal;
+        color:#7e818a;
+    }
+   
+    #chat{
+        padding-left:0;
+        margin:0;
+        list-style-type:none;
+        overflow-y:scroll;
+        height:535px;
+        border-top:2px solid #fff;
+        border-bottom:2px solid #fff;
+    }
+    #chat li{
+        padding:10px 30px;
+    }
+    #chat h2,#chat h3{
+        display:inline-block;
+        font-size:13px;
+        font-weight:normal;
+    }
+    #chat h3{
+        color:#bbb;
+    }
+    #chat .entete{
+        margin-bottom:5px;
+    }
+    #chat .message{
+        padding:20px;
+        color:#fff;
+        line-height:25px;
+        max-width:90%;
+        display:inline-block;
+        text-align:left;
+        border-radius:5px;
+    }
+    #chat .me{
+        text-align:right;
+    }
+    #chat .you .message{
+        background-color:#58b666;
+    }
+    #chat .me .message{
+        background-color:#6fbced;
+    }
+    #chat .triangle{
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 10px 10px 10px;
+    }
+    #chat .you .triangle{
+            border-color: transparent transparent #58b666 transparent;
+            margin-left:15px;
+    }
+    #chat .me .triangle{
+            border-color: transparent transparent #6fbced transparent;
+            margin-left:375px;
+    }
+   
+    main footer{
+        height:155px;
+        padding:20px 30px 10px 20px;
+    }
+    main footer textarea{
+        resize:none;
+        border:none;
+        display:block;
+        width:100%;
+        height:80px;
+        border-radius:3px;
+        padding:20px;
+        font-size:13px;
+        margin-bottom:13px;
+    }
+    main footer textarea::placeholder{
+        color:#ddd;
+    }
+    main footer img{
+        height:30px;
+        cursor:pointer;
+    }
+    main footer a{
+        text-decoration:none;
+        text-transform:uppercase;
+        font-weight:bold;
+        color:#6fbced;
+        vertical-align:top;
+        margin-left:333px;
+        margin-top:5px;
+        display:inline-block;
+    }</style>
 </head>
 <body>
-<h4>La liste des discussions</h4>
-	<%
-	Integer iduser=(Integer) session.getAttribute("iduser");
-	
-	  final List<Chat> chats = ChatDaoImpl.getChatOfUser(iduser);
-	List<Integer> array_L= new ArrayList<Integer>();
-	for(int i=0;i<chats.size();i++){
-		out.println(chats.get(i).getContent());
-		//out.println(chats.get(i).getFrom_user());
-		array_L.add(chats.get(i).getTo_user());
-	}
-	 Set<Integer> mySet = new HashSet<Integer>(array_L);
-	 
-	    // Créer une Nouvelle ArrayList à partir de Set
-	    List<Integer> array_L2 = new ArrayList<Integer>(mySet);
-			System.out.println(array_L2);
-	%>
-	<div>
-		<h3>List of users</h3>
-		<ul>
-		
-		
-		<%
-		UtilisateurDaoImpl userdao=new UtilisateurDaoImpl();
-		for(int j=0;j<array_L2.size();j++){
-			Utilisateur user=userdao.getOneO(array_L2.get(j));
-			final List<Chat> chats = ChatDaoImpl.getChat(iduser, user.getId());
-		%>
-			
-		<li> <% 
-		
-		out.println(user.getUsername()); 
-		for(int k=0;k<chats.size();k++){
-			if(chats.get(k).getTo_user() == user.getId()  && chats.get(k).getFrom_user() == user.getId()){
-				out.println(chats.get(k).getContent());
-			}
-		}
-		
-		
-		%>
-		
-		
-		
-		</li>
-	
-			<%	}
-		
-		%>
-		
-		
-		</ul>
-	</div>
+<%
+
+Integer id =(Integer) session.getAttribute("iduser");
+ChatDaoImpl cm=new ChatDaoImpl();
+final List<Chat> chats = cm.getChatOfUser(id);
+List<Integer> array_L= new ArrayList<Integer>();
+for(int i=0;i<chats.size();i++){
+array_L.add(chats.get(i).getTo_user());
+}
+Set<Integer> mySet = new HashSet<Integer>(array_L);
+List<Integer> array_L2 = new ArrayList<Integer>(mySet);
+
+%>
+
+<div id="container">
+<aside>
+<header>
+<input type="text" placeholder="search">
+</header>
+
+<ul class="nav-sidebar">
+<%
+UtilisateurDaoImpl userdao=new UtilisateurDaoImpl();
+final List<Utilisateur> users = new ArrayList<>();
+for(int j=0;j<array_L2.size();j++){
+Utilisateur user=userdao.getOneO(array_L2.get(j));
+	users.add(userdao.getOneO(array_L2.get(j)));
+//final List<Chat> diss = ChatDaoImpl.getChat(id, user.getId());
+%>
+<li>
+
+<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+<div>
+<h2><%out.println(user.getUsername()); %></h2>
+<h3>
+<span class="status orange"></span>
+offline
+</h3>
+</div>
+</li>
+<%} %>
+</ul>
+</aside>
+<%
+
+//out.println(user.getUsername());
+for(int k=1;k<=array_L2.size();k++){
+
+
+Utilisateur user1=userdao.getOneO(1);
+final List<Chat> diss1 = ChatDaoImpl.getChat(id, 1);
+
+
+
+
+%>
+
+<main id="div<%=k %>">
+
+<header>
+<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+<div>
+<h2><%out.println(user1.getUsername()); %></h2>
+<h3>already 1902 messages</h3>
+</div>
+<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_star.png" alt="">
+</header>
+<% for(Chat a:diss1){ %>
+<ul id="chat">
+
+<li class="you">
+<div class="entete">
+<span class="status green"></span>
+<h2>Vincent</h2>
+<h3></h3>
+</div>
+<div class="triangle"></div>
+
+<div class="message">
+
+              <% out.println(a.getContent());%>
+</div>
+
+</li>
+
+
+
+
+</ul>
+<% } %>
+<footer>
+<textarea placeholder="Type your message"></textarea>
+
+<a href="#">Send</a>
+</footer>
+</main>
+<%
+
+}
+
+%>
+</div>
+<script type="text/javascript">
+ $(function() {
+    $('.nav-sidebar li').click(function() {
+      var index = $(this).index() + 1;
+      $('main:not(#div' + index + ')').slideUp();
+      $('#div' + index).slideDown();
+      console.log(index)
+    });
+});</script>
 </body>
 </html>

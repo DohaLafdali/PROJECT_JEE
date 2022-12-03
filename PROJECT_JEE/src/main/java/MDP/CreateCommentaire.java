@@ -54,7 +54,7 @@ public class CreateCommentaire extends HttpServlet {
 			
 			comment.add(c);
 			System.out.println("comments "+c.getUser());
-			response.sendRedirect("template.jsp");
+			 response.sendRedirect("profile.jsp?id="+(Integer) session.getAttribute("iduser"));
 		//	RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
 			//dispatcher.forward(request, response);
 		// System.out.println(session.getAttribute("idpost"));

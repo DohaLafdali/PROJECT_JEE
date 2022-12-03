@@ -38,13 +38,12 @@ public class DeleteCommentaire extends HttpServlet {
 		if(idsession==idu) {
 			commentaire.delete(idcommentaire);
 			System.out.println("ala slamtna");
-			RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
-			dispatcher.forward(request, response);
+			
+			 response.sendRedirect("profile.jsp?id="+(Integer) session.getAttribute("iduser"));
 		}
 		if(idsession==idc) {
 			commentaire.delete(idcommentaire);
-			RequestDispatcher dispatcher=request.getRequestDispatcher("template.jsp");   
-			dispatcher.forward(request, response);
+			 response.sendRedirect("profile.jsp?id="+(Integer) session.getAttribute("iduser"));
 			
 		}
 		

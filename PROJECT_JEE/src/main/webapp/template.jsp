@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
     <%@page import="java.util.List"%>
+        <%@page import="java.util.Set"%>
+            <%@page import="java.util.HashSet"%>
+        
+    
     <%@page import="java.sql.Timestamp"%>
     <%@page import="java.util.Date"%>
     <%@page import="java.text.SimpleDateFormat"%>
       <%@page import="java.util.ArrayList"%>
    <%@ page import="MDP.Utilisateur" %>
+   <%@ page import="MDP.ChatDaoImpl" %>
+   <%@ page import="MDP.Chat" %>
    <%@ page import="MDP.Post"%>
    <%@ page import="MDP.Like"%>
    <%@ page import="MDP.LikeDaoImpl"%>
@@ -69,6 +75,13 @@ pageEncoding="UTF-8"%>
 </head>
 
 <body>
+<%        
+
+Integer id_user=(Integer) session.getAttribute("iduser");
+if(id_user != null){
+          UtilisateurDaoImpl user2=new UtilisateurDaoImpl();
+          
+ %>
 	<nav>
 		<div class="nav-left">
 			<img src="./images/logo.png" alt="Logo">
@@ -80,32 +93,70 @@ pageEncoding="UTF-8"%>
 			</a>
 		</div>
 		<div class="nav-right">
-			<span class="profile"></span> <a href="#"> <i class="fa fa-bell"></i>
-			</a> 
+			<span class="profile">
+          <img src="./images/posts/<%=user2.getOneO(id_user).getImage_profil() %>" >
+           <p><%=user2.getOneO(id_user).getUsername()%></p>
+			</span> 
+			<a href="#"> <i class="fa fa-bell"></i></a> 
+			<a href="postsaved.jsp"><i class="fa fa-bookmark"></i></a>
+			
 			<a href="Login?logout=true"><i class="fa fa-sign-out-alt"></i>
 			</a>
 		</div>
 	</nav>
 
-
 	<div class="container"  id="blur">
 		<div class="left-panel">
-			<ul>
-			
-				<li><span class="profile"></span>
-					<p>dodo </p></li>
-				<li><i class="fa fa-user-friends"></i>
-					<p>Friends</p></li>
-				<li><i class="fa fa-play-circle"></i>
-					<p>meet</p></li>
-				<li><i class="fa fa-bookmark"></i>
-					<p>Bookmark</p></li>
-				<li><i class="fab fa-facebook-messenger"></i>
-					<p>Inbox</p></li>
-				<li><i class="fas fa-calendar-week"></i>
-					<p>Events</p></li>
-				
-			</ul>
+		<%
+
+ChatDaoImpl cm=new ChatDaoImpl();
+
+	final List<Chat> chats = cm.getChatOfUser(id_user);
+	//ArrayList <Integer> ls = cm.getDiscussion(id);
+
+	List<Integer> array_L= new ArrayList<Integer>();
+	for(int i=0;i<chats.size();i++){
+	//out.println(chats.get(i).getContent());
+	//out.println(chats.get(i).getTo_user());
+	array_L.add(chats.get(i).getTo_user());
+	}
+	Set<Integer> mySet = new HashSet<Integer>(array_L);
+	  // Créer une Nouvelle ArrayList à partir de Set
+	List<Integer> array_L2 = new ArrayList<Integer>(mySet);
+	
+%>
+		
+<aside>
+<header>
+Liste des discussions
+</header>
+<ul class="nav-sidebar">
+<%
+        UtilisateurDaoImpl userdao=new UtilisateurDaoImpl();
+        for(int j=0;j<array_L2.size();j++){
+
+        Utilisateur user=userdao.getOneO(array_L2.get(j));
+        final List<Chat> diss = ChatDaoImpl.getChat(id_user, user.getId());
+        if(id_user!=array_L2.get(j)){
+         %>
+<li onclick="conversation(<%= array_L2.get(j)%>);">
+
+<img src="./images/posts/<%=userdao.getOneO(array_L2.get(j)).getImage_profil() %>" >
+
+<div>
+<h2><%out.println(user.getUsername()); %></h2>
+<input name="id" type="text" value="<%= array_L2.get(j)%>" hidden>
+<h3>
+<span class="status green"></span>
+En ligne
+</h3>
+</div>
+</li>
+<% } }%>
+</ul>
+</aside>
+
+			<%} %>
 
 		</div>
 
@@ -148,7 +199,7 @@ pageEncoding="UTF-8"%>
             <!-- create new post -->
            <% 
            String type_user=request.getParameter("visiteur");
-           Object id_user=session.getAttribute("iduser");
+           UtilisateurDaoImpl user=new UtilisateurDaoImpl();
            String disabled="";
            if(id_user != null){ 
         	  
@@ -158,8 +209,11 @@ pageEncoding="UTF-8"%>
 			<form action="./CreatePost" method="post" enctype="multipart/form-data">
 				<div class="post-top">
 					<div class="dp">
-						<img src="./images/girl.jpg" alt="">
-					</div>
+          <img src="./images/posts/<%=user.getOneO(id_user).getImage_profil() %>" >
+
+          					</div>
+						
+					
 
 
 					<div class="db">
@@ -220,7 +274,7 @@ final String usersnames="";
 		for(int i=0;i<posts.size();i++){	
 			final List<Commentaire> cmnts=CommentaireDaoImpl.getCmnt(posts.get(i).getId());
 			final List<Like> likes=LikeDaoImpl.getLikes(posts.get(i).getId());
-			UtilisateurDaoImpl user=new UtilisateurDaoImpl();
+			
 			System.out.println("red "+cmnts);
 			int idp;
 			int cmp=0;
@@ -230,8 +284,7 @@ final String usersnames="";
 			<div class="post">
 				<div class="post-top">
 					<div class="dp">
-						<img src="./images/girl.jpg" alt="">
-					</div>
+              <img src="./images/posts/<%= user.getOneO(posts.get(i).getUser()).getImage_profil()%>" >					</div>
 					<div class="post-info">
 						<p class="name" onclick="profile(<%=posts.get(i).getUser()%>);"><%out.println(utilisateur.getUsername());%></p>
 						<%  SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss"); 
@@ -302,11 +355,12 @@ final String usersnames="";
 					<div onclick="togg(<%= i %>);" class="action" >
 						<i class="far fa-comment"></i> <span>Comment</span>
 					</div>
-					
+					<form action="./savePost">
 					<div class="action">
-						<i class="fa fa-share"></i> <span>Share</span>
+						<button type="submit"><i class="fa fa-share"></i></button> <span >sauvegarder</span>
+						<input type="text" name="help" value="<%=posts.get(i).getId()%>" hidden>
 					</div>
-					
+					</form>
 					
 
 				</div>
@@ -330,7 +384,12 @@ final String usersnames="";
 					    	if(cmnts.get(j).getPost() == posts.get(i).getId()){
 					    		 idp=posts.get(i).getId();%>
 					    		 <div class="uniqueComment">
+					    		  <div class="typePro">
+					    		 <div class="dp"> 
+                             <img src="./images/posts/<%= user.getOneO(cmnts.get(j).getUser()).getImage_profil()%>" >
+                    </div>
 					<h5><%out.println(commentaireDaoImpl.getUsers(posts.get(i).getId(),cmnts.get(j).getUser())); %></h5><br>
+					</div>
 					<p>
 					<% 
 					
@@ -449,6 +508,9 @@ function showMystere(i){
 
 
 }
+function conversation(id){
+	document.location.href='chat.jsp?id='+id;
+	}
 </script>
 </body>
 

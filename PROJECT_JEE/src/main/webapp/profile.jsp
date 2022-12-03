@@ -102,7 +102,7 @@ pageEncoding="UTF-8"%>
               
 	 
    <% }else{
-	   %>    <button ><i class="fas fa-comments"></i>Message</button> 
+	   %>    <button onclick='send(<%=id%>)'><i class="fas fa-comments"></i>Message</button> 
 	   <%
    }
         
@@ -121,7 +121,6 @@ pageEncoding="UTF-8"%>
 	PostDaoImpl Postdao=new PostDaoImpl();
 	LikeDaoImpl like = new LikeDaoImpl();
 	CommentaireDaoImpl commentaireDaoImpl = new CommentaireDaoImpl();
-
 	  List<Post> posts = Postdao.getPostsUser(id);
 	  int idp;
 	  for(int i=0;i<posts.size();i++){
@@ -285,7 +284,6 @@ function toggle() {
     var popup = document.getElementById('popup');
     popup.classList.toggle('active');
 }
-
 	
 document.addEventListener('DOMContentLoaded', () => {
 	const likes = document.querySelectorAll('.like');
@@ -321,18 +319,13 @@ console.log(uniqueCommentaire)
 	  uniqueCommentaire.style.display= "block";
   }
 };
-
 function deletepost(aide){
 	console.log(aide);
-
 document.location.href='DeletePost?aide='+aide;
 }
 function deleteComnt(idcoment,idu,idc){
 	document.location.href='DeleteCommentaire?idcoment='+idcoment+"&idu="+idu+"&idc="+idc;
-
-
 }
-
 function showMystere(i){
 	var objMysere = document.getElementById('mystere'+i);
 	if(objMysere){
@@ -346,13 +339,9 @@ function showMystere(i){
 	}
 	}
 
-
-}
-
 function send(id){
 	document.location.href='chat.jsp?id='+id;
 }
-
 </script>
  
 </body> 

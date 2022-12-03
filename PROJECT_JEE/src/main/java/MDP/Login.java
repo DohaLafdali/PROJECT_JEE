@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpSession;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UtilisateurDaoImpl compte;
+	public static Boolean info_wrong=false;
 
     /**
      * Default constructor. 
@@ -84,8 +85,10 @@ public class Login extends HttpServlet {
 	        	 RequestDispatcher dispatcher = request.getRequestDispatcher("template.jsp");
 	            dispatcher.forward(request, response);
 	        } else {
-	        	
-	            throw new Exception("Login not successful..");
+	        	info_wrong=true;
+	        	RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+	            dispatcher.forward(request, response);
+	          //  throw new Exception("Login not successful..");
 	        }
 	    }
 }

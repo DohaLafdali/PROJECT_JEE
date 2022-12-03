@@ -75,8 +75,8 @@ public class ChatDaoImpl extends AbstractDAOA implements IDAO{
             //pst.setInt(1, id_from);
             //pst.setInt(2, id_to);
             while (rs.next()) {
-                System.out.println(rs.getLong("id") + "" + rs.getString("nom_categorie"));
-               // list.add(new Chat(rs.getInt("id"), rs.getString("content"),rs.getInt("id_from"),rs.getInt("id_to"),rs.getTimestamp("time_msg")));
+               // System.out.println(rs.getLong("id") + "" + rs.getString("nom_categorie"));
+                list.add(new Chat(rs.getInt("id"), rs.getString("content"),rs.getInt("id_from"),rs.getInt("id_to"),rs.getTimestamp("time_msg")));
             }
         } catch (SQLException exp) {
             System.out.println(exp.getMessage());
@@ -94,17 +94,43 @@ public class ChatDaoImpl extends AbstractDAOA implements IDAO{
         try {
             pst = connection.prepareStatement(sql);
            
-            System.out.println("cc: ");
+            
             pst.setInt(1, id_from);
             pst.setInt(2, id_to);
             pst.setInt(4, id_from);
             pst.setInt(3, id_to);
-            System.out.println("cc: ");
+           
             rs = pst.executeQuery();
             while (rs.next()) {
             	// System.out.println("cc: ");
-               System.out.println(rs.getString("content"));
+              
                 list.add(new Chat(rs.getString("content"),rs.getInt("id_from"),rs.getInt("id_to"),rs.getTimestamp("time_msg")));
+            }
+        } catch (SQLException exp) {
+            System.out.println(exp.getMessage());
+        }
+        return list;
+	}
+	
+	public static List getChatOfUser(int id_from) {
+		// TODO Auto-generated method stub
+		List<Chat> list = new ArrayList<Chat>();
+        PreparedStatement pst = null;
+        ResultSet rs;
+        String sql = "select *from chat where id_from=? or id_to=? ORDER BY time_msg DESC";
+        try {
+            pst = connection.prepareStatement(sql);
+           
+            
+            pst.setInt(1, id_from);
+            pst.setInt(2, id_from);
+        
+
+            rs = pst.executeQuery();
+            while (rs.next()) {
+            	// System.out.println("cc: ");
+              // System.out.println(rs.getString("content"));
+                list.add(new Chat(rs.getInt("id"),rs.getString("content"),rs.getInt("id_from"),rs.getInt("id_to"),rs.getTimestamp("time_msg")));
             }
         } catch (SQLException exp) {
             System.out.println(exp.getMessage());

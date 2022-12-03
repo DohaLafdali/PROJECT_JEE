@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-    <%@page import="java.util.List"%>
+    <%@page import="java.util.*"%>
     <%@page import="java.sql.Timestamp"%>
     <%@page import="java.util.Date"%>
     <%@page import="java.text.SimpleDateFormat"%>
@@ -13,9 +13,11 @@ pageEncoding="UTF-8"%>
    <%@ page import="MDP.PostDaoImpl" %>
    <%@ page import="MDP.UtilisateurDaoImpl" %>
    <%@ page import="MDP.CommentaireDaoImpl" %>
+      <%@ page import="MDP.ChatWebsocketEndpoint" %>
 <%@ page import="java.io.InputStream" %>
 <%@ page import="java.io.OutputStream" %>
 <%@ page import="java.sql.Blob" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,6 +49,23 @@ pageEncoding="UTF-8"%>
 			</a> <a href="#"> <i class="fa fa-users"></i>
 			</a>
 		</div>
+		<div id="notify">
+		<%
+		UtilisateurDaoImpl user=new UtilisateurDaoImpl();
+		System.out.println("cc: "+request.getParameter("id_from"));
+		Object id_user=session.getAttribute("iduser");
+		Set<Integer> mySet = new HashSet<Integer>(ChatWebsocketEndpoint.id_from);
+	  	 
+  	    // Créer une Nouvelle ArrayList à partir de Set
+  	    List<Integer> array_L2 = new ArrayList<Integer>(mySet);
+  	    if(ChatWebsocketEndpoint.id == id_user){
+		for(int l=0;l<array_L2.size();l++){
+			%> <a href="chat.jsp?id=<%=user.getOneO(array_L2.get(l)).getId() %>" >vous avez un message de <%=user.getOneO(array_L2.get(l)).getUsername()%></a> <% 
+			out.println(array_L2.get(l));
+		}}%>
+		
+		</div>
+		
 		<div class="nav-right">
 			<span class="profile"></span> <a href="#"> <i class="fa fa-bell"></i>
 			</a> 
@@ -71,8 +90,8 @@ pageEncoding="UTF-8"%>
 					<p>Groups</p></li>
 				<li><i class="fa fa-bookmark"></i>
 					<p>Bookmark</p></li>
-				<li><i class="fab fa-facebook-messenger"></i>
-					<p>Inbox</p></li>
+				<li><a href="discussion.jsp"><i class="fab fa-facebook-messenger"></i>
+					<p>Inbox</p></a></li>
 				<li><i class="fas fa-calendar-week"></i>
 					<p>Events</p></li>
 				<li><i class="fa fa-bullhorn"></i>
@@ -118,7 +137,7 @@ pageEncoding="UTF-8"%>
             <!-- create new post -->
            <% 
            String type_user=request.getParameter("visiteur");
-           Object id_user=session.getAttribute("iduser");
+           
            String disabled="";
            if(id_user != null){ 
         	  
@@ -180,7 +199,7 @@ final String usersnames="";
 		for(int i=0;i<posts.size();i++){	
 			final List<Commentaire> cmnts=CommentaireDaoImpl.getCmnt(posts.get(i).getId());
 			final List<Like> likes=LikeDaoImpl.getLikes(posts.get(i).getId());
-			UtilisateurDaoImpl user=new UtilisateurDaoImpl();
+
 			System.out.println("red "+cmnts);
 			int idp;
 			int cmp=0;

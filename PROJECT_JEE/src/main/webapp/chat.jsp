@@ -15,8 +15,17 @@
     </head>
     <body>
         <h1>Chat application</h1>
-       
+       		 <%! 
+ public static Integer getIdTo(int id) {
+    	
+    	return id;
+    }
+   // System.out.println("id-from: "+id_from);
+ //   session.setAttribute("id_from",id_from); 
+   
+    %>
         <%
+        
         Integer id_to=Integer.parseInt(request.getParameter("id"));
         Integer id_from=(Integer) session.getAttribute("iduser");
         UtilisateurDaoImpl userdao=new UtilisateurDaoImpl();
@@ -40,6 +49,8 @@
 		}
 		
 			%>
+
+		<input type="text" name="id_from" value=<%=id_from %> >
         </div>
         <input id="message_input" name="content" type="text">
         <button onclick="send()">Send message</button>
@@ -69,7 +80,8 @@
     }
 
     function onMessage(event) {
-        console.log(event);
+        console.log(event); 
+      
         location.reload();
         //display(event.data);
     }
@@ -87,6 +99,7 @@
     	
     	
         var message = document.getElementById("message_input").value;
+        
     //    var username = document.getElementById("username_input").value;
         var json = {
             "content": message,
@@ -95,13 +108,13 @@
             "time_msg": null
            
         };
-
-       // console.log(json);
        
+       // console.log(json);
+    //   document.getElementById("notify").reload(true);
        location.reload();
         websocket.send(JSON.stringify(json));
     }
-    
+   
     
     </script>
 </html>

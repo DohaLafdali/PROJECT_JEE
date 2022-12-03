@@ -32,4 +32,8 @@ public class MessageModelDecoder implements Decoder.Text<Chat> {
     public void destroy() {
     }
 
+ /*   else {
+ 	   out.println("<meta http-equiv='refresh' content='3;URL=index.jsp'>");//redirects after 3 seconds
+ 	   out.println("<p style='color:red;'>User or password incorrect!</p>");
+ 	}  */
 }

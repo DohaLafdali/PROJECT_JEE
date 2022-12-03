@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="MDP.Login"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -140,6 +141,7 @@ input{
     </div>
     <form action="<%=request.getContextPath()%>/Login" method="post">
     <h3>Connectez-vous</h3>
+    <span><% if(Login.info_wrong)   out.println("email ou password incorrecte");%></span>
                     <label for="username">Email</label>
                     <input type="text" class="form-control" name="email" id="username" required>
                    

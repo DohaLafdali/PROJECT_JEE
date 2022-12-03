@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
- 
+ <%@ page import="MDP.Register"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -151,6 +151,9 @@ button{
     </div>
 <form action="./Register" method="GET">
     <h3>Connectez-vous</h3>
+   <span><% if(Register.email_exist){	
+	   
+	   out.println("email deja existe");} %></span>
 <label for="username">username</label>
 <input type="text" name="username"  placeholder="Saisissez votre username"></br>
 <label for="email">email</label>

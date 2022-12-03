@@ -1,12 +1,15 @@
 package MDP;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class UtilisateurDaoImpl extends AbstractDAOA implements IDAO{
 
@@ -110,6 +113,29 @@ public class UtilisateurDaoImpl extends AbstractDAOA implements IDAO{
         return null;
 	}
 
+	
+	public boolean emailAlreadyExists(String value) {
+		PreparedStatement pst = null;
+        ResultSet rs;
+        String sql = "SELECT COUNT(email)  AS total FROM utilisateur WHERE email = ?";
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setString(1, value);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+            	 System.out.println("nombre likes: "+rs.getInt("total"));
+            	 if(rs.getInt("total") > 0)  return true;
+                
+            }
+        } catch (SQLException exp) {
+            System.out.println(exp.getMessage());
+        }
+		return false;
+        
+		
+	    
+	}
+	
 	@Override
 	public List getAll() {
 		// TODO Auto-generated method stub

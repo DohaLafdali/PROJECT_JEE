@@ -8,7 +8,11 @@ import java.sql.Connection;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.google.protobuf.compiler.PluginProtos.CodeGeneratorResponse.File;
 
@@ -39,7 +43,27 @@ public class Test {
    //like.setPost(5);
   // like.setUser(3);
    LikeDaoImpl likeDaoImpl = new LikeDaoImpl();
-   likeDaoImpl.deleteLike(19,2);
+ //  likeDaoImpl.deleteLike(19,2);
+   
+   final List<Chat> chats = ChatDaoImpl.getChatOfUser(1);
+  
+  	List<Integer> array_L= new ArrayList<Integer>();
+  	for(int i=0;i<chats.size();i++){
+  		//System.out.println(chats.get(i).getContent());
+  		//out.println(chats.get(i).getFrom_user());
+  		array_L.add(chats.get(i).getTo_user());
+  	}
+  	 Set<Integer> mySet = new HashSet<Integer>(array_L);
+  	 
+  	    // Créer une Nouvelle ArrayList à partir de Set
+  	    List<Integer> array_L2 = new ArrayList<Integer>(mySet);
+  			System.out.println(array_L2);
+  			for(int j=0;j<array_L2.size();j++) {
+  				final List<Chat> disc = ChatDaoImpl.getChat(1, array_L2.get(j));
+  				System.out.println(disc);
+  				System.out.println("another one");
+  			}
+  			 
    // String value = likeDaoImpl.getUsers(5,2);
    // System.out.println(value);
   // int compteur = likeDaoImpl.nombreLikes(1);

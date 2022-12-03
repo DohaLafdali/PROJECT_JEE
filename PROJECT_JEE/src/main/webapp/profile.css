@@ -183,7 +183,7 @@ nav .nav-right a > i{
 .top-profile .pro .edit button:active {
   box-shadow: none;
   transform: translateY(0);
-
+}
 .top-profile .pro .pro-img{ 
  background:#eee; 
     width:300px; 

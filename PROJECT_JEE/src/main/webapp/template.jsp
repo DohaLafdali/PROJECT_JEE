@@ -76,10 +76,7 @@ pageEncoding="UTF-8"%>
 
 		<div class="nav-middle">
 			<a href="#" class="active"> <i class="fa fa-home"></i>
-			</a> <a href="#"> <i class="fa fa-user-friends"></i>
-			</a> <a href="#"> <i class="fa fa-play-circle"></i>
-		     
-			</a> <a href="#"> <i class="fa fa-users"></i>
+			
 			</a>
 		</div>
 		<div class="nav-right">
@@ -94,36 +91,22 @@ pageEncoding="UTF-8"%>
 	<div class="container"  id="blur">
 		<div class="left-panel">
 			<ul>
+			
 				<li><span class="profile"></span>
-					<p>Aashish Panthi</p></li>
+					<p>dodo </p></li>
 				<li><i class="fa fa-user-friends"></i>
 					<p>Friends</p></li>
 				<li><i class="fa fa-play-circle"></i>
-					<p>Videos</p></li>
-				<li><i class="fa fa-flag"></i>
-					<p>Pages</p></li>
-				<li><i class="fa fa-users"></i>
-					<p>Groups</p></li>
+					<p>meet</p></li>
 				<li><i class="fa fa-bookmark"></i>
 					<p>Bookmark</p></li>
 				<li><i class="fab fa-facebook-messenger"></i>
 					<p>Inbox</p></li>
 				<li><i class="fas fa-calendar-week"></i>
 					<p>Events</p></li>
-				<li><i class="fa fa-bullhorn"></i>
-					<p>Ads</p></li>
-				<li><i class="fas fa-hands-helping"></i>
-					<p>Offers</p></li>
-				<li><i class="fas fa-briefcase"></i>
-					<p>Jobs</p></li>
-				<li><i class="fa fa-star"></i>
-					<p>Favourites</p></li>
+				
 			</ul>
 
-			<div class="footer-links">
-				<a href="#">Privacy</a> <a href="#">Terms</a> <a href="#">Advance</a>
-				<a href="#">More</a>
-			</div>
 		</div>
 
 
@@ -133,20 +116,32 @@ pageEncoding="UTF-8"%>
 
 				<div  class="story">
 					<img src="./images/sang.jpg" alt="sang" id="img0" class="image">
+					<div class="text">
+                     <h1>Sang</h1>
+                    </div>
 				</div>
 							
 				
       
 				<div  class="story">
-					<img src="./images/savoir.jpg" alt="savoir" id="img1" class="image"> 			
+					<img src="./images/savoir.jpg" alt="savoir" id="img1" class="image"> 
+					<div class="text">
+                     <h1>Savoir</h1>
+                    </div>			
 				</div>
 
 				<div  class="story">
 					<img src="./images/nouriture.jpg" alt="nouriture" id="img2" class="image">
+					<div class="text">
+                     <h1>Nouriture</h1>
+                    </div>
 				</div>
 
 				<div  class="story">
 					<img src="./images/autree.jpg" alt="autre" id="img3" class="image"> 
+					<div class="text">
+                     <h1>autre</h1>
+                    </div>
 				</div>
 			</div>
 			
@@ -341,7 +336,7 @@ final String usersnames="";
 					
 					out.println(cmnts.get(j).getText()); %>
 				<% if(cmnts.get(j).getUser() == (Integer)session.getAttribute("iduser") || posts.get(i).getUser() == (Integer)session.getAttribute("iduser")){%>
-					<img alt="profile" src="./images/logo.png" width="20px" height="20px" onclick="deleteComnt(<%=cmnts.get(j).getId()%>,<%=posts.get(i).getUser()%>,<%=cmnts.get(j).getUser()%>);">
+					<i   class="fa fa-trash" onclick="deleteComnt(<%=cmnts.get(j).getId()%>,<%=posts.get(i).getUser()%>,<%=cmnts.get(j).getUser()%>);"></i>
 					<%} %>
 
 

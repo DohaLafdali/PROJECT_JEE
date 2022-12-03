@@ -22,6 +22,7 @@ pageEncoding="UTF-8"%>
 <%@ page import="java.io.InputStream" %>
 <%@ page import="java.io.OutputStream" %>
 <%@ page import="java.sql.Blob" %>
+<%@ page import="MDP.CreateLike" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,6 +72,48 @@ pageEncoding="UTF-8"%>
 	margin-left:10px;
    
 }
+
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
 </style>
 </head>
 
@@ -78,9 +121,7 @@ pageEncoding="UTF-8"%>
 <%        
 
 Integer id_user=(Integer) session.getAttribute("iduser");
-if(id_user != null){
-          UtilisateurDaoImpl user2=new UtilisateurDaoImpl();
-          
+     
  %>
 	<nav>
 		<div class="nav-left">
@@ -92,23 +133,30 @@ if(id_user != null){
 			
 			</a>
 		</div>
+		<% if(id_user != null){
+          UtilisateurDaoImpl user2=new UtilisateurDaoImpl();
+     %>
 		<div class="nav-right">
-			<span class="profile">
+			
+			<a href="profile.jsp?id=<%=id_user%>">
           <img src="./images/posts/<%=user2.getOneO(id_user).getImage_profil() %>" >
-           <p><%=user2.getOneO(id_user).getUsername()%></p>
-			</span> 
+           </a>
+		 
 			<a href="#"> <i class="fa fa-bell"></i></a> 
 			<a href="postsaved.jsp"><i class="fa fa-bookmark"></i></a>
 			
 			<a href="Login?logout=true"><i class="fa fa-sign-out-alt"></i>
 			</a>
 		</div>
+		<%} %>
 	</nav>
 
 	<div class="container"  id="blur">
 		<div class="left-panel">
 		<%
-
+			if(id_user != null){
+	          UtilisateurDaoImpl user2=new UtilisateurDaoImpl();
+	     
 ChatDaoImpl cm=new ChatDaoImpl();
 
 	final List<Chat> chats = cm.getChatOfUser(id_user);
@@ -125,7 +173,8 @@ ChatDaoImpl cm=new ChatDaoImpl();
 	List<Integer> array_L2 = new ArrayList<Integer>(mySet);
 	
 %>
-		
+
+
 <aside>
 <header>
 Liste des discussions
@@ -191,7 +240,7 @@ En ligne
 				<div  class="story">
 					<img src="./images/autree.jpg" alt="autre" id="img3" class="image"> 
 					<div class="text">
-                     <h1>autre</h1>
+                     <h1>Autre</h1>
                     </div>
 				</div>
 			</div>
@@ -250,8 +299,8 @@ En ligne
            %>
         	   <div class="post create">
    			
-   		<h3>		Join us and help others.
-   					They need you. </h3>
+   		<h3>		rejoignez nous d'abord pour faire de donation
+   					Ils ont besoin de vous. </h3>
    					
    				<button ><a href="formulaireregister.jsp" style='text-decoration: none;color:black;'>creer compte </a> </button>
    				
@@ -324,7 +373,7 @@ final String usersnames="";
 					    for(int j=0;j<likes.size();j++){
 					    	if(likes.get(j).getPost() == posts.get(i).getId()){
 					    		 idp=posts.get(i).getId();%>
-					    		 <i class="fa fa-heart" aria-hidden="true" style="color:red"></i>
+					    		 <i class="<%=CreateLike.heart%>" aria-hidden="true" style="color:red"></i>
 					            <%  out.println(like.getUsers(posts.get(i).getId(),likes.get(j).getUser()));
 					               
 					               %>
@@ -343,12 +392,12 @@ final String usersnames="";
 
 
 						<span onclick="like(<%=i %>);">
-						<i  class="fa fa-heart" aria-hidden="true" id="likes<%=i %>" style="color:red;" ></i>
+						<i class="<%=CreateLike.heart%>" aria-hidden="true" id="likes<%=i %>" style="color:red;" ></i>
 						<button type="submit" value="n" <%=disabled %>>Like</button></span>
 
 						
 						<input type="text" name="help" value="<%=posts.get(i).getId()%>" hidden>
-						
+						<input type="text" name="page" value="template" hidden>
 						</form>
 						
 					</div>
@@ -392,11 +441,14 @@ final String usersnames="";
 					</div>
 					<p>
 					<% 
-					
-					out.println(cmnts.get(j).getText()); %>
-				<% if(cmnts.get(j).getUser() == (Integer)session.getAttribute("iduser") || posts.get(i).getUser() == (Integer)session.getAttribute("iduser")){%>
+					out.println(cmnts.get(j).getText());
+						if(id_user != null){
+				          UtilisateurDaoImpl user2=new UtilisateurDaoImpl();
+					 %>
+				<% 
+				if(cmnts.get(j).getUser() == (Integer)session.getAttribute("iduser") || posts.get(i).getUser() == (Integer)session.getAttribute("iduser")){%>
 					<i   class="fa fa-trash" onclick="deleteComnt(<%=cmnts.get(j).getId()%>,<%=posts.get(i).getUser()%>,<%=cmnts.get(j).getUser()%>);"></i>
-					<%} %>
+					<%}} %>
 
 
 					</p></div></br>

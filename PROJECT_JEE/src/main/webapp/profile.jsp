@@ -13,7 +13,7 @@ pageEncoding="UTF-8"%>
    <%@ page import="MDP.PostDaoImpl" %> 
    <%@ page import="MDP.UtilisateurDaoImpl" %> 
    <%@ page import="MDP.CommentaireDaoImpl" %> 
- 
+ <%@ page import="MDP.CreateLike" %>
 <!DOCTYPE html> 
 <html lang="en"> 
 <head> 
@@ -57,14 +57,12 @@ pageEncoding="UTF-8"%>
   </div> 
  
   <div class="nav-middle"> 
-   <a href="#" class="active"> <i class="fa fa-home"></i> 
-   </a> <a href="#"> <i class="fa fa-user-friends"></i> 
+   <a href="template.jsp" class="active"> <i class="fa fa-home"></i> 
    </a> 
   </div> 
  
   <div class="nav-right"> 
-   <span class="profile"></span> <a href="#"> <i class="fa fa-bell"></i> </a> 
-   <a href="#"><i class="fa fa-sign-out-alt"></i>
+   <a href="Login?logout=true"><i class="fa fa-sign-out-alt"></i>
    </a> 
   </div> 
  </nav> 
@@ -93,12 +91,9 @@ pageEncoding="UTF-8"%>
 	
 	System.out.println("user: "+user);
     %>  
-		   <h1><%out.println(user.getUsername()); %></h1> 
-		      <p>BIO</p> 
-		      <p> je suis doha lafdali </p> 
-		      <p>2001/04/08</p>
-    
-    
+		   <h1 style="text-align:center;"><%out.println(user.getUsername()); %></h1> 
+		   <p> Le but de la vie est de trouvé des dons. Le but de la vie est d'en faire don aux autres.<p>
+		      
      </div> 
       <div class="edit">
       <%  if(id == session.getAttribute("iduser")){
@@ -184,7 +179,7 @@ pageEncoding="UTF-8"%>
 					    for(int j=0;j<likes.size();j++){
 					    	if(likes.get(j).getPost() == posts.get(i).getId()){
 					    		 idp=posts.get(i).getId();%>
-					    		 <i class="fa fa-heart" aria-hidden="true" style="color:red"></i>
+					    		 <i class="<%=CreateLike.heart%>" aria-hidden="true" style="color:red"></i>
 					            <%  out.println(like.getUsers(posts.get(i).getId(),likes.get(j).getUser()));
 					               
 					               %>
@@ -198,20 +193,23 @@ pageEncoding="UTF-8"%>
 					<%int help = posts.get(i).getId();%>			
 						<form action="./CreateLike" method="post">
 						<span onclick="like(<%=i %>);">
-						<i  class="fa fa-heart" aria-hidden="true" id="likes<%=i %>" style="color:red;" ></i>
+						<i  class="<%=CreateLike.heart%>" aria-hidden="true" id="likes<%=i %>" style="color:red;" ></i>
 						<button type="submit" value="n" >Like</button></span>
 						
 						<input type="text" name="help" value="<%=posts.get(i).getId()%>" hidden>
-						
+						<input type="text" name="page" value="profile" hidden>
 						</form>
 					</div>
 					<div onclick="togg(<%= i %>);" class="action" >
 						<i class="far fa-comment"></i> <span>Comment</span>
 					</div>
 					
+					<form action="./savePost">
 					<div class="action">
-						<i class="fa fa-share"></i> <span>Share</span>
+						<button type="submit"><i class="fa fa-share"></i></button> <span >sauvegarder</span>
+						<input type="text" name="help" value="<%=posts.get(i).getId()%>" hidden>
 					</div>
+					</form>
 					
 					
 					

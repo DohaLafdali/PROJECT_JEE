@@ -169,5 +169,28 @@ public class UtilisateurDaoImpl extends AbstractDAOA implements IDAO{
             System.out.println(exp.getMessage());
         }
 	}
+	
+	
+	public boolean emailAlreadyExists(String value) {
+		PreparedStatement pst = null;
+		        ResultSet rs;
+		        String sql = "SELECT COUNT(email)  AS total FROM utilisateur WHERE email = ?";
+		        try {
+		            pst = connection.prepareStatement(sql);
+		            pst.setString(1, value);
+		            rs = pst.executeQuery();
+		            if (rs.next()) {
+		            System.out.println("nombre likes: "+rs.getInt("total"));
+		            if(rs.getInt("total") > 0)  return true;
+		               
+		            }
+		        } catch (SQLException exp) {
+		            System.out.println(exp.getMessage());
+		        }
+		return false;
+		       
+
+		   
+		}
 
 }

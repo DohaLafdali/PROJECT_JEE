@@ -17,7 +17,7 @@ together we can do so mush
 <div class="index">
 
 <button ><a href="template.jsp?visiteur=visiteur" style='text-decoration: none;color:white;'>visiteur</a></button>
-<button ><a href="formulaireregister.jsp" style='text-decoration: none;color:white;'>creer compte </a> </button>
+<button ><a href="formulaireregister.jsp" style='text-decoration: none;color:white;'>créer compte </a> </button>
 
 </div>
 

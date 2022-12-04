@@ -9,20 +9,20 @@ pageEncoding="UTF-8"%>
     <%@page import="java.util.Date"%>
     <%@page import="java.text.SimpleDateFormat"%>
       <%@page import="java.util.ArrayList"%>
-   <%@ page import="MDP.Utilisateur" %>
-   <%@ page import="MDP.ChatDaoImpl" %>
-   <%@ page import="MDP.Chat" %>
-   <%@ page import="MDP.Post"%>
-   <%@ page import="MDP.Like"%>
-   <%@ page import="MDP.LikeDaoImpl"%>
-   <%@ page import="MDP.Commentaire"%>
-   <%@ page import="MDP.PostDaoImpl" %>
-   <%@ page import="MDP.UtilisateurDaoImpl" %>
-   <%@ page import="MDP.CommentaireDaoImpl" %>
+   <%@ page import="Models.Utilisateur" %>
+   <%@ page import="DAO.ChatDaoImpl" %>
+   <%@ page import="Models.Chat" %>
+   <%@ page import="Models.Post"%>
+   <%@ page import="Models.Like"%>
+   <%@ page import="DAO.LikeDaoImpl"%>
+   <%@ page import="Models.Commentaire"%>
+   <%@ page import="DAO.PostDaoImpl" %>
+   <%@ page import="DAO.UtilisateurDaoImpl" %>
+   <%@ page import="DAO.CommentaireDaoImpl" %>
 <%@ page import="java.io.InputStream" %>
 <%@ page import="java.io.OutputStream" %>
 <%@ page import="java.sql.Blob" %>
-<%@ page import="MDP.CreateLike" %>
+<%@ page import="Controller.CreateLike" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -233,7 +233,7 @@ En ligne
 				<div  class="story">
 					<img src="./images/nouriture.jpg" alt="nouriture" id="img2" class="image">
 					<div class="text">
-                     <h1>Nouriture</h1>
+                     <h1>Nourriture</h1>
                     </div>
 				</div>
 

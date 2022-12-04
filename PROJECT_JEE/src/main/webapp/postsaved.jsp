@@ -5,14 +5,14 @@ pageEncoding="UTF-8"%>
     <%@page import="java.util.Date"%>
     <%@page import="java.text.SimpleDateFormat"%>
       <%@page import="java.util.ArrayList"%>
-   <%@ page import="MDP.Utilisateur" %>
-   <%@ page import="MDP.Post"%>
-   <%@ page import="MDP.Like"%>
-   <%@ page import="MDP.LikeDaoImpl"%>
-   <%@ page import="MDP.Commentaire"%>
-   <%@ page import="MDP.PostDaoImpl" %>
-   <%@ page import="MDP.UtilisateurDaoImpl" %>
-   <%@ page import="MDP.CommentaireDaoImpl" %>
+   <%@ page import="Models.Utilisateur" %>
+   <%@ page import="Models.Post"%>
+   <%@ page import="Models.Like"%>
+   <%@ page import="DAO.LikeDaoImpl"%>
+   <%@ page import="Models.Commentaire"%>
+   <%@ page import="DAO.PostDaoImpl" %>
+   <%@ page import="DAO.UtilisateurDaoImpl" %>
+   <%@ page import="DAO.CommentaireDaoImpl" %>
 <%@ page import="java.io.InputStream" %>
 <%@ page import="java.io.OutputStream" %>
 <%@ page import="java.sql.Blob" %>
@@ -74,12 +74,8 @@ margin-left:10px;
 </div>
 
 <div class="nav-middle">
-<a href="#" class="active"> <i class="fa fa-home"></i>
-</a> <a href="#"> <i class="fa fa-user-friends"></i>
-</a> <a href="#"> <i class="fa fa-play-circle"></i>
-   
-</a> <a href="#"> <i class="fa fa-users"></i>
-</a>
+<a href="template.jsp" class="active"> <i class="fa fa-home"></i>
+</a> 
 </div>
 <div class="nav-right">
 <span class="profile"></span> <a href="#"> <i class="fa fa-bell"></i>
@@ -131,7 +127,7 @@ final List<Like> likes=LikeDaoImpl.getLikes(posts.get(i).getId());
 <div class="dp">
               <img src="./images/posts/<%=userdao.getOneO(posts.get(i).getUser()).getImage_profil()%>" >					</div>
 <div class="post-info">
-<p class="name" onclick="profile(<%=posts.get(i).getUser()%>);"><p class="name"><% out.println(Postdao.getUsers(posts.get(i).getUser())); %></p>
+<p class="name" onclick="profile(<%=posts.get(i).getUser()%>);"><p class="name">fatima ELghazi</p>
 <%  SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
   // Date d1 = sdf.parse(timestamp);
@@ -156,7 +152,7 @@ final List<Like> likes=LikeDaoImpl.getLikes(posts.get(i).getId());
 <%
 String imgFileName=posts.get(i).getPhoto_name();
 %>
- <img src="./images/posts/<%= imgFileName%>"  style="width:300px;height:250px">
+ <img src="./images/posts/sang1.jpg"  style="width:300px;height:250px">
                              
 
 </div>

@@ -177,6 +177,7 @@ nav .nav-right a > i{
     }
     main header img:first-child{
         border-radius:50%;
+        width: 50px;
     }
     main header img:last-child{
         width:24px;

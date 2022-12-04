@@ -5,15 +5,15 @@ pageEncoding="UTF-8"%>
     <%@page import="java.util.Date"%> 
     <%@page import="java.text.SimpleDateFormat"%> 
       <%@page import="java.util.ArrayList"%> 
-   <%@ page import="MDP.Utilisateur" %> 
-   <%@ page import="MDP.Post"%> 
-   <%@ page import="MDP.Like"%> 
-   <%@ page import="MDP.LikeDaoImpl"%> 
-   <%@ page import="MDP.Commentaire"%> 
-   <%@ page import="MDP.PostDaoImpl" %> 
-   <%@ page import="MDP.UtilisateurDaoImpl" %> 
-   <%@ page import="MDP.CommentaireDaoImpl" %> 
- <%@ page import="MDP.CreateLike" %>
+   <%@ page import="Models.Utilisateur" %> 
+   <%@ page import="Models.Post"%> 
+   <%@ page import="Models.Like"%> 
+   <%@ page import="DAO.LikeDaoImpl"%> 
+   <%@ page import="Models.Commentaire"%> 
+   <%@ page import="DAO.PostDaoImpl" %> 
+   <%@ page import="DAO.UtilisateurDaoImpl" %> 
+   <%@ page import="DAO.CommentaireDaoImpl" %> 
+ <%@ page import="Controller.CreateLike" %>
 <!DOCTYPE html> 
 <html lang="en"> 
 <head> 
@@ -126,6 +126,7 @@ pageEncoding="UTF-8"%>
 	  for(int i=0;i<posts.size();i++){
 		  final List<Commentaire> cmnts=CommentaireDaoImpl.getCmnt(posts.get(i).getId());
 			final List<Like> likes=LikeDaoImpl.getLikes(posts.get(i).getId());
+			
 		  %> 
 		   <div class="post"> 
 		  <div class="post-top"> 
@@ -166,7 +167,7 @@ pageEncoding="UTF-8"%>
 		<%
 					String imgFileName=posts.get(i).getPhoto_name();
 				%>
-				  <img src="./images/posts/<%= imgFileName%>"  style="width:300px;height:250px">
+				  <img src="./images/posts/<%=posts.get(i).getPhoto_name()%>"  style="width:300px;height:250px">
 
 					
 			</div>

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <%@ page import="MDP.UtilisateurDaoImpl" %> 
-     <%@ page import="MDP.Chat" %> 
-     <%@ page import="MDP.ChatDaoImpl" %> 
+     <%@ page import="DAO.UtilisateurDaoImpl" %> 
+     <%@ page import="Models.Chat" %> 
+     <%@ page import="DAO.ChatDaoImpl" %> 
      <%@ page import="org.json.JSONObject" %>
      <%@ page import="org.json.simple.parser.JSONParser" %>
  <%@page import="java.util.List"%>
@@ -32,8 +32,7 @@
 						</a>
 		</div>
 		<div class="nav-right">
-			<span class="profile"></span> <a href="#"> <i class="fa fa-bell"></i>
-			</a> 
+		
 			<a href="Login?logout=true"><i class="fa fa-sign-out-alt"></i>
 			</a>
 		</div>
@@ -59,8 +58,7 @@
 	</aside>
 	<main>
 		<header>
-			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
-			<div>
+<img src="./images/posts/<%=userdao.getOneO(id_to).getImage_profil()%>" alt="">			<div>
 				<h2>TO: <%out.println(userdao.getOneO(id_to).getUsername()); %></h2>
 				<h3><%out.println(userdao.getOneO(id_to).getEmail()); %></h3>
 			</div>
